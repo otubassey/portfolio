@@ -4,17 +4,18 @@ import { memo } from "react";
 
 import { Urbanist } from "next/font/google";
 
-import { withDisplayName } from "@/pages/ui/decorator";
-import { ClassesUtil } from "@/pages/ui/utils";
+import { withDisplayName } from "@/ui/decorator";
+import { ClassesUtil } from "@/ui/utils";
 
-import { Section } from "./components/common/section";
-import { Experiences } from "./components/experiences";
-import { Home } from "./components/home";
-import {Introduction} from "./components/introduction";
-import { Location } from "./components/location";
-import {NavigationFAB, NavigationList, NAVIGATION, useNavigation} from "./components/navigation";
-import { Projects } from "./components/projects";
-import {Skills} from "./components/skills";
+import { Section } from "../components/common/section";
+import { Experiences } from "../components/experiences";
+import { Home } from "../components/home";
+import {Introduction} from "../components/introduction";
+import { Location } from "../components/location";
+import {NavigationFAB, NavigationList, NAVIGATION, useNavigation} from "../components/navigation";
+import { Projects } from "../components/projects";
+import {Skills} from "../components/skills";
+import Head from "next/head";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -26,6 +27,15 @@ const CLASSNAMES = {
     skills: "md:mx-auto md:w-full md:px-0 md:py-0"
   }
 } as const;
+
+
+const SEO_BEST_PRACTICES_LIMIT = {
+  Title: 60,
+  Description: 160
+} as const;
+
+const TITLE = "Building the Future: Otu Bassey's Full-Stack Developer Portfolio";
+const DESCRIPTION = "";
 
 function mapSectionClassNames(active: boolean) {
   return {
@@ -50,53 +60,59 @@ function Layout() {
   const [handeleNavigate, [navigationItem, setNavigationItem]] = useNavigation(NAVIGATION.HOME);
   
   return (
-    <div ref={setNavigationItem(NAVIGATION.HOME)} className={ClassesUtil.concat(CLASSNAMES.root, urbanist.className)}>
-      <div className="grid grid-cols-1 md:grid-cols-2 md:justify-between md:gap-4">
-        <header className="lg:sticky lg:top-0 max-h-screen lg:justify-between lg:py-24">
-          <div>
-            <Introduction />
-            <NavigationList
-              className={{root: "hidden md:block"}}
-              onNavigate={handeleNavigate}
-              navigationItem={navigationItem}
-            />
-          </div>
-          <Location />
-        </header>
-        <main className={CLASSNAMES.main.root}>
-          <Section
-            className={mapSectionClassNames(navigationItem[NAVIGATION.HOME].display)}
-            hasStickyHeader
-            title={NAVIGATION.HOME}>
-            <Home />
-          </Section>
-          <Section
-            ref={setNavigationItem(NAVIGATION.SKILLS)}
-            className={mapSectionClassNames(navigationItem[NAVIGATION.SKILLS].display)}
-            hasStickyHeader
-            title={NAVIGATION.SKILLS}>
-            <Skills className={CLASSNAMES.main.skills} />
-          </Section>
-          <Section
-            ref={setNavigationItem(NAVIGATION.EXPERIENCES)}
-            className={mapSectionClassNames(navigationItem[NAVIGATION.EXPERIENCES].display)}
-            hasStickyHeader
-            title={NAVIGATION.EXPERIENCES}>
-            <Experiences />
-          </Section>
-          <Section
-            ref={setNavigationItem(NAVIGATION.PROJECTS)}
-            className={mapSectionClassNames(navigationItem[NAVIGATION.PROJECTS].display)}
-            hasStickyHeader
-            title={NAVIGATION.PROJECTS}>
-            <Projects />
-          </Section>
-        </main>
-        <footer>
-          <NavigationFAB onNavigate={handeleNavigate} />
-        </footer>
+    <>
+      <Head>
+        <title>{TITLE}</title>
+        <meta name="description" content={DESCRIPTION}></meta>
+      </Head>
+      <div ref={setNavigationItem(NAVIGATION.HOME)} className={ClassesUtil.concat(CLASSNAMES.root, urbanist.className)}>
+        <div className="grid grid-cols-1 md:grid-cols-2 md:justify-between md:gap-4">
+          <header className="lg:sticky lg:top-0 max-h-screen lg:justify-between lg:py-24">
+            <div>
+              <Introduction />
+              <NavigationList
+                className={{root: "hidden md:block"}}
+                onNavigate={handeleNavigate}
+                navigationItem={navigationItem}
+              />
+            </div>
+            <Location />
+          </header>
+          <main className={CLASSNAMES.main.root}>
+            <Section
+              className={mapSectionClassNames(navigationItem[NAVIGATION.HOME].display)}
+              hasStickyHeader
+              title={NAVIGATION.HOME}>
+              <Home />
+            </Section>
+            <Section
+              ref={setNavigationItem(NAVIGATION.SKILLS)}
+              className={mapSectionClassNames(navigationItem[NAVIGATION.SKILLS].display)}
+              hasStickyHeader
+              title={NAVIGATION.SKILLS}>
+              <Skills className={CLASSNAMES.main.skills} />
+            </Section>
+            <Section
+              ref={setNavigationItem(NAVIGATION.EXPERIENCES)}
+              className={mapSectionClassNames(navigationItem[NAVIGATION.EXPERIENCES].display)}
+              hasStickyHeader
+              title={NAVIGATION.EXPERIENCES}>
+              <Experiences />
+            </Section>
+            <Section
+              ref={setNavigationItem(NAVIGATION.PROJECTS)}
+              className={mapSectionClassNames(navigationItem[NAVIGATION.PROJECTS].display)}
+              hasStickyHeader
+              title={NAVIGATION.PROJECTS}>
+              <Projects />
+            </Section>
+          </main>
+          <footer>
+            <NavigationFAB onNavigate={handeleNavigate} />
+          </footer>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
