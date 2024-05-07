@@ -63,7 +63,7 @@ function HelloWorldSnippets({className, values}: HelloWorldSnippetsProps) {
                     },
                     onComplete: function() {
                         const self: GSAPTween = this as unknown as GSAPTween;
-                        const completedStaggeredCarouselContent = Array.isArray(self.targets()) ? self.targets()[0] : null;
+                        const completedStaggeredCarouselContent = (Array.isArray(self.targets()) ? self.targets()[0] : null) as HTMLDivElement | null;
                         const currentIndex = (carouselContentListRefs.current as [])!.findIndex(element => element === completedStaggeredCarouselContent);
                         if(isIndexWithinValidRange(currentIndex, (carouselContentListRefs.current as [])!.length)) {
                             const isLastIndex = carouselContentListRefs.current!.length === incrementIndex(currentIndex);
