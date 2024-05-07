@@ -14,7 +14,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   // output: "export",
-  distDir: "dist",
+  // distDir: "dist",
   // useFileSystemPublicRoutes: false
 };
 
