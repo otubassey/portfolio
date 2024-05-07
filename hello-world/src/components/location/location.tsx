@@ -43,7 +43,7 @@ function Location() {
                         <IconButton
                             icon={contact.icon}
                             component={LinkComponent}
-                            value={contact.link}
+                            componentProps={{value: contact.link}}
                         />
                     </ListItemButton>
                 ))

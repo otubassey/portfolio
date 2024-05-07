@@ -67,6 +67,7 @@ type IconProps = {
     children?: ReactNode;
     className?: string | null;
     component?: ElementType | null;
+    componentProps?: any;
     color?: typeof Color[keyof typeof Color]
     href?: string | null;
     icon?: IconName;
@@ -79,6 +80,7 @@ function IconButton({
     children = null,
     className = null,
     component = null,
+    componentProps = null,
     href = null,
     icon,
     iconProps,
@@ -97,6 +99,7 @@ function IconButton({
             ref={ref}
             className={ClassesUtil.concat("group cursor-pointer rounded-full p-3 m-3 block hover:shadow-2xl hover:shadow-slate-500/50", className)}
             onClick={onClick}
+            {...componentProps}
             {...otherProps}>
             {
                 Boolean(icon)
