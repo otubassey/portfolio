@@ -1,41 +1,43 @@
 "use client";
 
-import { memo } from "react";
+import { useCallback } from "react";
 
 import { Urbanist } from "next/font/google";
+import Head from "next/head";
 
+import { Settings } from "@/components/settings";
+import { ConfigurationContextProvider } from "@/ui/context/configuration";
 import { withDisplayName } from "@/ui/decorator";
 import { ClassesUtil } from "@/ui/utils";
+import { Section } from "@/ui/widgets/section";
 
-import { Section } from "../components/common/section";
 import { Experiences } from "../components/experiences";
 import { Home } from "../components/home";
 import {Introduction} from "../components/introduction";
-import { Location } from "../components/location";
+import { LocateMeAt } from "../components/locateMeAt";
 import {NavigationFAB, NavigationList, NAVIGATION, useNavigation} from "../components/navigation";
 import { Projects } from "../components/projects";
 import {Skills} from "../components/skills";
-import Head from "next/head";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
-// root: "mx-auto max-h-screen px-6 py-8 min-w-[35rem] max-w-screen-xl md:py-0",
 const CLASSNAMES = {
-  root: "mx-auto px-6 py-8 min-w-[35rem] max-w-screen-xl md:py-0",
+  root: "px-6 py-8 md:py-0",
   main: {
     root: "lg:pt-24",
     skills: "md:mx-auto md:w-full md:px-0 md:py-0"
   }
 } as const;
 
-
-const SEO_BEST_PRACTICES_LIMIT = {
-  Title: 60,
-  Description: 160
+const SEOBestPracticeLimits = {
+  TITLE: 60,
+  DESCRIPTION: 170
 } as const;
 
-const TITLE = "Building the Future: Otu Bassey's Full-Stack Developer Portfolio";
-const DESCRIPTION = "";
+const TITLE = "Building the Future: Otu's Full-Stack Developer Portfolio"; // 4 over
+const DESCRIPTION = "Skilled Full-Stack Developer with expertise in Javascript (Angular, React), Java, & Spring Framework. " +
+"I design, develop, & deploy full-stack web applications. My portfolio showcases projects that bridge the gap between user interaction & " +
+"server-side logic, ensuring a seamless user experience.";
 
 function mapSectionClassNames(active: boolean) {
   return {
@@ -44,76 +46,97 @@ function mapSectionClassNames(active: boolean) {
   };
 }
 
+function MainAppContainerComponent() {
+  const [handleNavigate, [navigationItem, setNavigationItem]] = useNavigation(NAVIGATION.HOME);
+
+  const handleCloseSettingsDialog = useCallback(() => {
+    handleNavigate(NAVIGATION.SETTINGS);
+  }, [handleNavigate]);
+
+  return (
+    <div ref={setNavigationItem(NAVIGATION.HOME)} className={ClassesUtil.concat("theme-dark", CLASSNAMES.root, urbanist.className)}>
+      <div className={`${navigationItem[NAVIGATION.SETTINGS].display ? "hidden" : "grid"} grid-cols-1 md:grid-cols-2 md:justify-between md:gap-4 sm:grid`}>
+        <header className="lg:sticky lg:top-0 max-h-screen lg:justify-between lg:py-24">
+          <Introduction />
+          <NavigationList
+            className={{root: "hidden md:block"}}
+            onNavigate={handleNavigate}
+            navigationItem={navigationItem}
+          />
+          <LocateMeAt />
+        </header>
+        <main className={CLASSNAMES.main.root}>
+          <Section
+            classes={mapSectionClassNames(navigationItem[NAVIGATION.HOME].display)}
+            elevation="sm"
+            hasStickyHeader
+            title={NAVIGATION.HOME}>
+            <Home />
+          </Section>
+          <Section
+            classes={mapSectionClassNames(navigationItem[NAVIGATION.SKILLS].display)}
+            elevation="sm"
+            hasStickyHeader
+            ref={setNavigationItem(NAVIGATION.SKILLS)}
+            title={NAVIGATION.SKILLS}>
+            <Skills className={CLASSNAMES.main.skills} />
+          </Section>
+          <Section
+            classes={mapSectionClassNames(navigationItem[NAVIGATION.EXPERIENCES].display)}
+            elevation="sm"
+            hasStickyHeader
+            ref={setNavigationItem(NAVIGATION.EXPERIENCES)}
+            title={NAVIGATION.EXPERIENCES}>
+            <Experiences />
+          </Section>
+          <Section
+            classes={mapSectionClassNames(navigationItem[NAVIGATION.PROJECTS].display)}
+            elevation="sm"
+            hasStickyHeader
+            ref={setNavigationItem(NAVIGATION.PROJECTS)}
+            title={NAVIGATION.PROJECTS}>
+            <Projects />
+          </Section>
+        </main>
+        <footer>
+          <NavigationFAB onNavigate={handleNavigate} />
+        </footer>
+      </div>
+
+      <Settings open={navigationItem[NAVIGATION.SETTINGS].display} onClose={handleCloseSettingsDialog} />
+    </div>
+  );
+}
+
+const MainAppContainer = withDisplayName("Layout")(MainAppContainerComponent);
+
 function Layout() {
     // TODO: the ff before checking this in:
     // 1. type checking for TS and React Props
     // 2. check usage of div vs section
     // 3. Is it possible to simplify the number of elements from the Section component
-    // 4. fix helloworld controller
-    // 5. fix theme
-    // 6. modal for settings
-    // 7. create a single portfolio-helloworld response
-    // 8. Accessibility
-    // 9. Eslint checking
-    // 10. create settings modal - check navigation constants file for details - add this to featurelog file
-    // 11. Test cases
-  const [handeleNavigate, [navigationItem, setNavigationItem]] = useNavigation(NAVIGATION.HOME);
-  
+    // 4. fix theme
+    // 5. create a single portfolio-helloworld response
+    // 6. Accessibility
+    // 7. Eslint checking
+    // 8. add site history to settings modal - check navigation constants file for details - add this to featurelog file
+    // 9. Test cases
+
   return (
     <>
       <Head>
-        <title>{TITLE}</title>
-        <meta name="description" content={DESCRIPTION}></meta>
+        <title>{TITLE.length > SEOBestPracticeLimits.TITLE ? "Title is longer than recommendation" : TITLE}</title>
+        <meta
+          name="description"
+          content={DESCRIPTION.length > SEOBestPracticeLimits.DESCRIPTION ? "Description is longer than recommendation" : DESCRIPTION}>
+        </meta>
       </Head>
-      <div ref={setNavigationItem(NAVIGATION.HOME)} className={ClassesUtil.concat(CLASSNAMES.root, urbanist.className)}>
-        <div className="grid grid-cols-1 md:grid-cols-2 md:justify-between md:gap-4">
-          <header className="lg:sticky lg:top-0 max-h-screen lg:justify-between lg:py-24">
-            <div>
-              <Introduction />
-              <NavigationList
-                className={{root: "hidden md:block"}}
-                onNavigate={handeleNavigate}
-                navigationItem={navigationItem}
-              />
-            </div>
-            <Location />
-          </header>
-          <main className={CLASSNAMES.main.root}>
-            <Section
-              className={mapSectionClassNames(navigationItem[NAVIGATION.HOME].display)}
-              hasStickyHeader
-              title={NAVIGATION.HOME}>
-              <Home />
-            </Section>
-            <Section
-              ref={setNavigationItem(NAVIGATION.SKILLS)}
-              className={mapSectionClassNames(navigationItem[NAVIGATION.SKILLS].display)}
-              hasStickyHeader
-              title={NAVIGATION.SKILLS}>
-              <Skills className={CLASSNAMES.main.skills} />
-            </Section>
-            <Section
-              ref={setNavigationItem(NAVIGATION.EXPERIENCES)}
-              className={mapSectionClassNames(navigationItem[NAVIGATION.EXPERIENCES].display)}
-              hasStickyHeader
-              title={NAVIGATION.EXPERIENCES}>
-              <Experiences />
-            </Section>
-            <Section
-              ref={setNavigationItem(NAVIGATION.PROJECTS)}
-              className={mapSectionClassNames(navigationItem[NAVIGATION.PROJECTS].display)}
-              hasStickyHeader
-              title={NAVIGATION.PROJECTS}>
-              <Projects />
-            </Section>
-          </main>
-          <footer>
-            <NavigationFAB onNavigate={handeleNavigate} />
-          </footer>
-        </div>
-      </div>
+      
+      <ConfigurationContextProvider>
+        <MainAppContainer />
+      </ConfigurationContextProvider>
     </>
   );
 }
 
-export default memo(withDisplayName()(Layout));
+export default withDisplayName()(Layout);

@@ -1,8 +1,9 @@
 import { ElementType, ForwardedRef, ReactNode, forwardRef } from "react";
 import PropTypes from "prop-types";
 
+import { withDisplayName } from "@/ui/decorator";
 import { ClassesUtil } from "@/ui/utils";
-import { Variant } from "../title";
+import { Variant } from "@/ui/widgets/title/";
 
 const DEFAULT_CLASS_NAMES = {
     root: "",
@@ -13,29 +14,29 @@ const DEFAULT_CLASS_NAMES = {
 } as const;
 
 type TextProps = {
-    component?: ElementType | null,
-    variant?: Variant
+    component?: ElementType | null;
+    variant?: Variant;
 };
 
 type ClassNameProp = {
-    root?: string | null,
-    icon?: string | null,
-    primary?: string | null,
-    secondary?: string | null,
-    textRoot?: string | null,
+    root?: string | null;
+    icon?: string | null;
+    primary?: string | null;
+    secondary?: string | null;
+    textRoot?: string | null;
 };
 
-type CardTextHeaderProps = {
-    children?: ReactNode,
-    className?: ClassNameProp | null,
-    component?: ElementType | null,
-    icon?: ReactNode,
-    primary?: string | null,
-    secondary?: string | null,
-    textProps?: TextProps | null
+type Props = {
+    children?: ReactNode;
+    className?: ClassNameProp | null;
+    component?: ElementType | null;
+    icon?: ReactNode;
+    primary?: string | null;
+    secondary?: string | null;
+    textProps?: TextProps | null;
 };
 
-CardTextHeader.PropTypes = {
+CardTextHeader.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     component: PropTypes.elementType,
@@ -53,7 +54,7 @@ function CardTextHeader({
     secondary = null,
     textProps = null,
     ...otherProps
-}: CardTextHeaderProps, ref: ForwardedRef<Element>) {
+}: Props, ref: ForwardedRef<HTMLElement>) {
     const Component = component ?? "div";
     const {component: textComponent, ...otherTextProps} = textProps ?? {};
     const TextComponent = textComponent ?? "p";
@@ -85,4 +86,4 @@ function CardTextHeader({
     );
 }
 
-export default forwardRef<Element, CardTextHeaderProps>(CardTextHeader);
+export default forwardRef<HTMLElement, Props>(withDisplayName()(CardTextHeader));

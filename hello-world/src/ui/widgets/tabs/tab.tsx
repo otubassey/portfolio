@@ -1,6 +1,7 @@
 "use client";
 
-import { ChangeEvent, ForwardedRef, ReactElement, ReactNode, forwardRef, useCallback } from "react";
+import { ForwardedRef, ReactElement, ReactNode, SyntheticEvent, forwardRef, memo, useCallback } from "react";
+import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
 import { ClassesUtil } from "@/ui/utils";
@@ -11,7 +12,7 @@ const CLASSNAMES = {
     inactive: "bg-slate-700/50"
 } as const;
 
-type OnChangeEventHandler = (event: ChangeEvent<HTMLInputElement>, value: any) => void;
+type OnChangeEventHandler = (event: SyntheticEvent<HTMLInputElement, Event>, value: any) => void;
 
 type TabProps = {
     active: boolean;
@@ -19,6 +20,14 @@ type TabProps = {
     onChange?: OnChangeEventHandler | null;
     label?: ReactNode;
     value?: any;
+};
+
+Tab.propTypes = {
+    active: PropTypes.bool,
+    className: PropTypes.string,
+    onChange: PropTypes.func,
+    label: PropTypes.node,
+    value: PropTypes.any
 };
 
 function Tab({
@@ -29,9 +38,9 @@ function Tab({
     value = null,
     ...otherProps
 }: TabProps, ref: ForwardedRef<HTMLButtonElement>): ReactElement {
-    const handleClick = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    const handleClick = useCallback((event: SyntheticEvent<HTMLInputElement, Event>) => {
         onChange?.(event, value ?? 0);
-    }, [onChange]);
+    }, [onChange, value]);
     return (
         <button
             ref={ref}
@@ -44,4 +53,4 @@ function Tab({
     );
 }
 
-export default forwardRef<HTMLButtonElement, TabProps>(withDisplayName<TabProps>()(Tab));
+export default memo(forwardRef<HTMLButtonElement, TabProps>(withDisplayName<TabProps>()(Tab)));

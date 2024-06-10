@@ -6,8 +6,8 @@ import List from "@/ui/widgets/list/list";
 
 import NavigationListItem from "./navigationListItem";
 import { HEADER_NAV_BAR_NAVIGATION } from "./navigation.constants";
-import { NavigationSelectEventHandler, NavigationType } from "./navigation.types";
 import { NavigationState } from "./useNavigation.hook";
+import { NavigationSelectEventHandler, NavigationType } from "./navigation.types";
 
 type ClassNameProp = {
     root?: string;
@@ -17,27 +17,29 @@ type ClassNameProp = {
     };
 };
 
-export type NavigationProps = {
-    className?: ClassNameProp | null,
-    onNavigate?: NavigationSelectEventHandler | null,
-    navigationItem?: NavigationState | null
+export type Props = {
+    className?: ClassNameProp | null;
+    onNavigate?: NavigationSelectEventHandler | null;
+    navigationItem?: NavigationState | null;
 };
 
-NavigationList.PropTypes = {
+NavigationList.propTypes = {
     className: PropTypes.shape({
         root: PropTypes.string,
         list: PropTypes.shape({
             root: PropTypes.string,
             item: PropTypes.string
         })
-    })
+    }),
+    onNavigate: PropTypes.func,
+    navigationItem: PropTypes.object
 };
 
 function NavigationList({
     className = null,
     onNavigate = null,
     navigationItem = null
-}: NavigationProps, ref: ForwardedRef<HTMLElement>) {
+}: Props, ref: ForwardedRef<HTMLElement>) {
     return (
         <nav ref={ref} className={className?.root}>
             <List className="pt-8">
@@ -57,4 +59,4 @@ function NavigationList({
     );
 }
 
-export default memo(forwardRef<HTMLElement, NavigationProps>(withDisplayName<NavigationProps>()(NavigationList)));
+export default memo(forwardRef<HTMLElement, Props>(withDisplayName()(NavigationList)));

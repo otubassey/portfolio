@@ -1,11 +1,32 @@
-import { ForwardedRef, memo, forwardRef, FC } from "react";
+import { ForwardedRef, memo, forwardRef, ReactElement } from "react";
+import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
 
 import { SVGIconProps } from "./icon.types";
 import SVGBase from "./SVGBase";
 
-function SadFaceEmoji({description, svg, title, ...otherProps}: SVGIconProps, ref: ForwardedRef<SVGSVGElement>): FC<SVGIconProps> {
+SadFaceEmoji.propTypes = {
+    description: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
+    }),
+    svg: PropTypes.shape({
+        className: PropTypes.string,
+        fill: PropTypes.string
+    }),
+    title: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
+    })
+};
+
+function SadFaceEmoji({
+    description,
+    svg,
+    title,
+    ...otherProps
+}: SVGIconProps, ref: ForwardedRef<SVGSVGElement>): ReactElement<SVGIconProps> {
     return (
         <SVGBase
             ref={ref}
@@ -25,4 +46,4 @@ function SadFaceEmoji({description, svg, title, ...otherProps}: SVGIconProps, re
     );
 }
 
-export default memo(forwardRef<SVGSVGElement, SVGIconProps>(withDisplayName<SVGIconProps>()(SadFaceEmoji)));
+export default memo(forwardRef<SVGSVGElement, SVGIconProps>(withDisplayName()(SadFaceEmoji)));

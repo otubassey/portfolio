@@ -1,9 +1,9 @@
 import { memo } from "react";
-
-import List from "@/ui/widgets/list/list";
-import ListItemText from "@/ui/widgets/list/listItemText";
+import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
+import List from "@/ui/widgets/list/list";
+import ListItemText from "@/ui/widgets/list/listItemText";
 import { Title } from "@/ui/widgets/title";
 
 import { SKILL_TYPE } from "../skills.constants";
@@ -45,11 +45,15 @@ const mapTechnologiesByTitle = (skills: ReadonlyArray<Skill> | null): Technologi
     : {} as TechnologiesByTitle
 );
 
-type TechnologyListProps = {
+type Props = {
     skills: ReadonlyArray<Skill> | null
 };
 
-function TechnologyList({skills = null}: TechnologyListProps) {
+TechnologyList.protoTypes = {
+    skills: PropTypes.array
+};
+
+function TechnologyList({skills = null}: Props) {
     const technologiesByTitle = mapTechnologiesByTitle(skills);
     return (
         <div className={CLASSNAMES.root}>
@@ -64,7 +68,7 @@ function TechnologyList({skills = null}: TechnologyListProps) {
                                         <ListItemText   
                                             key={value}
                                             aria-label={value}
-                                            className={CLASSNAMES.list.item}
+                                            classes={CLASSNAMES.list.item}
                                             primary={value}
                                         />
                                     ))
@@ -78,4 +82,4 @@ function TechnologyList({skills = null}: TechnologyListProps) {
     );
 }
 
-export default memo(withDisplayName<TechnologyListProps>()(TechnologyList));
+export default memo(withDisplayName<Props>()(TechnologyList));

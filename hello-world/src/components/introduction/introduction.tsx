@@ -1,28 +1,26 @@
 "use client";
 
-import { memo, useRef } from "react";
+import { useRef } from "react";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 import { withDisplayName } from "@/ui/decorator";
+import { ClassesUtil } from "@/ui/utils";
 import { Title } from "@/ui/widgets/title";
 import {Characters} from "@/ui/widgets/typography";
-import { ClassesUtil } from "@/ui/utils";
 
 const CLASSSNAMES = {
     firstName: "block text-slate-300",
-    h1: "mb-6 font-extrabold leading-none tracking-tighter",
-    // jobTitle: "block bg-gradient-to-tr from-yellow-500 via-yellow-200 to-yellow-500 bg-clip-text font-bold uppercase tracking-[.2em] text-transparent opacity-0",
-    // jobTitle: "block bg-gradient-to-tr from-[#827660] via-[#9B917F] to-[#827660] bg-clip-text font-bold uppercase tracking-[.2em] text-transparent opacity-0",
-    jobTitle: "block bg-gradient-to-tr from-[#4d432f] via-[#cbbea6] to-[#4d432f] bg-clip-text font-bold uppercase tracking-[.2em] text-transparent opacity-0",
+    h1: "mb-3 font-extrabold leading-none tracking-tighter",
+    jobTitle: "block mb-6 bg-gradient-to-tr from-[#4d432f] via-[#cbbea6] to-[#4d432f] bg-clip-text font-bold uppercase tracking-[.2em] text-transparent opacity-0",
     lastName: "-mt-[.2em] block text-slate-500"
 } as const;
 
 const FIRST_NAME = "Otu";
 const LAST_NAME = "Bassey";
 const JOB_TITLE = "Senior Full-Stack Developer";
-const INTRODUCTION = `I&apos;m a highly motivated and results-oriented ${JOB_TITLE} with over 8 years of experience designing, `
+const INTRODUCTION = `I'm a highly motivated and results-oriented ${JOB_TITLE} with over 8 years of experience designing, `
 + "developing, and deploying robust web applications. I possess a strong command of both front-end and back-end technologies, enabling "
 + "me to deliver exceptional user experiences while ensuring efficient and scalable solutions.";
 
@@ -49,7 +47,7 @@ const NAME_ANIMATION = {
 function Introduction() {
     const firstNameCharacterRefs = useRef([]);
     const lastNameCharacterRefs = useRef([]);
-    const jobPositionRef = useRef(null);
+    const jobTitleRef = useRef(null);
     const introductionRef = useRef(null);
 
     useGSAP(() => {
@@ -65,7 +63,7 @@ function Introduction() {
             NAME_ANIMATION.To
         );
         animatedTextTimeline.fromTo(
-            jobPositionRef.current,
+            jobTitleRef.current,
             {
                 y: 20,
                 opacity: 0,
@@ -97,26 +95,26 @@ function Introduction() {
     }, []);
 
     return (
-        <div>
-            <Title aria-label="I&apos;m" variant="h3">I&apos;m</Title>
-            <Title aria-label={[FIRST_NAME, LAST_NAME].join(" ")} className={CLASSSNAMES.h1} variant="h1">
-                <span className={CLASSSNAMES.firstName}>
+        <>
+            <Title aria-label={`I'm ${[FIRST_NAME, LAST_NAME].join(" ")}`} className="mb-6" variant="h1">
+                <span className="text-3xl mb-3">I&apos;m</span>
+                <span className={ClassesUtil.concat(CLASSSNAMES.firstName, CLASSSNAMES.h1)}>
                     <Characters ref={firstNameCharacterRefs} text={FIRST_NAME} />
                 </span>
-                <span className={CLASSSNAMES.lastName}>
+                <span className={ClassesUtil.concat(CLASSSNAMES.lastName, CLASSSNAMES.h1)}>
                     <Characters ref={lastNameCharacterRefs} text={LAST_NAME} />
                 </span>
             </Title>
             <Title
-                ref={jobPositionRef}
+                ref={jobTitleRef}
                 aria-label={`a ${JOB_TITLE}`}
-                className={ClassesUtil.concat(CLASSSNAMES.jobTitle)}
+                className={ClassesUtil.concat(CLASSSNAMES.jobTitle, "mb-6")}
                 variant="h3">
                 {JOB_TITLE}
             </Title>
-            <p ref={introductionRef} className="opacity-0 text-wrap" aria-description={INTRODUCTION}>{INTRODUCTION}</p>
-        </div>
+            <p ref={introductionRef} className="opacity-0 text-wrap mb-6" aria-description={INTRODUCTION}>{INTRODUCTION}</p>
+        </>
     );
 }
 
-export default memo(withDisplayName()(Introduction));
+export default withDisplayName()(Introduction);

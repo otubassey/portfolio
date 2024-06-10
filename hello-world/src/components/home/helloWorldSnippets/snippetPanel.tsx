@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useState } from "react";
+import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
 import {Tab, Tabs} from "@/ui/widgets/tabs";
@@ -18,6 +19,14 @@ const CLASSNAMES = {
 } as const;
 
 const isActiveTabOrPanel = (selectedTabIndex: number, tabIndex: number): boolean => selectedTabIndex === tabIndex;
+
+SnippetPanel.propTypes = {
+    language: PropTypes.string,
+    tabs: PropTypes.arrayOf(PropTypes.shape({
+        filename: PropTypes.string,
+        snippet: PropTypes.string
+    }))
+};
 
 function SnippetPanel({language = null, tabs = null}: Snippet) {
     const [selectedTab, setSelectedTab] = useState(0);
@@ -51,4 +60,4 @@ function SnippetPanel({language = null, tabs = null}: Snippet) {
     );
 }
 
-export default memo(withDisplayName<Snippet>()(SnippetPanel));
+export default memo(withDisplayName()(SnippetPanel));

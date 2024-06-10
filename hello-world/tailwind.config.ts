@@ -16,11 +16,15 @@ const config: Config = {
         primaryMain: "var(--primary-main)",
         primaryLight: "var(--primary-light)",
         primaryDark: "var(--primary-dark)",
-        primaryContrast: "var(--primary-contrastText)",
+        primaryContrastText: "var(--primary-contrastText)",
         secondaryMain: "var(--secondary-main)",
         secondaryLight: "var(--secondary-light)",
         secondaryDark: "var(--secondary-dark)",
-        secondaryContrastText: "var(--secondary-contrastText)"
+        secondaryContrastText: "var(--secondary-contrastText)",
+        grayMain: "var(--color-gray-main)",
+        grayLight: "var(--color-gray-light)",
+        grayDark: "var(--color-gray-dark)",
+        grayContrastText: "var(--color-gray-contrastText)"
       },
       textColor: {
         primary: "var(--text-primary)",

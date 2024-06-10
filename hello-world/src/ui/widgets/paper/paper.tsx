@@ -1,27 +1,55 @@
-import { ElementType, ForwardedRef, ReactNode, forwardRef } from "react";
+import { ForwardedRef, ReactElement, ReactNode, forwardRef } from "react";
 import PropTypes from "prop-types";
 
+import { withDisplayName } from "@/ui/decorator";
 import { ClassesUtil } from "@/ui/utils";
 
-type PaperProps = {
+export const Elevations = {
+    EXTRA_SMALL: "xs",
+    SMALL: "sm",
+    MEDIUM: "md",
+    LARGE: "lg",
+    EXTRA_LARGE: "xl",
+    EXTRA_EXTRA_LARGE: "2xl",
+    NONE: "none"
+} as const;
+
+const ShadowByElevation = {
+    [Elevations.EXTRA_SMALL]: "shadow-sm",
+    [Elevations.SMALL]: "shadow",
+    [Elevations.MEDIUM]: "shadow-md",
+    [Elevations.LARGE]: "shadow-lg",
+    [Elevations.EXTRA_LARGE]: "shadow-xl",
+    [Elevations.EXTRA_EXTRA_LARGE]: "shadow-2xl",
+    [Elevations.NONE]: "shadow-none"
+} as const;
+
+export type Elevation = typeof Elevations[keyof typeof Elevations];
+
+export const getRootClassName = (elevation: Elevation): string => {
+    const elevationValue = elevation ?? Elevations.EXTRA_SMALL;
+    const boxShadow = ShadowByElevation[elevationValue] ?? ShadowByElevation[Elevations.EXTRA_SMALL];
+    return `bg-transparent rounded ${boxShadow} p-2`;
+};
+
+type Props = {
     children: ReactNode;
     className?: string | null;
-    component?: ElementType | null;
+    elevation?: Elevation;
 };
 
-Paper.PropTypes = {
+Paper.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
-    component: PropTypes.elementType
+    elevation: PropTypes.oneOf(Object.values(Elevations))
 };
 
-function Paper({children, className = null, component = null, ...otherProps}: PaperProps, ref: ForwardedRef<HTMLElement>) {
-    const Component = component ?? "div";
+function Paper({children, className = null, elevation, ...otherProps}: Props, ref: ForwardedRef<HTMLDivElement>): ReactElement<Props> {
     return (
-        <Component ref={ref} className={ClassesUtil.concat("bg-transparent rounded shadow-md p-2", className)} {...otherProps}>
+        <div ref={ref} className={ClassesUtil.concat(getRootClassName(elevation), className)} {...otherProps}>
             {children}
-        </Component>
+        </div>
     );
 }
 
-export default forwardRef<HTMLElement, PaperProps>(Paper);
+export default forwardRef<HTMLDivElement, Props>(withDisplayName()(Paper));

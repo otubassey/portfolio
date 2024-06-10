@@ -1,13 +1,25 @@
 "use client";
 
 import { memo, useCallback } from "react";
+import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
-import { FAB_MOBILE_SCREEN_NAVIGATION, FAB_NON_MOBILE_SCREEN_NAVIGATION, NAVIGATION } from "./navigation.constants";
-
 import { ICON_NAMES, IconButton } from "@/ui/widgets/icon";
 import { SpeedDial } from "@/ui/widgets/speedDial";
+
+import { FAB_MOBILE_SCREEN_NAVIGATION, FAB_NON_MOBILE_SCREEN_NAVIGATION, NAVIGATION } from "./navigation.constants";
 import { NavigationSelectEventHandler, NavigationType } from "./navigation.types";
+
+const CLASSNAMES = {
+    mobile: {
+        root: "block sm:hidden",
+        primaryIcon: "fill-primaryContrastText group-hover:rotate-90 transition transition-all duration-[0.6s]"
+    },
+    nonMobile: {
+        root: "hidden sm:block",
+        primaryIcon: "fill-primaryContrastText group-hover:rotate-90 transition transition-all duration-[0.6s]"
+    }
+} as const;
 
 const IconNamesByNavigation = {
     [NAVIGATION.EXPERIENCES]: ICON_NAMES.WORK_HISTORY,
@@ -17,39 +29,32 @@ const IconNamesByNavigation = {
     [NAVIGATION.SKILLS]: ICON_NAMES.PSYCHOLOGY
 } as const;
 
-export type NavigationFABProps = {
-    onNavigate?: NavigationSelectEventHandler | null,
-    selectedNavigation?: NavigationType | null
+export type Props = {
+    onNavigate?: NavigationSelectEventHandler | null;
 };
 
-function NavigationFAB({onNavigate}: NavigationFABProps) {
+NavigationFAB.propTypes = {
+    onNavigate: PropTypes.func
+};
+
+function NavigationFAB({onNavigate}: Props) {
     const handleOnSelectFactory = useCallback((navigation: NavigationType) => () => {
         onNavigate?.(navigation);
     }, [onNavigate]);
     return (
         <>
             <SpeedDial
-                className="hidden sm:block fixed"
+                className={CLASSNAMES.nonMobile.root}
                 direction="Up"
                 primaryIcon={
                     <IconButton
                         icon="Add"
-                        className="bg-primaryMain"
-                        iconProps={{svg: {className: "fill-primaryContrast group-hover:rotate-90 transition  transition-all duration-[0.6s]"}}}
+                        color="primary"
+                        iconProps={{svg: {className: CLASSNAMES.nonMobile.primaryIcon}}}
                     />
                 }>
-            {/* <SpeedDial className="hidden sm:block fixed" primaryIcon={<IconButton icon="Add" className="bg-primary" />} direction="Up"> */}
-            {/* <SpeedDial className="hidden sm:block fixed" primaryIcon={<IconButton icon="Add" className="bg-[#f9a825]" />} direction="Up"> */}
                 {
-                    // FAB_NON_MOBILE_SCREEN_NAVIGATION.map(navigation => (
-                    //     <IconButton
-                    //         key={navigation}
-                    //         icon={IconNamesByNavigation[navigation]}
-                    //         onClick={handleOnSelectFactory(navigation)}
-                    //     />
-                    // ))
-
-                    FAB_MOBILE_SCREEN_NAVIGATION.map(navigation => (
+                    FAB_NON_MOBILE_SCREEN_NAVIGATION.map(navigation => (
                         <IconButton
                             key={navigation}
                             icon={IconNamesByNavigation[navigation]}
@@ -59,13 +64,13 @@ function NavigationFAB({onNavigate}: NavigationFABProps) {
                 }
             </SpeedDial>
             <SpeedDial
-                className="block sm:hidden"
+                className={CLASSNAMES.mobile.root}
                 direction="Up"
                 primaryIcon={
                     <IconButton
                         icon="Add"
-                        className="bg-primaryMain"
-                        iconProps={{svg: {className: "fill-primaryContrast group-hover:rotate-90 transition transition-all duration-[0.6s]"}}}
+                        color="primary"
+                        iconProps={{svg: {className: CLASSNAMES.mobile.primaryIcon}}}
                     />
                 }>
                 {
@@ -82,4 +87,4 @@ function NavigationFAB({onNavigate}: NavigationFABProps) {
     );
 }
 
-export default memo(withDisplayName<NavigationFABProps>()(NavigationFAB));
+export default memo(withDisplayName<Props>()(NavigationFAB));

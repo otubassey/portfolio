@@ -1,17 +1,19 @@
 import { ForwardedRef, ReactNode, forwardRef } from "react";
 import PropTypes from "prop-types";
 
+import { withDisplayName } from "@/ui/decorator";
+
 export type LinkType = {
     rel: string;
     href: string;
 };
 
-type LinkProps = {
+type Props = {
     children?: ReactNode;
-    value?: LinkType | null
+    value?: LinkType | null;
 };
 
-Link.PropTypes = {
+Link.propTypes = {
     children: PropTypes.node,
     value: PropTypes.shape({
         rel: PropTypes.string,
@@ -19,7 +21,11 @@ Link.PropTypes = {
     })
 };
 
-function Link({children = null, value = null, ...otherProps}: LinkProps, ref: ForwardedRef<HTMLAnchorElement>) {
+function Link({
+    children = null,
+    value = null,
+    ...otherProps
+}: Props, ref: ForwardedRef<HTMLAnchorElement>) {
     return (
         <a
             ref={ref}
@@ -33,4 +39,4 @@ function Link({children = null, value = null, ...otherProps}: LinkProps, ref: Fo
     );
 }
 
-export default forwardRef<HTMLAnchorElement, LinkProps>(Link);
+export default forwardRef<HTMLAnchorElement, Props>(withDisplayName()(Link));

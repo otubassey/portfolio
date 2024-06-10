@@ -2,19 +2,19 @@ import { ForwardedRef, ReactNode, SVGAttributes, forwardRef } from "react";
 import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
+import { ClassesUtil } from "@/ui/utils/";
 
 import { SVGIconProps } from "./icon.types";
-import { defaultIfFalsy } from "./util";
 import { DEFAULT_ICON_PROP } from "./icon.constants";
-import { ClassesUtil } from "../../utils";
+import { defaultIfFalsy } from "./util";
 
 const {svg: defaultSVG} = DEFAULT_ICON_PROP;
 
-type SVGBaseIconProps = SVGIconProps & {
-    children: ReactNode
+type Props = SVGIconProps & {
+    children: ReactNode;
 };
 
-SVGBase.PropTypes = {
+SVGBase.propTypes = {
     children: PropTypes.node,
     description: PropTypes.shape({
         id: PropTypes.string,
@@ -23,10 +23,14 @@ SVGBase.PropTypes = {
     svg: PropTypes.shape({
         className: PropTypes.string,
         fill: PropTypes.string
+    }),
+    title: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
     })
 };
 
-function SVGBase({children = null, description, svg, title, ...otherProps}: SVGBaseIconProps, ref: ForwardedRef<SVGSVGElement>) {
+function SVGBase({children = null, description, svg, title, ...otherProps}: Props, ref: ForwardedRef<SVGSVGElement>) {
     const {className: defaultClassName, ...otherDefaultSVGProps}: SVGAttributes<SVGSVGElement> = defaultSVG!;
     const {className: classNameProp, ...otherSVGProps} = {...defaultSVG, ...(svg ?? {})};
     return (
@@ -49,4 +53,4 @@ function SVGBase({children = null, description, svg, title, ...otherProps}: SVGB
     );
 }
 
-export default forwardRef<SVGSVGElement, SVGBaseIconProps>(withDisplayName<SVGBaseIconProps>()(SVGBase));
+export default forwardRef<SVGSVGElement, Props>(withDisplayName()(SVGBase));

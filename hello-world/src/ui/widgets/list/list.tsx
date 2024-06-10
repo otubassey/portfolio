@@ -1,9 +1,18 @@
 import { ElementType, ForwardedRef, ReactNode, forwardRef } from "react";
+import PropTypes from "prop-types";
 
-export type ListProps = {
-    children: ReactNode,
-    className?: string | null
-    component?: ElementType | null
+import { withDisplayName } from "@/ui/decorator";
+
+export type Props = {
+    children: ReactNode;
+    className?: string | null;
+    component?: ElementType | null;
+};
+
+List.propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    component: PropTypes.elementType
 };
 
 function List({
@@ -11,7 +20,7 @@ function List({
     className = null,
     component = null,
     ...otherProps
-}: ListProps, ref: ForwardedRef<Element>) {
+}: Props, ref: ForwardedRef<Element>) {
     const Component = component ?? "ul";
     return (
         <Component ref={ref} className={className} {...otherProps}>
@@ -20,4 +29,4 @@ function List({
     );
 }
 
-export default forwardRef<Element, ListProps>(List);
+export default forwardRef<Element, Props>(withDisplayName()(List));

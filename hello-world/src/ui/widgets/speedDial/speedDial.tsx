@@ -1,9 +1,8 @@
-import { ForwardedRef, Fragment, ReactNode, cloneElement, forwardRef } from "react";
+import { Children, ForwardedRef, Fragment, ReactNode, cloneElement, forwardRef, isValidElement } from "react";
 import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
-
-import { ClassesUtil } from "../../utils";
+import { ClassesUtil } from "@/ui/utils/";
 
 const PrimaryIconButtonPositions = {
     BOTTOM_RIGHT: "Bottom Right",
@@ -28,7 +27,8 @@ const CLASSNAMES = {
             [ActionIconButtonDirections.LEFT]: "group flex flex-row-reverse",
             [ActionIconButtonDirections.RIGHT]: "group flex",
             [ActionIconButtonDirections.UP]: "group flex flex-col-reverse"
-        }
+        },
+        item: "hidden bg-grayLight self-center group-hover:block hover:bg-grayMain"
     }
 } as const;
 
@@ -41,21 +41,26 @@ const PrimaryIconButtonPositionsByActionIconButtonDirection = {
 
 type Direction = typeof ActionIconButtonDirections[keyof typeof ActionIconButtonDirections];
 
-type SpecialDialProps = {
+type Props = {
     children?: ReactNode;
     className?: string;
     direction?: Direction;
     primaryIcon?: ReactNode;
 };
 
-SpeedDial.PropTypes = {
+SpeedDial.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     direction: PropTypes.oneOf(Object.values(ActionIconButtonDirections)),
     primaryIcon: PropTypes.node
 };
 
-function SpeedDial({children = null, className, direction, primaryIcon = null}: SpecialDialProps, ref: ForwardedRef<HTMLDivElement>) {
+function SpeedDial({
+    children = null,
+    className,
+    direction,
+    primaryIcon = null
+}: Props, ref: ForwardedRef<HTMLDivElement>) {
     const actionIconButtonsDirection = direction ?? ActionIconButtonDirections.UP;
     const primaryIconButtonPosition = PrimaryIconButtonPositionsByActionIconButtonDirection[actionIconButtonsDirection] ?? PrimaryIconButtonPositions.BOTTOM_RIGHT;
     return (
@@ -63,9 +68,13 @@ function SpeedDial({children = null, className, direction, primaryIcon = null}: 
             <div className={CLASSNAMES.menu.root[actionIconButtonsDirection]}>
                 {primaryIcon}
                 {
-                    children?.map((child, index) => (
+                    Children.map(children, (child, index) => (
                         <Fragment key={index}>
-                            {cloneElement(child, {className: "hidden group-hover:block self-center", ...child.props})} 
+                            {
+                                isValidElement(child)
+                                    ? cloneElement(child, {...child.props, className: CLASSNAMES.menu.item})
+                                    : child
+                            } 
                         </Fragment>
                     ))
                 }
@@ -74,4 +83,4 @@ function SpeedDial({children = null, className, direction, primaryIcon = null}: 
     );
 }
 
-export default forwardRef<HTMLDivElement, SpecialDialProps>(withDisplayName<SpecialDialProps>()(SpeedDial));
+export default forwardRef<HTMLDivElement, Props>(withDisplayName<Props>()(SpeedDial));

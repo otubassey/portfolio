@@ -24,13 +24,13 @@ const SizesByVariant = {
 
 export type Variant = typeof Variants[keyof typeof Variants];
 
-type TitleProps = {
+type Props = {
     children?: ReactNode,
     className?: string | null,
     variant?: Variant
 };
 
-Title.PropTypes = {
+Title.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     variant: PropTypes.oneOf(Object.values(Variants))
@@ -41,7 +41,7 @@ function Title({
     className = null,
     variant = "h4",
     ...otherProps
-}: TitleProps, ref: ForwardedRef<HTMLHeadingElement>) {
+}: Props, ref: ForwardedRef<HTMLHeadingElement>) {
     const Component = variant ?? "h4";
     const textSize = SizesByVariant[Component];
     return (
@@ -54,4 +54,4 @@ function Title({
     );
 }
 
-export default forwardRef<HTMLHeadingElement, TitleProps>(withDisplayName<TitleProps>()(Title));
+export default forwardRef<HTMLHeadingElement, Props>(withDisplayName<Props>()(Title));

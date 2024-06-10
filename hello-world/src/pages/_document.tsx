@@ -1,17 +1,17 @@
 import { Head, Html, Main, NextScript } from "next/document";
 
+import { withDisplayName } from "@/ui/decorator";
 
-export default function Document() {
+function Document() {
   return (
     <Html lang="en">
       <Head />
-      {/* <body className="theme-light bg-paper text-primary"> */}
-      <body className="theme-dark bg-paper text-primary">
-      {/* <body className="bg-slate-900 text-slate-100"> */}
-        <span className="text-red-700">Validate limits and show alert!!</span>
-        <Main />
-        <NextScript />
-      </body>
+        <body className="theme-dark bg-paper flex flex-col justify-self-stretch h-screen w-screen text-primary">
+          <Main />
+          <NextScript />
+        </body>
     </Html>
   );
 }
+
+export default withDisplayName()(Document);

@@ -21,23 +21,23 @@ type Navigation = [NavigationState, (index: number | string) => (element: ReactN
 
 const INITIAL_NAVIGATION_STATE: NavigationState = {
     [NAVIGATION.EXPERIENCES]: {
-        ref: null,
+        ref: {current: null},
         display: false
     },
     [NAVIGATION.HOME]: {
-        ref: null,
+        ref: {current: null},
         display: false
     },
     [NAVIGATION.PROJECTS]: {
-        ref: null,
+        ref: {current: null},
         display: false
     },
     [NAVIGATION.SETTINGS]: {
-        ref: null,
+        ref: {current: null},
         display: false
     },
     [NAVIGATION.SKILLS]: {
-        ref: null,
+        ref: {current: null},
         display: false
     }
 } as const;
@@ -48,23 +48,23 @@ const Actions = {
 } as const;
 
 type Payload = {
-    selectedNavigation?: NavigationType | null,
-    refs?: MutableRefObject<HTMLElement> | null
+    selectedNavigation?: NavigationType | null;
+    refs?: MutableRefObject<HTMLElement> | null;
 };
 
 type Action = {
     type: typeof Actions[keyof typeof Actions] | null;
-    payload: Payload
+    payload: Payload;
 };
 
 function updateRefs(state: NavigationState, refs?: MutableRefObject<HTMLElement> | null): NavigationState {
     if(refs?.current) {
         return {
             ...state,
-            [NAVIGATION.EXPERIENCES]: {...state[NAVIGATION.EXPERIENCES], ref: refs.current[NAVIGATION.EXPERIENCES]},
-            [NAVIGATION.HOME]: {...state[NAVIGATION.HOME], ref: refs.current[NAVIGATION.HOME]},
-            [NAVIGATION.PROJECTS]: {...state[NAVIGATION.PROJECTS], ref: refs.current[NAVIGATION.PROJECTS]},
-            [NAVIGATION.SKILLS]: {...state[NAVIGATION.SKILLS], ref: refs.current[NAVIGATION.SKILLS]}
+            [NAVIGATION.EXPERIENCES]: {...state[NAVIGATION.EXPERIENCES], ref: {current: refs.current[NAVIGATION.EXPERIENCES]}},
+            [NAVIGATION.HOME]: {...state[NAVIGATION.HOME], ref: {current: refs.current[NAVIGATION.HOME]}},
+            [NAVIGATION.PROJECTS]: {...state[NAVIGATION.PROJECTS], ref: {current: refs.current[NAVIGATION.PROJECTS]}},
+            [NAVIGATION.SKILLS]: {...state[NAVIGATION.SKILLS], ref: {current: refs.current[NAVIGATION.SKILLS]}}
         };
     }
     return state;
@@ -130,10 +130,12 @@ function reducer(currentState: NavigationState, {type, payload}: Action): Naviga
             return updateRefs(withUpdatedInitialState, payload?.refs);
         }
         case Actions.UPDATE: {
-            return updateState(currentState, payload?.selectedNavigation);
+            const result = updateState(currentState, payload?.selectedNavigation);
+            return result;
         }
+        default:
+            throw Error("Unknown navigation action: " + type);
     }
-    throw Error("Unknown navigation action: " + type); //Create custom error
 }
 
 function useNavigation(initialNavigation: NavigationType | null): [OnNavigation, Navigation] {
@@ -146,8 +148,11 @@ function useNavigation(initialNavigation: NavigationType | null): [OnNavigation,
 
     const scrollIntoView: OnScrollNavigation = useCallback((navigationState: NavigationState) => {
         const [_, selectedNavigationValue] = Object.entries(navigationState)
-            .find(([navigation, value]) => navigation !== NAVIGATION.SETTINGS && value.display)
-        selectedNavigationValue.ref?.scrollIntoView({ behavior: "smooth" });
+            .find(([navigation, value]) => navigation !== NAVIGATION.SETTINGS && value.display);
+
+        if(selectedNavigationValue.ref?.current) {
+            selectedNavigationValue.ref.current.scrollIntoView({ behavior: "smooth" });
+        }
     }, []);
 
     useEffect(() => {

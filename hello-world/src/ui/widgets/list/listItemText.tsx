@@ -1,6 +1,8 @@
 import { ElementType, ForwardedRef, ReactNode, forwardRef } from "react";
-import { ClassesUtil } from "../../utils";
+import PropTypes from "prop-types";
 
+import { withDisplayName } from "@/ui/decorator";
+import { ClassesUtil } from "@/ui/utils/";
 import {Variant} from "@/ui/widgets/title";
 
 const CLASSNAMES = {
@@ -10,53 +12,66 @@ const CLASSNAMES = {
 } as const;
 
 type ClassNameProp = {
-    root?: string | null,
-    indicator?: string | null,
-    paragraph?: string | null,
-    primary?: string | null,
-    secondary?: string,
+    root?: string | null;
+    indicator?: string | null;
+    paragraph?: string | null;
+    primary?: string | null;
+    secondary?: string;
 };
 
 type TextProps = {
-    component?: ElementType | null,
-    variant?: Variant
+    component?: ElementType | null;
+    variant?: Variant;
 };
 
-export type ListItemTextProps = {
-    children?: ReactNode,
-    component?: ElementType | null,
-    className?: ClassNameProp | null,
+export type Props = {
+    children?: ReactNode;
+    classes?: ClassNameProp | null; // classes
+    component?: ElementType | null;
     hideIndicator?: boolean,
-    primary?: string | null,
-    seconday?: string | null,
-    textProps?: TextProps | null
+    primary?: string | null;
+    seconday?: string | null;
+    textProps?: TextProps | null;
+};
+
+ListItemText.propTypes = {
+    children: PropTypes.node,
+    classes: PropTypes.string,
+    component: PropTypes.elementType,
+    hideIndicator: PropTypes.bool,
+    primary: PropTypes.string,
+    seconday: PropTypes.string,
+    textProps: PropTypes.shape({
+        component: PropTypes.elementType,
+        variant: PropTypes.object
+    })
 };
 
 function ListItemText({
     children = null,
-    className = null,
+    classes = null,
     component = null,
     hideIndicator = false,
     primary = null,
     seconday = null,
     textProps = null,
     ...otherComponentProps
-}: ListItemTextProps, ref: ForwardedRef<HTMLElement>) {
+}: Props, ref: ForwardedRef<HTMLElement>) {
     const Component = component ?? "li";
     const {component: textComponent, ...otherTextProps} = textProps ?? {};
     const TextComponent = textComponent ?? "p";
     return (
-        <Component ref={ref} className={className?.root} {...otherComponentProps}>
+        <Component ref={ref} className={classes?.root} {...otherComponentProps}>
             {
                 !children
                 ? (
-                    <TextComponent className={ClassesUtil.concat(CLASSNAMES.paragraph, className?.paragraph)} {...otherTextProps}>
+                    <TextComponent className={ClassesUtil.concat(CLASSNAMES.paragraph, classes?.paragraph)} {...otherTextProps}>
                         {
                             !hideIndicator &&
-                            <span className={ClassesUtil.concat(className?.indicator, CLASSNAMES.indicator)}></span>
+                            <span className={ClassesUtil.concat(classes?.indicator, CLASSNAMES.indicator)}></span>
                         }
-                        <span className={ClassesUtil.concat(className?.primary, CLASSNAMES.primary)}>{primary}</span>
-                        <span className={className?.secondary}>{seconday}</span>
+                        <span className={ClassesUtil.concat(classes?.primary, CLASSNAMES.primary)}>{primary}</span>
+                        <span className={classes?.secondary}>{seconday}</span>
                     </TextComponent>
                 )
                 : children
@@ -65,4 +80,4 @@ function ListItemText({
     );
 }
 
-export default forwardRef<HTMLElement, ListItemTextProps>(ListItemText);
+export default forwardRef<HTMLElement, Props>(withDisplayName()(ListItemText));

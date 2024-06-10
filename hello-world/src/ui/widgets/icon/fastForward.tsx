@@ -1,26 +1,44 @@
-import { ForwardedRef, FC, memo, forwardRef } from "react";
-import { withDisplayName } from "../../decorator";
-import SVGBase from "./SVGBase";
-import { SVGIconProps } from "./icon.types";
+import { ForwardedRef, memo, forwardRef, ReactElement } from "react";
+import PropTypes from "prop-types";
 
-function FastForward({description, svg, title, ...otherProps}: SVGIconProps, ref: ForwardedRef<SVGSVGElement>): FC<SVGIconProps> {
+import { withDisplayName } from "@/ui/decorator";
+
+import { SVGIconProps } from "./icon.types";
+import SVGBase from "./SVGBase";
+
+FastForward.propTypes = {
+    description: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
+    }),
+    svg: PropTypes.shape({
+        className: PropTypes.string,
+        fill: PropTypes.string
+    }),
+    title: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
+    })
+};
+
+function FastForward({
+    description,
+    svg,
+    title,
+    ...otherProps
+}: SVGIconProps, ref: ForwardedRef<SVGSVGElement>): ReactElement<SVGIconProps> {
     return (
         <SVGBase
             ref={ref}
             description={{id: "fastForwardDescription", value: "An FastForward Icon", ...description}}
-            svg={{fill: "#000000", stroke: "none", ...(svg ?? {})}}
+            svg={{fill: "#fff", stroke: "none", ...(svg ?? {})}}
             title={{id: "fastForwardTitle", value: "FastForward", ...title}}
             {...otherProps}>
-            <g>
-                <rect fill="none" height="24" width="24"/>
-                <rect fill="none" height="24" width="24"/>
-                <rect fill="none" height="24" width="24"/>
-            </g>
-            <g><g/>
-            <path d="M15,9.86L18.03,12L15,14.14V9.86 M6,9.86L9.03,12L6,14.14V9.86 M13,6v12l8.5-6L13,6L13,6z M4,6v12l8.5-6L4,6L4,6z"/>
-            </g>
+                <path
+                    d="M5.58 16.89l5.77-4.07c.56-.4.56-1.24 0-1.63L5.58 7.11C4.91 6.65 4 7.12 4 7.93v8.14c0 .81.91 1.28 1.58.82zM13 7.93v8.14c0 .81.91 1.28 1.58.82l5.77-4.07c.56-.4.56-1.24 0-1.63l-5.77-4.07c-.67-.47-1.58 0-1.58.81z"
+                />
         </SVGBase>
     );
 }
 
-export default memo(forwardRef<SVGSVGElement, SVGIconProps>(withDisplayName<SVGIconProps>()(FastForward)));
+export default memo(forwardRef<SVGSVGElement, SVGIconProps>(withDisplayName()(FastForward)));

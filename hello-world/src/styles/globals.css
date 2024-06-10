@@ -32,6 +32,11 @@ body {
   }
 } */
 
+/* greyMain: "var(--grey-main)",
+greyLight: "var(--grey-light)",
+greyDark: "var(--grey-dark)",
+greyContrastText: "var(--grey-contrastText)" */
+
 @layer base {
   :root {
     /* --background-start: rgb(15 23 42 / var(--tw-bg-opacity));
@@ -57,6 +62,11 @@ body {
     --color-secondary-light: rgb(255, 205, 56);
     --color-secondary-dark: rgb(178, 135, 4);
     --color-secondary-contrastText: #f1f7ff;
+
+    --color-gray-main: theme("colors.slate.700");
+    --color-gray-light: theme("colors.slate.500");
+    --color-gray-dark: theme("colors.slate.800");
+    --color-gray-contrastText: #f1f7ff;
 
     --color-text-primary: #ffffff;
     --color-text-disabled: #aab0cb;

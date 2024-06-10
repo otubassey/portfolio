@@ -1,13 +1,15 @@
 import { ElementType, ForwardedRef, ReactNode, forwardRef } from "react";
 import PropTypes from "prop-types";
 
-type CardFooterProps = {
+import { withDisplayName } from "@/ui/decorator";
+
+type Props = {
     children?: ReactNode;
     className?: string | null;
     component?: ElementType | null;
 };
 
-CardFooter.PropTypes = {
+CardFooter.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     component: PropTypes.elementType
@@ -18,7 +20,7 @@ function CardFooter({
     className = null,
     component = null,
     ...otherProps
-}: CardFooterProps, ref: ForwardedRef<Element>) {
+}: Props, ref: ForwardedRef<HTMLElement>) {
     const Component = component ?? "div";
     return (
         <Component ref={ref} className={className} {...otherProps}>
@@ -27,4 +29,4 @@ function CardFooter({
     );
 }
 
-export default forwardRef<Element, CardFooterProps>(CardFooter);
+export default forwardRef<HTMLElement, Props>(withDisplayName()(CardFooter));

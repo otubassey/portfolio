@@ -1,16 +1,37 @@
-import { FC, ForwardedRef, forwardRef, memo } from "react";
+import { ForwardedRef, forwardRef, memo, ReactElement } from "react";
+import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
 
 import { SVGIconProps } from "./icon.types";
 import SVGBase from "./SVGBase";
 
-function OpenInNewIcon({description, svg, title, ...otherProps}: SVGIconProps, ref: ForwardedRef<SVGSVGElement>): FC<SVGIconProps> {
+OpenInNewIcon.propTypes = {
+    description: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
+    }),
+    svg: PropTypes.shape({
+        className: PropTypes.string,
+        fill: PropTypes.string
+    }),
+    title: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
+    })
+};
+
+function OpenInNewIcon({
+    description,
+    svg,
+    title,
+    ...otherProps
+}: SVGIconProps, ref: ForwardedRef<SVGSVGElement>): ReactElement<SVGIconProps> {
     return (
         <SVGBase
             ref={ref}
             description={{id: "openInNewDescription", value: "A Open-In-New Icon", ...description}}
-            svg={{stroke: "none", ...(svg ?? {})}}
+            svg={{fill: "#FFFFFF", stroke: "none", ...(svg ?? {})}}
             title={{id: "openInNewTitle", value: "Open In New", ...title}}
             {...otherProps}>
             <path d="M0 0h24v24H0V0z" fill="none" />
@@ -19,4 +40,4 @@ function OpenInNewIcon({description, svg, title, ...otherProps}: SVGIconProps, r
     );
 }
 
-export default memo(forwardRef<SVGSVGElement, SVGIconProps>(withDisplayName<SVGIconProps>()(OpenInNewIcon)));
+export default memo(forwardRef<SVGSVGElement, SVGIconProps>(withDisplayName()(OpenInNewIcon)));

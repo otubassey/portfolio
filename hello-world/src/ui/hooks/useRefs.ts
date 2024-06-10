@@ -6,7 +6,7 @@ function useRefs<T>(
   const defaultValue = !initialValue ? [] : initialValue;
   const refs = useRef<Array<T> | {[key: string | number | symbol]: T}>(defaultValue);
   const setRefs = useCallback((key: string | number | symbol) => (value: T) => {
-    if(refs?.current) {
+    if(refs?.current && value) {
       if(Array.isArray(refs.current) && typeof key === "number") {
         refs.current[key] = value;
       } else {

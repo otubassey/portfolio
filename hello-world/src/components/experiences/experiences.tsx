@@ -53,7 +53,7 @@ type CompanyDetailProps = {
     positions: Array<Position>
 };
 
-CompanyDetailComponent.PropTypes = {
+CompanyDetailComponent.propTypes = {
     name: PropTypes.string,
     location: PropTypes.string,
     positions: PropTypes.array
@@ -71,7 +71,7 @@ function CompanyDetailComponent({name, location, positions}: CompanyDetailProps)
                             <ListItemText
                                 key={title}
                                 aria-label={ariaLabel}
-                                className={CLASSNAMES.companyDetail.listItemText}
+                                classes={CLASSNAMES.companyDetail.listItemText}
                                 hideIndicator
                                 primary={title}
                                 seconday={from && to ? `${from} - ${to}` : null}

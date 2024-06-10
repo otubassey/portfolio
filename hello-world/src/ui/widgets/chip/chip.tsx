@@ -1,5 +1,7 @@
 import { ElementType, ForwardedRef, ReactNode, forwardRef } from "react";
+import PropTypes from "prop-types";
 
+import { withDisplayName } from "@/ui/decorator";
 import {ClassesUtil} from "@/ui/utils";
 
 const CLASSNAMES = {
@@ -13,7 +15,19 @@ type ChipProps = {
     label?: string | null;
 };
 
-function Chip({children = null, className = null, component = null, label = null}: ChipProps, ref: ForwardedRef<HTMLElement>) {
+Chip.protoTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    component: PropTypes.elementType,
+    label: PropTypes.string
+};
+
+function Chip({
+    children = null,
+    className = null,
+    component = null,
+    label = null
+}: ChipProps, ref: ForwardedRef<HTMLElement>) {
     const Component = component ?? "div";
     const content = label ?? children;
     return (
@@ -23,4 +37,4 @@ function Chip({children = null, className = null, component = null, label = null
     );
 }
 
-export default forwardRef<HTMLElement, ChipProps>(Chip);
+export default forwardRef<HTMLElement, ChipProps>(withDisplayName()(Chip));

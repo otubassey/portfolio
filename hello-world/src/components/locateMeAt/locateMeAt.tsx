@@ -1,5 +1,3 @@
-import { memo } from "react";
-
 import { withDisplayName } from "@/ui/decorator";
 import { IconButton, ICON_NAMES, IconName } from "@/ui/widgets/icon";
 import { Link as LinkComponent, LinkType } from "@/ui/widgets/link"; 
@@ -34,7 +32,7 @@ const CONTACTS: Array<Contact> = [
     }
 ] as const;
 
-function Location() {
+function LocateMeAt() {
     return (
         <List className={CLASSNAMES.root}>
             {
@@ -52,4 +50,4 @@ function Location() {
     );
 }
 
-export default memo(withDisplayName()(Location));
+export default withDisplayName()(LocateMeAt);

@@ -1,11 +1,32 @@
-import { FC, ForwardedRef, forwardRef, memo } from "react";
+import { ForwardedRef, forwardRef, memo, ReactElement } from "react";
+import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
 
 import { SVGIconProps } from "./icon.types";
 import SVGBase from "./SVGBase";
 
-function Add({description, svg, title, ...otherProps}: SVGIconProps, ref: ForwardedRef<SVGSVGElement>): FC<SVGIconProps> {
+Add.propTypes = {
+    description: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
+    }),
+    svg: PropTypes.shape({
+        className: PropTypes.string,
+        fill: PropTypes.string
+    }),
+    title: PropTypes.shape({
+        id: PropTypes.string,
+        value: PropTypes.string
+    })
+};
+
+function Add({
+    description,
+    svg,
+    title,
+    ...otherProps
+}: SVGIconProps, ref: ForwardedRef<SVGSVGElement>): ReactElement<SVGIconProps> {
     return (
         <SVGBase
             ref={ref}
@@ -19,4 +40,4 @@ function Add({description, svg, title, ...otherProps}: SVGIconProps, ref: Forwar
     );
 }
 
-export default memo(forwardRef<SVGSVGElement, SVGIconProps>(withDisplayName<SVGIconProps>()(Add)));
+export default memo(forwardRef<SVGSVGElement, SVGIconProps>(withDisplayName()(Add)));

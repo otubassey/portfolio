@@ -1,11 +1,21 @@
 import { ElementType, ForwardedRef, ReactNode, forwardRef } from "react";
+import PropTypes from "prop-types";
 
-type CardTextContentProps = {
+import { withDisplayName } from "@/ui/decorator";
+
+type Props = {
     children?: ReactNode;
     className?: string | null;
     component?: ElementType | null;
     text?: string | null;
 };
+
+CardTextContent.propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    component: PropTypes.elementType,
+    text: PropTypes.string
+}
 
 function CardTextContent({
     children = null,
@@ -13,7 +23,7 @@ function CardTextContent({
     component = null,
     text = null,
     ...otherProps
-}: CardTextContentProps, ref: ForwardedRef<Element>) {
+}: Props, ref: ForwardedRef<HTMLElement>) {
     const Component = component ?? "div";
     const classes = className ?? "";
     const content = text ?? children;
@@ -24,4 +34,4 @@ function CardTextContent({
     );
 }
 
-export default forwardRef<Element, CardTextContentProps>(CardTextContent);
+export default forwardRef<HTMLElement, Props>(withDisplayName()(CardTextContent));

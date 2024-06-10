@@ -1,6 +1,5 @@
-import { memo } from "react";
-
 import { Technologies } from "@/components/skills";
+import { withDisplayName } from "@/ui/decorator";
 import { Card, CardTextHeader, CardTextContent, CardFooter } from "@/ui/widgets/card";
 import { Chip } from "@/ui/widgets/chip";
 import { ICON_NAMES, IconButton} from "@/ui/widgets/icon";
@@ -33,16 +32,16 @@ const CLASSNAMES = {
 } as const;
 
 type ProjectLocation = {
-    icon: string,
-    link: LinkType
+    icon: string;
+    link: LinkType;
 };
 
 type Project = {
     id: number;
-    name: string,
-    summary: string,
-    technologies: Array<string>,
-    locations: Array<ProjectLocation>
+    name: string;
+    summary: string;
+    technologies: Array<string>;
+    locations: Array<ProjectLocation>;
 };
 
 const PROJECTS: Array<Project> = [
@@ -124,4 +123,4 @@ function Projects() {
     );
 }
 
-export default memo(Projects);
+export default withDisplayName()(Projects);

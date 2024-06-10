@@ -23,7 +23,7 @@ const CLASSNAMES = {
     }
 } as const;
 
-type NavigationItemProps = {
+type Props = {
     label: string | null,
     onClick: NavigationSelectEventHandler | null,
     value: NavigationType | null,
@@ -35,7 +35,7 @@ function NavigationListItem({
     onClick = null,
     value = null,
     selected = false
-}: NavigationItemProps) {
+}: Props) {
     const handleOnSelect = useCallback(() => {
         onClick?.(value);
     }, [onClick, value]);
@@ -49,4 +49,4 @@ function NavigationListItem({
     );   
 }
 
-export default memo(withDisplayName<NavigationItemProps>()(NavigationListItem));
+export default memo(withDisplayName<Props>()(NavigationListItem));

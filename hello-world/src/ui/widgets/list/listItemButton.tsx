@@ -1,15 +1,17 @@
 import { ElementType, ForwardedRef, KeyboardEventHandler, ReactNode, forwardRef } from "react";
 import PropTypes from "prop-types";
 
-export type ListItemButtonProps = {
-    children: ReactNode,
-    component?: ElementType | null,
-    className?: string | null
-    value?: unknown,
-    onClick?: KeyboardEventHandler<HTMLInputElement> | null
+import { withDisplayName } from "@/ui/decorator";
+
+export type Props = {
+    children: ReactNode;
+    component?: ElementType | null;
+    className?: string | null;
+    value?: unknown;
+    onClick?: KeyboardEventHandler<HTMLInputElement> | null;
 };
 
-ListItemButton.PropTypes = {
+ListItemButton.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     component: PropTypes.elementType,
@@ -22,7 +24,7 @@ function ListItemButton({
     component = null,
     onClick = null,
     ...otherProps
-}: ListItemButtonProps, ref: ForwardedRef<Element>) {
+}: Props, ref: ForwardedRef<Element>) {
     const Component = component ?? "li";
     return (
         <Component ref={ref} className={className} onClick={onClick} {...otherProps}>
@@ -31,4 +33,4 @@ function ListItemButton({
     );
 }
 
-export default forwardRef<Element, ListItemButtonProps>(ListItemButton);
+export default forwardRef<Element, Props>(withDisplayName()(ListItemButton));
