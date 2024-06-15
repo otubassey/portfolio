@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { Urbanist } from "next/font/google";
 import Head from "next/head";
@@ -47,7 +47,10 @@ function mapSectionClassNames(active: boolean) {
 }
 
 function MainAppContainerComponent() {
-  const [handleNavigate, [navigationItem, setNavigationItem]] = useNavigation(NAVIGATION.HOME);
+  const [count, setCount] = useState(0);
+  const [handleNavigate, [navigationItem, setNavigationItem]] = useNavigation(NAVIGATION.HOME, () => {
+    setCount(prev => prev + 1)
+  });
 
   const handleCloseSettingsDialog = useCallback(() => {
     handleNavigate(NAVIGATION.SETTINGS);
@@ -55,6 +58,7 @@ function MainAppContainerComponent() {
 
   return (
     <div ref={setNavigationItem(NAVIGATION.HOME)} className={ClassesUtil.concat("theme-dark", CLASSNAMES.root, urbanist.className)}>
+      <div className="border border-red-400 fixed">scroll into view count: ${count}</div>
       <div className={`${navigationItem[NAVIGATION.SETTINGS].display ? "hidden" : "grid"} grid-cols-1 md:grid-cols-2 md:justify-between md:gap-4 sm:grid`}>
         <header className="lg:sticky lg:top-0 max-h-screen lg:justify-between lg:py-24">
           <Introduction />
