@@ -47,9 +47,9 @@ function mapSectionClassNames(active: boolean) {
 }
 
 function MainAppContainerComponent() {
-  const [count, setCount] = useState(0);
-  const [handleNavigate, [navigationItem, setNavigationItem]] = useNavigation(NAVIGATION.HOME, () => {
-    setCount(prev => prev + 1)
+  const [{count, name}, setData] = useState({count: 0, name: null});
+  const [handleNavigate, [navigationItem, setNavigationItem]] = useNavigation(NAVIGATION.HOME, sectionName => {
+    setData(prev => ({count: prev.count + 1, name: sectionName}))
   });
 
   const handleCloseSettingsDialog = useCallback(() => {
@@ -58,7 +58,7 @@ function MainAppContainerComponent() {
 
   return (
     <div ref={setNavigationItem(NAVIGATION.HOME)} className={ClassesUtil.concat("theme-dark", CLASSNAMES.root, urbanist.className)}>
-      <div className="border border-red-400 fixed">scroll into view count: ${count}</div>
+      <div className="border border-red-400 fixed">{`${name} just got scrolled into view. scroll into view count: ${count}`}</div>
       <div className={`${navigationItem[NAVIGATION.SETTINGS].display ? "hidden" : "grid"} grid-cols-1 md:grid-cols-2 md:justify-between md:gap-4 sm:grid`}>
         <header className="lg:sticky lg:top-0 max-h-screen lg:justify-between lg:py-24">
           <Introduction />

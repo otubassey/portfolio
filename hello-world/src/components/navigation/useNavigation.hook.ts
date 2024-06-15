@@ -138,7 +138,7 @@ function reducer(currentState: NavigationState, {type, payload}: Action): Naviga
     }
 }
 
-function useNavigation(initialNavigation: NavigationType | null, onScrollIntoView: () => void): [OnNavigation, Navigation] {
+function useNavigation(initialNavigation: NavigationType | null, onScrollIntoView: (val: string) => void): [OnNavigation, Navigation] {
     const [refs, setRefs] = useRefs({} as Record<NavigationType, HTMLElement>);
     const [state, dispatcher] = useReducer(reducer, INITIAL_NAVIGATION_STATE);
 
@@ -147,12 +147,12 @@ function useNavigation(initialNavigation: NavigationType | null, onScrollIntoVie
     }, []);
 
     const scrollIntoView: OnScrollNavigation = useCallback((navigationState: NavigationState) => {
-        const [_, selectedNavigationValue] = Object.entries(navigationState)
+        const [name, selectedNavigationValue] = Object.entries(navigationState)
             .find(([navigation, value]) => navigation !== NAVIGATION.SETTINGS && value.display);
 
         if(selectedNavigationValue.ref?.current) {
             selectedNavigationValue.ref.current.scrollIntoView({ behavior: "smooth" });
-            onScrollIntoView?.();
+            onScrollIntoView?.(name);
         }
     }, [onScrollIntoView]);
 
