@@ -147,17 +147,21 @@ function useNavigation(initialNavigation: NavigationType | null, onScrollIntoVie
     }, []);
 
     const scrollIntoView: OnScrollNavigation = useCallback((navigationState: NavigationState) => {
-        const [name, selectedNavigationValue] = Object.entries(navigationState)
+        const selectedNavigation = Object.entries(navigationState)
             .find(([navigation, value]) => navigation !== NAVIGATION.SETTINGS && value.display);
-
-        if(selectedNavigationValue.ref?.current) {
-            selectedNavigationValue.ref.current.scrollIntoView({ behavior: "smooth" });
-            onScrollIntoView?.(name);
+        if(selectedNavigation) {
+            const [name, selectedNavigationValue] = selectedNavigation;
+            if(selectedNavigationValue.ref?.current) {
+                selectedNavigationValue.ref.current.scrollIntoView({ behavior: "smooth" });
+                onScrollIntoView?.(name);
+            }
         }
     }, [onScrollIntoView]);
 
     useEffect(() => {
-        dispatcher({type: Actions.INITIALIZE, payload: {refs, selectedNavigation: initialNavigation}});
+        if(initialNavigation) {
+            dispatcher({type: Actions.INITIALIZE, payload: {refs, selectedNavigation: initialNavigation}});
+        }
     }, [initialNavigation, refs]);
 
     useEffect(() => {

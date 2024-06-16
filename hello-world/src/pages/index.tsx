@@ -48,7 +48,7 @@ function mapSectionClassNames(active: boolean) {
 
 function MainAppContainerComponent() {
   const [{count, name}, setData] = useState({count: 0, name: null});
-  const [handleNavigate, [navigationItem, setNavigationItem]] = useNavigation(NAVIGATION.HOME, sectionName => {
+  const [handleNavigate, [navigationItem, setNavigationItem]] = useNavigation(null, sectionName => {
     setData(prev => ({count: prev.count + 1, name: sectionName}))
   });
 
