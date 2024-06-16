@@ -138,7 +138,7 @@ function reducer(currentState: NavigationState, {type, payload}: Action): Naviga
     }
 }
 
-function useNavigation(initialNavigation: NavigationType | null, onScrollIntoView: (val: string) => void): [OnNavigation, Navigation] {
+function useNavigation(initialNavigation: NavigationType | null): [OnNavigation, Navigation] {
     const [refs, setRefs] = useRefs({} as Record<NavigationType, HTMLElement>);
     const [state, dispatcher] = useReducer(reducer, INITIAL_NAVIGATION_STATE);
 
@@ -150,24 +150,22 @@ function useNavigation(initialNavigation: NavigationType | null, onScrollIntoVie
         const selectedNavigation = Object.entries(navigationState)
             .find(([navigation, value]) => navigation !== NAVIGATION.SETTINGS && value.display);
         if(selectedNavigation) {
-            const [name, selectedNavigationValue] = selectedNavigation;
+            const [_, selectedNavigationValue] = selectedNavigation;
             if(selectedNavigationValue.ref?.current) {
                 selectedNavigationValue.ref.current.scrollIntoView({ behavior: "smooth" });
-                onScrollIntoView?.(name);
             }
         }
-    }, [onScrollIntoView]);
+    }, []);
 
     useEffect(() => {
-        if(initialNavigation) {
-            dispatcher({type: Actions.INITIALIZE, payload: {refs, selectedNavigation: initialNavigation}});
-        }
+        dispatcher({type: Actions.INITIALIZE, payload: {refs, selectedNavigation: initialNavigation}});
     }, [initialNavigation, refs]);
 
     useEffect(() => {
         if(state !== INITIAL_NAVIGATION_STATE) {
             scrollIntoView(state);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state]);
 
     useEffect(() => {
@@ -179,6 +177,7 @@ function useNavigation(initialNavigation: NavigationType | null, onScrollIntoVie
         };
         window.addEventListener("resize", handleResize)
         return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state]);
 
     return [navigate, [state, setRefs]];
