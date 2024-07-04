@@ -1,4 +1,4 @@
-import { NAVIGATION } from "./navigation.constants";
+import { NavigationLabel } from "./navigation.constants";
 
-export type NavigationType = typeof NAVIGATION[keyof typeof NAVIGATION];
-export type NavigationSelectEventHandler = (value: NavigationType | null) => void;
+export type NavigationLabelType = typeof NavigationLabel[keyof typeof NavigationLabel];
+export type NavigationSelectEventHandler = (value: NavigationLabelType | null) => void;

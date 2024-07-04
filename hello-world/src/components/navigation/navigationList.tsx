@@ -1,13 +1,15 @@
-import { ForwardedRef, forwardRef, memo } from "react";
+"use client";
+
+import { ForwardedRef, forwardRef, memo, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
 import List from "@/ui/widgets/list/list";
 
 import NavigationListItem from "./navigationListItem";
-import { HEADER_NAV_BAR_NAVIGATION } from "./navigation.constants";
-import { NavigationState } from "./useNavigation.hook";
-import { NavigationSelectEventHandler, NavigationType } from "./navigation.types";
+import { HeaderNavBarNavigationLabels, NavigationLabel } from "./navigation.constants";
+import { NavigationState } from "./hooks/useNavigation";
+import { NavigationSelectEventHandler, NavigationLabelType } from "./navigation.types";
 
 type ClassNameProp = {
     root?: string;
@@ -40,17 +42,20 @@ function NavigationList({
     onNavigate = null,
     navigationItem = null
 }: Props, ref: ForwardedRef<HTMLElement>) {
+    useEffect(() => {
+        onNavigate?.(NavigationLabel.HOME);
+    }, [onNavigate]);
     return (
         <nav ref={ref} className={className?.root}>
             <List className="pt-8">
                 {
-                    HEADER_NAV_BAR_NAVIGATION.map((navigation: NavigationType) => (
+                    HeaderNavBarNavigationLabels.map((navigation: NavigationLabelType) => (
                         <NavigationListItem
                             key={navigation}
                             label={navigation}
                             onClick={onNavigate}
                             value={navigation}
-                            selected={(navigationItem?.[navigation as keyof NavigationType] as NavigationState).display}
+                            selected={(navigationItem?.[navigation as keyof NavigationLabelType] as NavigationState).display}
                         />
                     ))
                 }

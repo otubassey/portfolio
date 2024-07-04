@@ -6,7 +6,7 @@ import { withDisplayName } from "@/ui/decorator";
 import { ClassesUtil } from "@/ui/utils";
 import ListItemButton from "@/ui/widgets/list/listItemButton";
 
-import { NavigationSelectEventHandler, NavigationType } from "./navigation.types";
+import { NavigationSelectEventHandler, NavigationLabelType } from "./navigation.types";
 
 const CLASSNAMES = {
     root: "w-max cursor-pointer",
@@ -26,7 +26,7 @@ const CLASSNAMES = {
 type Props = {
     label: string | null,
     onClick: NavigationSelectEventHandler | null,
-    value: NavigationType | null,
+    value: NavigationLabelType | null,
     selected?: boolean
 };
 

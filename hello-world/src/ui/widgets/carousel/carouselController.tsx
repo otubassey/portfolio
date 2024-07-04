@@ -5,20 +5,26 @@ import { ICON_NAMES, IconButton } from "../icon";
 import { withDisplayName } from "@/ui/decorator";
 import { PaginationActions, PaginationDispatcherAction, PaginationPage } from "@/ui/hooks";
 
-type Props = {
+export type Props = {
+    containerProps?: {
+        ref: MutableRefObject<HTMLDivElement>;
+        itemClassName: string;
+    };
     onPageChange: Dispatch<PaginationDispatcherAction>;
     page: PaginationPage;
-    pageItemRef?: MutableRefObject<HTMLDivElement[]>;
 };
 
 CarouselController.propTypes = {
+    containerProps: PropTypes.shape({
+        ref: PropTypes.shape({
+            current: PropTypes.node
+        }),
+        itemClassName: PropTypes.string
+    }),
     onPageChange: PropTypes.func,
     page: PropTypes.shape({
         count: PropTypes.number,
         current: PropTypes.number
-    }),
-    pageItemRef: PropTypes.shape({
-        current: PropTypes.array
     })
 };
 
@@ -37,4 +43,4 @@ function CarouselController({onPageChange}: Props, ref: ForwardedRef<HTMLDivElem
     );
 }
 
-export default forwardRef<HTMLDivElement, Props>(withDisplayName<Props>()(CarouselController));
+export default forwardRef<HTMLDivElement, Props>(withDisplayName()(CarouselController));

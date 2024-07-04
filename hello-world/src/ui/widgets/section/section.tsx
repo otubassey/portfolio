@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { withDisplayName } from "@/ui/decorator";
 import { ClassesUtil } from "@/ui/utils";
 import {Elevation, Elevations, getPaperRootStyle} from "@/ui/widgets/paper/";
-import { Title } from "@/ui/widgets/title";
+import { Title, TitlePropsType } from "@/ui/widgets/title";
 
 const CLASSNAMES = {
     title: {
@@ -23,25 +23,28 @@ type Props = {
     elevation?: Elevation;
     hasStickyHeader?: boolean;
     title?: string;
+    titleProps?: TitlePropsType;
 };
 
 Section.propTypes = {
+    children: PropTypes.node,
     classes: PropTypes.shape({
         root: PropTypes.string,
         title: PropTypes.string
     }),
-    children: PropTypes.node,
     hasStickyHeader: PropTypes.bool,
     elevation: PropTypes.oneOf(Object.values(Elevations)),
     title: PropTypes.string,
+    titleProps: PropTypes.object
 };
 
 function Section({
-    classes,
     children,
+    classes,
     elevation,
     hasStickyHeader = false,
     title,
+    titleProps,
     ...otherProps
 }: Props, ref: ForwardedRef<HTMLElement>) {
     return (
@@ -50,7 +53,8 @@ function Section({
                 title &&
                 <Title
                     aria-label={title}
-                    className={ClassesUtil.concat(classes?.title, {[CLASSNAMES.title.sticky]: hasStickyHeader})}>
+                    className={ClassesUtil.concat(classes?.title, {[CLASSNAMES.title.sticky]: hasStickyHeader})}
+                    {...(titleProps ?? {})}>
                     {title}
                 </Title>
             }

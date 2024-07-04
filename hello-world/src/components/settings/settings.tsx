@@ -47,6 +47,7 @@ function Settings({open = false, onClose}: Props) {
     }, [configuration]);
     return (
         <>
+            {/* Mobile Screen */}
             <div className={`${open ? "block" : "hidden"} sm:hidden h-screen`}>
                 <List component="ol" className="flex justify-between">
                     <ListItemText classes={{root: "content-center"}} aria-label="Settings">
@@ -58,17 +59,34 @@ function Settings({open = false, onClose}: Props) {
                 </List>
                 <ThemeEditor configuration={modifiedConfiguration?.theme} onChange={handleThemeChanged} />
                 <div className="flex items-center justify-end w-full mt-6 gap-5">
-                    <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bg-gray-100 transition duration-15 ease-in-out hover:bg-secondaryDark bg-secondaryMain text-secondaryContrastText rounded px-8 py-2 text-sm" onClick={handleCancelSettings}>Cancel</button>
-                    <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-primaryMain bg-primaryLight rounded text-white px-8 py-2 text-sm" onClick={handleApplySettings}>Apply</button>
+                    <button
+                        className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bg-gray-100 transition duration-15 ease-in-out hover:bg-secondaryDark bg-secondaryMain text-secondaryContrastText rounded px-8 py-2 text-sm"
+                        onClick={handleCancelSettings}>
+                        Cancel
+                    </button>
+                    <button
+                        className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-primaryMain bg-primaryLight rounded text-white px-8 py-2 text-sm"
+                        onClick={handleApplySettings}>
+                        Apply
+                    </button>
                 </div>
             </div>
 
+            {/* Non-Mobile Screen */}
             <Dialog open={open} className={`hidden sm:${open ? "grid" : "hidden"}`}>
                 <DialogTitle>Settings</DialogTitle>
                     <ThemeEditor configuration={modifiedConfiguration?.theme} onChange={handleThemeChanged} />
                 <DialogActions>
-                    <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bg-gray-100 transition duration-15 ease-in-out hover:bg-secondaryDark bg-secondaryMain text-secondaryContrastText rounded px-8 py-2 text-sm" onClick={handleCancelSettings}>Cancel</button>
-                    <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-primaryMain bg-primaryLight rounded text-white px-8 py-2 text-sm" onClick={handleApplySettings}>Apply</button>
+                    <button
+                        className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bg-gray-100 transition duration-15 ease-in-out hover:bg-secondaryDark bg-secondaryMain text-secondaryContrastText rounded px-8 py-2 text-sm"
+                        onClick={handleCancelSettings}>
+                        Cancel
+                    </button>
+                    <button
+                        className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-primaryMain bg-primaryLight rounded text-white px-8 py-2 text-sm"
+                        onClick={handleApplySettings}>
+                        Apply
+                    </button>
                 </DialogActions>
             </Dialog>
         </>

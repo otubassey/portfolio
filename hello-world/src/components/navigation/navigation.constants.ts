@@ -1,4 +1,4 @@
-export const NAVIGATION = {
+export const NavigationLabel = {
     EXPERIENCES: "Experiences",
     // HISTORY: "History", this should be displayed in settings modal with theme options - this will open a modal that will allow for selecting: theme, previous versions of site
     HOME: "Home",
@@ -7,15 +7,15 @@ export const NAVIGATION = {
     SKILLS: "Skills"
 } as const;
 
-const {EXPERIENCES, HOME, PROJECTS, SETTINGS, SKILLS} = NAVIGATION;
-export const HEADER_NAV_BAR_NAVIGATION = [
+const {EXPERIENCES, HOME, PROJECTS, SETTINGS, SKILLS} = NavigationLabel;
+export const HeaderNavBarNavigationLabels = [
     HOME,
     SKILLS,
     EXPERIENCES,
     PROJECTS
 ] as const;
 
-export const FAB_MOBILE_SCREEN_NAVIGATION = [
+export const MobileFabNavigationLabels = [
     SETTINGS,
     HOME,
     SKILLS,
@@ -23,6 +23,6 @@ export const FAB_MOBILE_SCREEN_NAVIGATION = [
     PROJECTS
 ] as const;
 
-export const FAB_NON_MOBILE_SCREEN_NAVIGATION = [
+export const NonMobileFabNavigationLabels = [
     SETTINGS
 ] as const;

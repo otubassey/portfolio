@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0-rc8] - 2024-06-15
+
+### Fixed
+1. Helloworld carousel fix
+    - when you click the next and/or previous buttons fast enough, you can create multiple tweens - that is, a single content would show multiple times
+2. Scrolling issue on mobile devices
+
 ## [0.1.0-rc7] - 2024-06-15
 
 ### Fixed

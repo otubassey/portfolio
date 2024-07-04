@@ -1,5 +1,6 @@
 import { SetStateAction } from "react";
 import { ThemeVariants } from "./configuration.constants";
+import {DeviceType} from "@/ui/utils/device/";
 
 export type ThemeVariant = typeof ThemeVariants[keyof typeof ThemeVariants];
 
@@ -12,6 +13,7 @@ export type ThemeConfiguration = {
 };
 
 export type Configuration = {
+    deviceType: DeviceType;
     theme: ThemeConfiguration;
 };
 

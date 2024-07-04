@@ -8,8 +8,16 @@ const Defaults = {
 } as const;
 
 export type Page = {
+    /**
+     * total number of pages
+     */
     count: number;
+    /**
+     * Current page number being displayed
+     */
     current: number;
+    isFirst: boolean;
+    isLast: boolean;
 };
 
 export type Pagination = {
@@ -22,39 +30,13 @@ type State = Pagination & {
     itemCount: number;
 };
 
-const getInitialState = (itemCount: number, itemsPerPage: number): State => {
-    const count = Math.max(Math.ceil(itemCount / itemsPerPage), Defaults.PAGE_NUMBER);
-    const {currentPage, endIndex, startIndex} = calculatePagination({current: Defaults.PAGE_NUMBER, count}, itemsPerPage).initial();
-    return ({
-        endIndex,
-        itemCount,
-        page: {
-            count,
-            current: currentPage
-        },
-        startIndex
-    });
-};
-
-export const ACTIONS = {
-    PREVIOUS: "Previous",
-    NEXT: "Next",
-    RESET: "Reset"
-} as const;
-
-export type PaginationDispatcherAction = {
-    type: typeof ACTIONS[keyof typeof ACTIONS];
-    itemCount?: number;
-    itemsPerPage?: number;
-};
-
 type PaginationIndexes = {
     currentPage: number;
     endIndex: number;
     startIndex: number;
 };
 
-function calculatePagination(page: Page, itemsPerPage: number) {
+function calculatePagination(page: Partial<Page>, itemsPerPage: number) {
     return {
         increment: (upperBoundValue: number): PaginationIndexes => {
             const newCurrentPage = (page.current + 1) > page.count
@@ -90,6 +72,34 @@ function calculatePagination(page: Page, itemsPerPage: number) {
     };
 }
 
+const getInitialState = (itemCount: number, itemsPerPage: number): State => {
+    const count = Math.max(Math.ceil(itemCount / itemsPerPage), Defaults.PAGE_NUMBER);
+    const {currentPage, endIndex, startIndex} = calculatePagination({current: Defaults.PAGE_NUMBER, count}, itemsPerPage).initial();
+    return ({
+        endIndex,
+        itemCount,
+        page: {
+            count,
+            current: currentPage,
+            isFirst: currentPage === Defaults.PAGE_NUMBER,
+            isLast: currentPage === count
+        },
+        startIndex
+    });
+};
+
+export const ACTIONS = {
+    PREVIOUS: "Previous",
+    NEXT: "Next",
+    RESET: "Reset"
+} as const;
+
+export type PaginationDispatcherAction = {
+    type: typeof ACTIONS[keyof typeof ACTIONS];
+    itemCount?: number;
+    itemsPerPage?: number;
+};
+
 function paginationReducer(currentState: State, {type, itemCount, itemsPerPage}: PaginationDispatcherAction): State {
     if(type === ACTIONS.PREVIOUS) {
         const {currentPage, endIndex, startIndex} = calculatePagination(currentState.page, itemsPerPage).decrement(Defaults.PAGE_NUMBER);
@@ -99,7 +109,9 @@ function paginationReducer(currentState: State, {type, itemCount, itemsPerPage}:
             startIndex,
             page: {
                 ...currentState.page,
-                current: currentPage
+                current: currentPage,
+                isFirst: currentPage === Defaults.PAGE_NUMBER,
+                isLast: currentPage === currentState.page.count
             }
         };
     }
@@ -111,7 +123,9 @@ function paginationReducer(currentState: State, {type, itemCount, itemsPerPage}:
             startIndex,
             page: {
                 ...currentState.page,
-                current: currentPage
+                current: currentPage,
+                isFirst: currentPage === Defaults.PAGE_NUMBER,
+                isLast: currentPage === currentState.page.count
             }
         };
     }

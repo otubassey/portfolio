@@ -1,8 +1,8 @@
-import { Children, cloneElement, ForwardedRef, forwardRef, MutableRefObject, ReactElement, ReactNode } from "react";
+import { Children, cloneElement, ForwardedRef, forwardRef, MutableRefObject, ReactElement, ReactNode, useRef } from "react";
 import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
-import { usePagination, useRefs } from "@/ui/hooks";
+import { usePagination } from "@/ui/hooks";
 import { ClassesUtil } from "@/ui/utils/";
 
 import CarouselController from "./carouselController";
@@ -18,6 +18,8 @@ const CarouselOrientation = {
 } as const;
 
 type Orientation = typeof CarouselOrientation[keyof typeof CarouselOrientation];
+
+const CAROUSEL_ITEM_CLASSNAME = "carousel-item";
 
 export type Props = {
     children: ReactNode;
@@ -43,14 +45,23 @@ function Carousel({
     orientation,
     ...otherProps
 }: Props, ref: ForwardedRef<HTMLDivElement>) {
-    const [carouselContentListRefs, setCarouselContentListRefs] = useRefs<HTMLDivElement>();
+    const containerRef = useRef(null);
     const displayOrientation = orientation ?? CarouselOrientation.HORIZONTAL;
     const itemsCount = children ? Children.count(children) : 0;
     const itemsPerPage = itemsPerPageProp ?? 1;
     const [{startIndex, endIndex, page}, handlePageChange] = usePagination(itemsCount, itemsPerPage);
     const hasProvidedController = Boolean(controller);
     const ClonedController = hasProvidedController
-        ? cloneElement(controller as ReactElement<any>, {onPageChange: handlePageChange, page, pageItemRef: carouselContentListRefs})
+        ? cloneElement(
+            controller as ReactElement<any>,
+            {
+                containerProps: {
+                    ref: containerRef,
+                    itemClassName: CAROUSEL_ITEM_CLASSNAME
+                },
+                onPageChange: handlePageChange,
+                page
+            })
         : controller;
     return (
         <div
@@ -64,12 +75,16 @@ function Carousel({
                 hasProvidedController
                     ? ClonedController
                     : <CarouselController
+                        containerProps={{
+                            ref: containerRef as MutableRefObject<HTMLDivElement>,
+                            itemClassName: CAROUSEL_ITEM_CLASSNAME
+                        }}
                         onPageChange={handlePageChange}
                         page={page}
-                        pageItemRef={carouselContentListRefs as MutableRefObject<HTMLDivElement[]>}
                     />
             }
             <div
+                ref={containerRef}
                 className={ClassesUtil.concat(
                     CLASSNAMES.contentRoot,
                     {
@@ -78,7 +93,7 @@ function Carousel({
                     }
                 )}>
                 {Children.toArray(children).slice(startIndex, endIndex).map((child, index) => (
-                    <div key={index} ref={setCarouselContentListRefs(index)} className="flex-initial">{child}</div>
+                    <div key={index} className={`${CAROUSEL_ITEM_CLASSNAME} flex-initial"`}>{child}</div>
                 ))}
             </div>
         </div>

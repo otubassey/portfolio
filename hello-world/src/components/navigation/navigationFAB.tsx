@@ -7,8 +7,8 @@ import { withDisplayName } from "@/ui/decorator";
 import { ICON_NAMES, IconButton } from "@/ui/widgets/icon";
 import { SpeedDial } from "@/ui/widgets/speedDial";
 
-import { FAB_MOBILE_SCREEN_NAVIGATION, FAB_NON_MOBILE_SCREEN_NAVIGATION, NAVIGATION } from "./navigation.constants";
-import { NavigationSelectEventHandler, NavigationType } from "./navigation.types";
+import { MobileFabNavigationLabels, NonMobileFabNavigationLabels, NavigationLabel } from "./navigation.constants";
+import { NavigationSelectEventHandler, NavigationLabelType } from "./navigation.types";
 
 const CLASSNAMES = {
     mobile: {
@@ -22,11 +22,11 @@ const CLASSNAMES = {
 } as const;
 
 const IconNamesByNavigation = {
-    [NAVIGATION.EXPERIENCES]: ICON_NAMES.WORK_HISTORY,
-    [NAVIGATION.HOME]: ICON_NAMES.HOME,
-    [NAVIGATION.PROJECTS]: ICON_NAMES.CASES,
-    [NAVIGATION.SETTINGS]: ICON_NAMES.SETTINGS,
-    [NAVIGATION.SKILLS]: ICON_NAMES.PSYCHOLOGY
+    [NavigationLabel.EXPERIENCES]: ICON_NAMES.WORK_HISTORY,
+    [NavigationLabel.HOME]: ICON_NAMES.HOME,
+    [NavigationLabel.PROJECTS]: ICON_NAMES.CASES,
+    [NavigationLabel.SETTINGS]: ICON_NAMES.SETTINGS,
+    [NavigationLabel.SKILLS]: ICON_NAMES.PSYCHOLOGY
 } as const;
 
 export type Props = {
@@ -38,7 +38,7 @@ NavigationFAB.propTypes = {
 };
 
 function NavigationFAB({onNavigate}: Props) {
-    const handleOnSelectFactory = useCallback((navigation: NavigationType) => () => {
+    const handleOnSelectFactory = useCallback((navigation: NavigationLabelType) => () => {
         onNavigate?.(navigation);
     }, [onNavigate]);
     return (
@@ -54,7 +54,7 @@ function NavigationFAB({onNavigate}: Props) {
                     />
                 }>
                 {
-                    FAB_NON_MOBILE_SCREEN_NAVIGATION.map(navigation => (
+                    NonMobileFabNavigationLabels.map(navigation => (
                         <IconButton
                             key={navigation}
                             icon={IconNamesByNavigation[navigation]}
@@ -74,7 +74,7 @@ function NavigationFAB({onNavigate}: Props) {
                     />
                 }>
                 {
-                    FAB_MOBILE_SCREEN_NAVIGATION.map(navigation => (
+                    MobileFabNavigationLabels.map(navigation => (
                         <IconButton
                             key={navigation}
                             icon={IconNamesByNavigation[navigation]}

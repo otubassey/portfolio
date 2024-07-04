@@ -24,7 +24,7 @@ const SizesByVariant = {
 
 export type Variant = typeof Variants[keyof typeof Variants];
 
-type Props = {
+export type Props = {
     children?: ReactNode,
     className?: string | null,
     variant?: Variant

@@ -15,7 +15,7 @@ import { Experiences } from "../components/experiences";
 import { Home } from "../components/home";
 import {Introduction} from "../components/introduction";
 import { LocateMeAt } from "../components/locateMeAt";
-import {NavigationFAB, NavigationList, NAVIGATION, useNavigation} from "../components/navigation";
+import {NavigationFAB, NavigationList, NavigationLabel, useNavigation} from "../components/navigation";
 import { Projects } from "../components/projects";
 import {Skills} from "../components/skills";
 
@@ -47,63 +47,63 @@ function mapSectionClassNames(active: boolean) {
 }
 
 function MainAppContainerComponent() {
-  const [handleNavigate, [navigationItem, setNavigationItem]] = useNavigation(null);
+  const [setNavigationItemRef, [navigationItem, handleNavigation]] = useNavigation(null);
 
   const handleCloseSettingsDialog = useCallback(() => {
-    handleNavigate(NAVIGATION.SETTINGS);
-  }, [handleNavigate]);
+    handleNavigation(NavigationLabel.SETTINGS);
+  }, [handleNavigation]);
 
   return (
-    <div ref={setNavigationItem(NAVIGATION.HOME)} className={ClassesUtil.concat("theme-dark", CLASSNAMES.root, urbanist.className)}>
-      <div className={`${navigationItem[NAVIGATION.SETTINGS].display ? "hidden" : "grid"} grid-cols-1 md:grid-cols-2 md:justify-between md:gap-4 sm:grid`}>
+    <div ref={setNavigationItemRef(NavigationLabel.HOME)} className={ClassesUtil.concat("theme-dark", CLASSNAMES.root, urbanist.className)}>
+      <div className={`${navigationItem[NavigationLabel.SETTINGS].display ? "hidden" : "grid"} grid-cols-1 md:grid-cols-2 md:justify-between md:gap-4 sm:grid`}>
         <header className="lg:sticky lg:top-0 max-h-screen lg:justify-between lg:py-24">
           <Introduction />
           <NavigationList
             className={{root: "hidden md:block"}}
-            onNavigate={handleNavigate}
+            onNavigate={handleNavigation}
             navigationItem={navigationItem}
           />
           <LocateMeAt />
         </header>
         <main className={CLASSNAMES.main.root}>
           <Section
-            classes={mapSectionClassNames(navigationItem[NAVIGATION.HOME].display)}
+            classes={mapSectionClassNames(navigationItem[NavigationLabel.HOME].display)}
             elevation="sm"
             hasStickyHeader
-            title={NAVIGATION.HOME}>
+            title={NavigationLabel.HOME}>
             <Home />
           </Section>
           <Section
-            classes={mapSectionClassNames(navigationItem[NAVIGATION.SKILLS].display)}
+            classes={mapSectionClassNames(navigationItem[NavigationLabel.SKILLS].display)}
             elevation="sm"
             hasStickyHeader
-            ref={setNavigationItem(NAVIGATION.SKILLS)}
-            title={NAVIGATION.SKILLS}>
+            ref={setNavigationItemRef(NavigationLabel.SKILLS)}
+            title={NavigationLabel.SKILLS}>
             <Skills className={CLASSNAMES.main.skills} />
           </Section>
           <Section
-            classes={mapSectionClassNames(navigationItem[NAVIGATION.EXPERIENCES].display)}
+            classes={mapSectionClassNames(navigationItem[NavigationLabel.EXPERIENCES].display)}
             elevation="sm"
             hasStickyHeader
-            ref={setNavigationItem(NAVIGATION.EXPERIENCES)}
-            title={NAVIGATION.EXPERIENCES}>
+            ref={setNavigationItemRef(NavigationLabel.EXPERIENCES)}
+            title={NavigationLabel.EXPERIENCES}>
             <Experiences />
           </Section>
           <Section
-            classes={mapSectionClassNames(navigationItem[NAVIGATION.PROJECTS].display)}
+            classes={mapSectionClassNames(navigationItem[NavigationLabel.PROJECTS].display)}
             elevation="sm"
             hasStickyHeader
-            ref={setNavigationItem(NAVIGATION.PROJECTS)}
-            title={NAVIGATION.PROJECTS}>
+            ref={setNavigationItemRef(NavigationLabel.PROJECTS)}
+            title={NavigationLabel.PROJECTS}>
             <Projects />
           </Section>
         </main>
         <footer>
-          <NavigationFAB onNavigate={handleNavigate} />
+          <NavigationFAB onNavigate={handleNavigation} />
         </footer>
       </div>
 
-      <Settings open={navigationItem[NAVIGATION.SETTINGS].display} onClose={handleCloseSettingsDialog} />
+      <Settings open={navigationItem[NavigationLabel.SETTINGS].display} onClose={handleCloseSettingsDialog} />
     </div>
   );
 }
