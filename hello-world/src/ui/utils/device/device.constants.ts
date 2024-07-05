@@ -1,5 +1,5 @@
 export const DeviceTypes = {
     DESKTOP: "desktop",
     MOBILE: "mobile",
-    SSR: "ssr"
+    UNKNOWN: "unknown"
 } as const;

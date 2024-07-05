@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0-rc9] - 2024-07-04
+
+### Fixed
+1. Scrolling issue on mobile devices
+2. Navigation FAB hiding after an icon has been touched on a mobile
+3. Updating configuration provider to reflect changes to the device type when there's a switch
+
+## [0.1.0-rc8] - 2024-07-03
+
+### Fixed
+1. Scrolling issue on mobile devices
+
 ## [0.1.0-rc8] - 2024-06-15
 
 ### Fixed

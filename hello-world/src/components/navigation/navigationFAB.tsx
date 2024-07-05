@@ -4,6 +4,7 @@ import { memo, useCallback } from "react";
 import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
+import { DeviceType, DeviceTypes } from "@/ui/utils";
 import { ICON_NAMES, IconButton } from "@/ui/widgets/icon";
 import { SpeedDial } from "@/ui/widgets/speedDial";
 
@@ -12,12 +13,10 @@ import { NavigationSelectEventHandler, NavigationLabelType } from "./navigation.
 
 const CLASSNAMES = {
     mobile: {
-        root: "block sm:hidden",
-        primaryIcon: "fill-primaryContrastText group-hover:rotate-90 transition transition-all duration-[0.6s]"
+        root: "block sm:hidden"
     },
     nonMobile: {
-        root: "hidden sm:block",
-        primaryIcon: "fill-primaryContrastText group-hover:rotate-90 transition transition-all duration-[0.6s]"
+        root: "hidden sm:block"
     }
 } as const;
 
@@ -30,14 +29,16 @@ const IconNamesByNavigation = {
 } as const;
 
 export type Props = {
+    deviceType: DeviceType;
     onNavigate?: NavigationSelectEventHandler | null;
 };
 
 NavigationFAB.propTypes = {
+    deviceType: PropTypes.oneOf(Object.values(DeviceTypes)),
     onNavigate: PropTypes.func
 };
 
-function NavigationFAB({onNavigate}: Props) {
+function NavigationFAB({deviceType, onNavigate}: Props) {
     const handleOnSelectFactory = useCallback((navigation: NavigationLabelType) => () => {
         onNavigate?.(navigation);
     }, [onNavigate]);
@@ -45,14 +46,9 @@ function NavigationFAB({onNavigate}: Props) {
         <>
             <SpeedDial
                 className={CLASSNAMES.nonMobile.root}
+                deviceType={deviceType}
                 direction="Up"
-                primaryIcon={
-                    <IconButton
-                        icon="Add"
-                        color="primary"
-                        iconProps={{svg: {className: CLASSNAMES.nonMobile.primaryIcon}}}
-                    />
-                }>
+                primaryIcon={<IconButton color="primary" icon="Add" />}>
                 {
                     NonMobileFabNavigationLabels.map(navigation => (
                         <IconButton
@@ -65,14 +61,9 @@ function NavigationFAB({onNavigate}: Props) {
             </SpeedDial>
             <SpeedDial
                 className={CLASSNAMES.mobile.root}
+                deviceType={deviceType}
                 direction="Up"
-                primaryIcon={
-                    <IconButton
-                        icon="Add"
-                        color="primary"
-                        iconProps={{svg: {className: CLASSNAMES.mobile.primaryIcon}}}
-                    />
-                }>
+                primaryIcon={<IconButton color="primary" icon="Add" />}>
                 {
                     MobileFabNavigationLabels.map(navigation => (
                         <IconButton

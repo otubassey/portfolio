@@ -1,10 +1,14 @@
 "use client";
 
-import {ReactNode, Reducer, SetStateAction, useCallback, useLayoutEffect, useReducer} from "react";
+import {ReactNode, Reducer, SetStateAction, useCallback, useEffect, useLayoutEffect, useReducer} from "react";
+import debounce from "debounce";
+
+import { withDisplayName } from "@/ui/decorator";
+import { getDeviceType } from "@/ui/utils";
+
+import { InitialConfiguration, ThemeVariants } from "./configuration.constants";
 import { Configuration, OnConfigurationChange, ThemeConfiguration, ThemeVariant } from "./configuration.type";
 import { ConfigurationContext } from "./context";
-import { InitialConfiguration, ThemeVariants } from "./configuration.constants";
-import { withDisplayName } from "@/ui/decorator";
 
 const LocalStorageKeys = {
     THEME: "HELLO-WORLD-THEME-KEY"
@@ -31,7 +35,7 @@ function isConfigurationEqual(previous: Configuration, newValue: Configuration):
     if(!previous) {
         return !newValue;
     }
-    return isThemeConfigurationEqual(previous.theme, newValue.theme);
+    return isThemeConfigurationEqual(previous.theme, newValue.theme) && previous.deviceType === newValue.deviceType;
 }
 
 function updateTheme(previousVariantType: ThemeVariant, currentVariantType: ThemeVariant) {
@@ -95,6 +99,7 @@ function useConfiguration(initialValue: Configuration): [Configuration, OnConfig
         dispatcher({type: ConfigurationActions.LOCAL_STORAGE_SYNC, payload: initialConfigurationValue});
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialValue]);
+
     return [configuration, handleConfigurationChange];
 }
 
@@ -104,6 +109,17 @@ type Props = {
 
 function Provider({children}: Props) {
     const [configuration, setConfiguration] = useConfiguration(InitialConfiguration);
+    useEffect(() => {
+        const debouncedResizeHandler = debounce(() => {
+            setConfiguration({...configuration, deviceType: getDeviceType()});
+        }, 500);
+        const handleResize = () => {
+            debouncedResizeHandler();
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <ConfigurationContext.Provider value={[configuration, setConfiguration]}>{children}</ConfigurationContext.Provider>
     );

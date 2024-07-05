@@ -1,9 +1,9 @@
 "use client";
 
-import { ReactEventHandler, SyntheticEvent, memo, useCallback, useContext, useEffect, useState } from "react";
+import { ReactEventHandler, SetStateAction, SyntheticEvent, memo, useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import { ConfigurationContext, Configuration, ThemeConfiguration } from "@/ui/context/configuration";
+import { Configuration, ThemeConfiguration } from "@/ui/context/configuration";
 import { withDisplayName } from "@/ui/decorator";
 import { Dialog, DialogActions, DialogTitle } from "@/ui/widgets/dialog/";
 import { ICON_NAMES, IconButton } from "@/ui/widgets/icon/";
@@ -13,25 +13,28 @@ import { Title } from "@/ui/widgets/title/";
 import ThemeEditor from "./editors/themeEditor";
 
 type Props = {
+    configuration: Configuration;
+    onClose?: ReactEventHandler;
+    onConfigurationChange: SetStateAction<Configuration>
     open?: boolean;
-    onClose?: ReactEventHandler
 };
 
 Settings.protoTypes = {
-    open: PropTypes.bool,
-    onClose: PropTypes.func
+    configuration: PropTypes.object,
+    onClose: PropTypes.func,
+    onConfigurationChange: PropTypes.func.isRequired,
+    open: PropTypes.bool
 };
 
-function Settings({open = false, onClose}: Props) {
-    const [configuration, handleConfigurationChange] = useContext(ConfigurationContext);
+function Settings({configuration, onClose, onConfigurationChange, open = false}: Props) {
     const [modifiedConfiguration, setModifiedConfiguration] = useState<Configuration>(configuration);
     const handleApplySettings = useCallback((event: SyntheticEvent<HTMLButtonElement, Event>) => {
-        handleConfigurationChange((previousConfiguration: Configuration) => ({
+        onConfigurationChange((previousConfiguration: Configuration) => ({
             ...previousConfiguration,
             ...modifiedConfiguration
         }));
         onClose?.(event);
-    }, [handleConfigurationChange, modifiedConfiguration, onClose]);
+    }, [onConfigurationChange, modifiedConfiguration, onClose]);
     const handleCancelSettings = useCallback((event: SyntheticEvent<HTMLButtonElement, Event>) => {
         setModifiedConfiguration(configuration);
         onClose?.(event);

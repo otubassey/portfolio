@@ -1,13 +1,13 @@
 "use client";
 
-import { ForwardedRef, forwardRef, memo, useEffect } from "react";
+import { ForwardedRef, forwardRef, memo } from "react";
 import PropTypes from "prop-types";
 
 import { withDisplayName } from "@/ui/decorator";
 import List from "@/ui/widgets/list/list";
 
 import NavigationListItem from "./navigationListItem";
-import { HeaderNavBarNavigationLabels, NavigationLabel } from "./navigation.constants";
+import { HeaderNavBarNavigationLabels } from "./navigation.constants";
 import { NavigationState } from "./hooks/useNavigation";
 import { NavigationSelectEventHandler, NavigationLabelType } from "./navigation.types";
 
@@ -42,9 +42,6 @@ function NavigationList({
     onNavigate = null,
     navigationItem = null
 }: Props, ref: ForwardedRef<HTMLElement>) {
-    useEffect(() => {
-        onNavigate?.(NavigationLabel.HOME);
-    }, [onNavigate]);
     return (
         <nav ref={ref} className={className?.root}>
             <List className="pt-8">

@@ -1,4 +1,4 @@
-import {getDeviceType} from "@/ui/utils/device/";
+import {getDeviceType} from "@/ui/utils/";
 
 export const ThemeVariants = {
     DARK: "dark",

@@ -1,14 +1,14 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useContext, useEffect } from "react";
 
 import { Urbanist } from "next/font/google";
 import Head from "next/head";
 
 import { Settings } from "@/components/settings";
-import { ConfigurationContextProvider } from "@/ui/context/configuration";
+import { ConfigurationContext, ConfigurationContextProvider } from "@/ui/context/configuration";
 import { withDisplayName } from "@/ui/decorator";
-import { ClassesUtil } from "@/ui/utils";
+import { ClassesUtil, DeviceTypes, getDeviceType } from "@/ui/utils";
 import { Section } from "@/ui/widgets/section";
 
 import { Experiences } from "../components/experiences";
@@ -47,11 +47,22 @@ function mapSectionClassNames(active: boolean) {
 }
 
 function MainAppContainerComponent() {
-  const [setNavigationItemRef, [navigationItem, handleNavigation]] = useNavigation(null);
+  const [configuration, handleConfigurationChange] = useContext(ConfigurationContext);
+  const [setNavigationItemRef, [navigationItem, handleNavigation]] = useNavigation(configuration.deviceType);
 
   const handleCloseSettingsDialog = useCallback(() => {
     handleNavigation(NavigationLabel.SETTINGS);
   }, [handleNavigation]);
+
+  useEffect(() => {
+    if(configuration.deviceType === DeviceTypes.DESKTOP) {
+      const hasANavigatedToItem = Object.entries(navigationItem)
+        .some((entry) => entry[0] !== NavigationLabel.SETTINGS && entry[1].display);
+      if(!hasANavigatedToItem) {
+        handleNavigation?.(NavigationLabel.HOME);
+      }
+    }
+  }, [configuration]);
 
   return (
     <div ref={setNavigationItemRef(NavigationLabel.HOME)} className={ClassesUtil.concat("theme-dark", CLASSNAMES.root, urbanist.className)}>
@@ -99,11 +110,16 @@ function MainAppContainerComponent() {
           </Section>
         </main>
         <footer>
-          <NavigationFAB onNavigate={handleNavigation} />
+          <NavigationFAB deviceType={configuration.deviceType} onNavigate={handleNavigation} />
         </footer>
       </div>
 
-      <Settings open={navigationItem[NavigationLabel.SETTINGS].display} onClose={handleCloseSettingsDialog} />
+      <Settings
+        configuration={configuration}
+        onClose={handleCloseSettingsDialog}
+        onConfigurationChange={handleConfigurationChange}
+        open={navigationItem[NavigationLabel.SETTINGS].display}
+      />
     </div>
   );
 }

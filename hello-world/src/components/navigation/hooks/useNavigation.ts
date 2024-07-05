@@ -1,8 +1,6 @@
 import { MutableRefObject, useCallback, useEffect, useMemo, useReducer } from "react";
-import debounce from "debounce";
 
 import { useRefs } from "@/ui/hooks";
-import {DeviceTypes, getDeviceType} from "@/ui/utils/device/";
 
 import {NavigationLabel} from "../navigation.constants";
 import { NavigationLabelType } from "../navigation.types";
@@ -129,28 +127,22 @@ function reducer(currentState: NavigationState, {type, payload}: Action): Naviga
  *
  * @param initialNavigation - The value you want the navigation state to be initially. It can either be of type 
  *                            `null` or {@link NavigationLabelType}. This argument is ignored after the initial render.
- * @returns an array with exactly 2 values:
- * 1. The navigation handler
- * 2. 
+ * @returns {Array} a Tuple - an array with exactly 2 values:
+ * 1. Ref setter for each section to be navigated to
+ * 2. Navigation - this is an array with 2 elements: the state and the navigation handler
  */
-
-// (index: number | string) => (element: ReactNode) => void
-function useNavigation(initialNavigation: NavigationLabelType | null): [MutableRefObject<{[key in NavigationLabelType]: HTMLElement}>, Navigation] {
+function useNavigation(deviceType: string, initialNavigation?: NavigationLabelType): [MutableRefObject<{[key in NavigationLabelType]: HTMLElement}>, Navigation] {
     const [refs, setRefs] = useRefs({} as Record<NavigationLabelType, HTMLElement>);
     const [state, dispatcher] = useReducer(reducer, InitialNavigationState);
 
-    const [navigationLabel, navigationItem]: [string | NavigationLabelType, NavigationItem] = useMemo(() => (
+    const [_navigationLabel, navigationItem]: [string | NavigationLabelType, NavigationItem] = useMemo(() => (
         Object.entries<NavigationItem>(state)
             .find((entry) => entry[0] !== NavigationLabel.SETTINGS && entry[1].display) ?? [null, null]
     ), [state]);
 
     // responsible for scrolling elements into view in mobile devices
     const scrollIntoView = useCallback((element: HTMLElement) => {
-        const deviceType = getDeviceType();
-        const isMobile = deviceType === DeviceTypes.MOBILE;
-        if(isMobile && element) {
-            element.scrollIntoView({ behavior: "smooth" });
-        }
+        element?.scrollIntoView({ behavior: "smooth" });
     }, []);
 
     const navigate = useCallback((selectedNavigationType: NavigationLabelType | null) => {
@@ -163,20 +155,9 @@ function useNavigation(initialNavigation: NavigationLabelType | null): [MutableR
     }, [initialNavigation, refs]);
 
     useEffect(() => {
-        const debouncedResizeHandler = debounce(() => {
-            scrollIntoView(navigationItem?.ref?.current);
-        }, 500);
-        const handleResize = () => {
-            const deviceType = getDeviceType();
-            const isMobile = deviceType === DeviceTypes.MOBILE;
-            if(isMobile) {
-                debouncedResizeHandler();
-            }
-        };
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        scrollIntoView(navigationItem?.ref?.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [state]);
+    }, [deviceType]);
 
     return [setRefs, [state, navigate]];
 }

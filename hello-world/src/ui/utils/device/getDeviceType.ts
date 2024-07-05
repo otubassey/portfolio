@@ -1,22 +1,18 @@
 import {DeviceTypes} from "./device.constants";
 import {DeviceType} from "./device.type";
 
+import isServerSideRendering from "../application/isServerSideRendering";
+
 function getDeviceType(): DeviceType {
-    const userAgent = typeof navigator === "undefined" ? "SSR" : navigator.userAgent;
-    const isAndroid = Boolean(userAgent.match(/Android/i));
-    const isIos = Boolean(userAgent.match(/iPhone|iPad|iPod/i));
-    const isWindows = Boolean(userAgent.match(/IEMobile/i));
-    const isSSR = Boolean(userAgent.match(/SSR/i));
-    const isMobile = Boolean(isAndroid || isIos || isWindows);
-    const isDesktop = Boolean(!isMobile && !isSSR);
-    
-    if(isDesktop) {
-        return DeviceTypes.DESKTOP;
+    if(!navigator?.userAgent || isServerSideRendering()) {
+        return DeviceTypes.UNKNOWN;
     }
-    if(isMobile) {
-        return DeviceTypes.MOBILE;
-    }
-    return DeviceTypes.SSR;
+
+    const isAndroid = Boolean(navigator.userAgent.match(/Android/i));
+    const isMobileIos = Boolean(navigator.userAgent.match(/iPhone|iPad|iPod/i));
+    const isMobile = Boolean(isAndroid || isMobileIos); // Note: this neglects other mobile OS's
+
+    return isMobile ? DeviceTypes.MOBILE : DeviceTypes.DESKTOP;
 }
 
 export default getDeviceType;
