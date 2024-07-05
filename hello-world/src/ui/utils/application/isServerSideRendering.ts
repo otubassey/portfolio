@@ -1,13 +1,8 @@
-function isWindowDefined() {
-    try {
-        return Boolean(window?.document);
-    } catch (error) {
-        return false;
-    }
-}
+import {getWindowNavigator, isWindowDefined} from "../window";
 
 function isServerSideRendering() {
-    const userAgent = typeof navigator === "undefined" ? "SSR" : navigator.userAgent;
+    const navigator = getWindowNavigator();
+    const userAgent = navigator?.userAgent ?? "SSR";
     if(userAgent) {
         return Boolean(userAgent.match(/Node/i)) || Boolean(userAgent.match(/SSR/i));
     }

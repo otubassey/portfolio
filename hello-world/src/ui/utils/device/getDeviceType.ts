@@ -2,8 +2,10 @@ import {DeviceTypes} from "./device.constants";
 import {DeviceType} from "./device.type";
 
 import isServerSideRendering from "../application/isServerSideRendering";
+import {getWindowNavigator} from "../window";
 
 function getDeviceType(): DeviceType {
+    const navigator = getWindowNavigator();
     if(!navigator?.userAgent || isServerSideRendering()) {
         return DeviceTypes.UNKNOWN;
     }
