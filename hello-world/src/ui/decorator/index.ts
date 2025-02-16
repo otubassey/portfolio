@@ -1,1 +1,0 @@
-export {default as withDisplayName, getDisplayName, setDisplayName} from "./withDisplayName";

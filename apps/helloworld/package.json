@@ -1,0 +1,16 @@
+{
+  "name": "@portfolio-helloworld/monorepo",
+  "version": "1.0.0-SNAPSHOT",
+  "description": "A HelloWorld themed portfolio monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "services/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

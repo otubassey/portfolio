@@ -1,0 +1,8 @@
+const Category = {
+    ELEMENT: "ELEMENT",
+    HWIUI_COMPONENT: "HWIUI_COMPONENT",
+    PLAYGROUND_COMPONENT: "PLAYGROUND_COMPONENT",
+    PRIMITIVE: "PRIMITIVE"
+} as const;
+
+export default Category;
