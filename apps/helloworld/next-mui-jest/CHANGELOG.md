@@ -7,4 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0) a
 ## [0.1.0-SNAPSHOT] - unreleased
 
 ### Added
-1. Initial monorepo structure commit with some boiler-plate code
+* Added an MIT LICENSE file.
+* Initial monorepo structure commit with some boiler-plate code
+
+### Changed
+* Addressed some TODO items around markdown files:
+    * Updated FEATURESLOG.md file
+    * Updated README.md file
