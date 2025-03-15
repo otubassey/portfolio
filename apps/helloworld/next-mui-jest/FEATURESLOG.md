@@ -20,7 +20,7 @@ This document is organized by feature, making it easy to navigate and track prog
 
 - **Description**: Create a reusable ToggleButton component that handles the switching between two icons.
 - **Roadmap**: 
-- **State**: Planned  
+- **State**: In Progress  
     - **Tasks**:  
         - [] Create a new React component file for ToggleButton to be included in the `/packages/hwiui/widgets/` directory.
         - [] It should be a wrapper around Material-UI's ToggleButton component to provide the icon switching functionality

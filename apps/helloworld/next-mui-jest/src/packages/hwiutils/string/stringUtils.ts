@@ -14,19 +14,18 @@ class StringUtils {
      * console.log(StringUtils.capitalize("hello", true)); // prints "Hello" (using locale-sensitive case conversion)
      * console.log(StringUtils.capitalize("a", false)); // prints "A"
      * console.log(StringUtils.capitalize("a", true)); // prints "A" (using locale-sensitive case conversion)
+     * console.log(StringUtils.capitalize("")); // prints ""
      * console.log(StringUtils.capitalize(null, false)); // prints ""
      * console.log(StringUtils.capitalize(undefined, true)); // prints ""
      * console.log(StringUtils.capitalize("123", false)); // prints "123" (numbers are not converted)
      * ```
      */
     capitalize(text: string | null | undefined, localize?: boolean): string {
-        if(!text) {
-            return "";
-        }
-        if(text.length === 1) {
-            return this.toUpperCase(text, localize);
-        }
-        return `${this.toUpperCase(this.toLowerCase(text, localize).charAt(0), localize)}${text.slice(1)}`;
+        if(!text) return "";
+        const lowercasedText = this.toLowerCase(text, localize);
+        if(lowercasedText.length === 0) return "";
+        if(lowercasedText.length === 1) return this.toUpperCase(lowercasedText, localize);
+        return `${this.toUpperCase(lowercasedText.charAt(0), localize)}${lowercasedText.slice(1)}`;
     }
 
     /**
@@ -51,13 +50,9 @@ class StringUtils {
      * console.log(StringUtils.includesIgnoreCase("okay", undefined, true)); // prints false
      * ```
      */
-    includesIgnoreCase(text?: string | null, searchText?: string | null, localize?: boolean): boolean {
-        if(typeof text !== "string" || typeof searchText !== "string") {
-            return false;
-        }
-        if(text === "" && searchText === "") {
-            return true;
-        }
+    includesIgnoreCase(text: string | null | undefined, searchText: string | null | undefined, localize?: boolean): boolean {
+        if(typeof text !== "string" || typeof searchText !== "string") return false;
+        if(text === "" && searchText === "") return true;
         const lowercasedText = this.toLowerCase(text, localize);
         const lowercasedSearchText = this.toLowerCase(searchText, localize);
         return lowercasedText.includes(lowercasedSearchText);
@@ -74,16 +69,16 @@ class StringUtils {
      * ```js
      * import {StringUtils} from "@/packages/hwiutils"; 
      *
+     * console.log(StringUtils.toLowerCase("Hello", false)); // prints "hello"
+     * console.log(StringUtils.toLowerCase("hELLô", true)); // prints "hellô" (using locale-sensitive case conversion)
      * console.log(StringUtils.toLowerCase("A", false)); // prints "a"
      * console.log(StringUtils.toLowerCase("A", true)); // prints "a" (using locale-sensitive case conversion)
      * console.log(StringUtils.toLowerCase(null, false)); // prints ""
      * console.log(StringUtils.toLowerCase(undefined, true)); // prints ""
      * ```
      */
-    toLowerCase(text?: string | null, localize?: boolean): string {
-        if(!text) {
-            return "";
-        }
+    toLowerCase(text: string | null | undefined, localize?: boolean): string {
+        if(!text) return "";
         return localize ? text.toLocaleLowerCase() : text.toLowerCase();
     }
 
@@ -98,16 +93,16 @@ class StringUtils {
      * ```js
      * import {StringUtils} from "@/packages/hwiutils"; 
      *
+     * console.log(StringUtils.toUpperCase("Hello", false)); // prints "HELLO"
+     * console.log(StringUtils.toUpperCase("hELLô", true)); // prints "HELLÔ" (using locale-sensitive case conversion)
      * console.log(StringUtils.toUpperCase("a", false)); // prints "A"
      * console.log(StringUtils.toUpperCase("a", true)); // prints "A" (using locale-sensitive case conversion)
      * console.log(StringUtils.toUpperCase(null, false)); // prints ""
      * console.log(StringUtils.toUpperCase(undefined, true)); // prints ""
      * ```
      */
-    toUpperCase(text?: string | null, localize?: boolean): string {
-        if(!text) {
-            return "";
-        }
+    toUpperCase(text: string | null | undefined, localize?: boolean): string {
+        if(!text) return "";
         return localize ? text.toLocaleUpperCase() : text.toUpperCase();
     }
 }

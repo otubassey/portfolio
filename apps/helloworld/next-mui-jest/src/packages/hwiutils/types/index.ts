@@ -1,1 +1,1 @@
-export type {default as ValuesOf} from "./valuesOf";
+export type {ValuesOf} from "./valuesOf/";

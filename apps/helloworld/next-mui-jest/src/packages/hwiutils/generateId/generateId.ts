@@ -12,8 +12,12 @@ import { v4 as uuidV4 } from "uuid";
  * import {generateId} from "@/packages/hwiutils"; 
  *
  * console.log(generateId()); // prints f47ac10b-4284-95cc-a598-0e02b2c3d479
+ * console.log(generateId("prefix")); // prints prefix-f47ac10b-4284-95cc-a598-0e02b2c3d479
  * ```
  */
-const generateId = (): string => uuidV4();
+const generateId = (prefix?: string): string => {
+    const identifier = uuidV4();
+    return prefix ? `${prefix}-${identifier}` : identifier;
+};
 
 export default generateId;
