@@ -17,11 +17,27 @@ class BooleanUtils {
      * @returns {boolean} `true` if the value is a boolean type or if the value is a string that's
      *                     either "true" or "false", if {@param checkBooleanString} is `true`,
      *                     `false` otherwise.
+     *
+     * @example
+     * ```js
+     * import {BooleanUtils} from "@/packages/hwiutils";
+     * 
+     * console.log(BooleanUtils.isBoolean(true)); // prints true
+     * console.log(BooleanUtils.isBoolean(false)); // prints true
+     * console.log(BooleanUtils.isBoolean("true", true)); // prints true
+     * console.log(BooleanUtils.isBoolean("false", true)); // prints true
+     * console.log(BooleanUtils.isBoolean(1)); // prints false
+     * console.log(BooleanUtils.isBoolean("hello")); // prints false
+     * console.log(BooleanUtils.isBoolean(null)); // prints false
+     * console.log(BooleanUtils.isBoolean(undefined)); // prints false
+     * console.log(BooleanUtils.isBoolean("true")); // prints false
+     * console.log(BooleanUtils.isBoolean("false")); // prints false
+     * console.log(BooleanUtils.isBoolean("true", false)); // prints false
+     * console.log(BooleanUtils.isBoolean("false", false)); // prints false
+     * ```
      */
     isBoolean(value: unknown, checkBooleanString?: boolean): boolean {
-        if(typeof value === "boolean") {
-            return true;
-        }
+        if(typeof value === "boolean") return true;
         return checkBooleanString && typeof value === "string"
             ? typeof this.parse(value) === "boolean"
             : false;
@@ -42,11 +58,9 @@ class BooleanUtils {
      * ```js
      * import {BooleanUtils} from "@/packages/hwiutils"; 
      *
-     * console.log(BooleanUtils.isFalsy()); // prints true
      * console.log(BooleanUtils.isFalsy("")); // prints true
      * console.log(BooleanUtils.isFalsy("", true)); // prints true
      * console.log(BooleanUtils.isFalsy("random-text")); // prints false
-     * console.log(BooleanUtils.isFalsy("random-text", true)); // prints true
      * console.log(BooleanUtils.isFalsy(0)); // prints true
      * console.log(BooleanUtils.isFalsy(0, true)); // prints true
      * console.log(BooleanUtils.isFalsy(1)); // prints false
@@ -62,7 +76,7 @@ class BooleanUtils {
      * console.log(BooleanUtils.isFalsy(false)); // prints true
      * console.log(BooleanUtils.isFalsy(false, true)); // prints true
      * console.log(BooleanUtils.isFalsy("false")); // prints false
-     * console.log(BooleanUtils.isFalsy("false", true)); // prints false
+     * console.log(BooleanUtils.isFalsy("false", true)); // prints true
      * console.log(BooleanUtils.isFalsy(undefined)); // prints true
      * console.log(BooleanUtils.isFalsy(undefined, true)); // prints true
      * ```
@@ -86,7 +100,6 @@ class BooleanUtils {
      * ```js
      * import {BooleanUtils} from "@/packages/hwiutils"; 
      *
-     * console.log(BooleanUtils.isTruthy()); // prints false
      * console.log(BooleanUtils.isTruthy("")); // prints false
      * console.log(BooleanUtils.isTruthy("", true)); // prints false
      * console.log(BooleanUtils.isTruthy("random-text")); // prints true
@@ -112,12 +125,8 @@ class BooleanUtils {
      * ```
      */
     isTruthy(value: unknown, checkBooleanString?: boolean): boolean {
-        if(typeof value === "boolean") {
-            return value;
-        }
-        if(typeof value === "string" && checkBooleanString) {
-            return Boolean(this.parse(value));
-        }
+        if(typeof value === "boolean") return value;
+        if(typeof value === "string" && checkBooleanString) return Boolean(this.parse(value));
         return Boolean(value);
     }
 
@@ -135,32 +144,21 @@ class BooleanUtils {
      * ```js
      * import {BooleanUtils} from "@/packages/hwiutils"; 
      *
-     * console.log(BooleanUtils.parse()); // prints undefined
      * console.log(BooleanUtils.parse("")); // prints undefined
      * console.log(BooleanUtils.parse("random-text")); // prints undefined
-     * console.log(BooleanUtils.parse(0)); // prints undefined
-     * console.log(BooleanUtils.parse(1)); // prints undefined
-     * console.log(BooleanUtils.parse(-1)); // prints undefined
+     * console.log(BooleanUtils.parse("1")); // prints undefined
      * console.log(BooleanUtils.parse(null)); // prints undefined
-     * console.log(BooleanUtils.parse(true)); // prints undefined
      * console.log(BooleanUtils.parse("true")); // prints true
-     * console.log(BooleanUtils.parse(false)); // prints undefined
-     * console.log(BooleanUtils.parse("false")); // prints false
-     * console.log(BooleanUtils.parse(undefined)); // prints false
      * console.log(BooleanUtils.parse("TrUe")); // prints true
+     * console.log(BooleanUtils.parse("false")); // prints false
      * console.log(BooleanUtils.parse("FALSE")); // prints false
+     * console.log(BooleanUtils.parse(undefined)); // prints undefined
      * ```
      */
     parse(value: string | null | undefined): boolean | undefined {
-        if(typeof value !== "string") {
-            return undefined;
-        }
-        if(value.toLocaleLowerCase() === BooleanUtils.FALSE_STRING) {
-            return false;
-        }
-        if(value.toLocaleLowerCase() === BooleanUtils.TRUE_STRING) {
-            return true;
-        }
+        if(typeof value !== "string") return undefined;
+        if(value.toLocaleLowerCase() === BooleanUtils.FALSE_STRING) return false;
+        if(value.toLocaleLowerCase() === BooleanUtils.TRUE_STRING) return true;
         return undefined;
     }
 

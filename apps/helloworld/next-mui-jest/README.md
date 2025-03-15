@@ -98,7 +98,8 @@ yarn test
 
 ### Writing Tests
 
-* Add test files in the same directories as components, utilities, etc... under test.
+* Add test files in the same directories as files (components, utilities, etc...) under test.
+* Test files should have the following pattern: `*.test.ts`, `*.test.tsx`, or `*.snapshot.test.tsx`.
 * Use Jest's matchers to verify rendering, props, and interactions.
 
 ## Deployment

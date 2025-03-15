@@ -18,13 +18,12 @@ class ObjectUtils {
      * console.log(ObjectUtils.hasProperty(mapSample, "has")); // prints true
      * console.log(ObjectUtils.hasProperty([1, 2, 3], "length")); // prints false - due to the `!Array.isArray` check in `isObject(...)` method
      * console.log(ObjectUtils.hasProperty(null, "property")); // prints false
+     * console.log(ObjectUtils.hasProperty("string", "length")); // prints false
      * ```
      */
     hasProperty(object: unknown, propertyName: string): boolean {
-        if(!propertyName || !this.isObject(object)) {
-            return false;
-        }
-        return propertyName in (object as object);
+        if(!propertyName || !this.isObject(object)) return false;
+        return Object.prototype.hasOwnProperty.call(object, propertyName);
     }
 
     /**
@@ -42,9 +41,9 @@ class ObjectUtils {
      * console.log(ObjectUtils.isEmpty({[Symbol("key")]: "value"})); // prints false
      * console.log(ObjectUtils.isEmpty({key: "value"})); // prints false
      */
-    isEmpty(object: object): boolean {
+    isEmpty(object: unknown): boolean {
         return this.isObject(object)
-            && Object.keys(object).length === 0
+            && Object.keys(object as object).length === 0
             && Object.getOwnPropertySymbols(object).length === 0;
     }
 
@@ -57,19 +56,20 @@ class ObjectUtils {
      * @example
      * ```js
      * import {ObjectUtils} from "@/packages/hwiutils";
-     * 
-     * console.log(ObjectUtils.isObject()); // prints false
+     *
      * console.log(ObjectUtils.isObject("")); // prints false
      * console.log(ObjectUtils.isObject("random")); // prints false
      * console.log(ObjectUtils.isObject(5)); // prints false
+     * console.log(ObjectUtils.isObject(true)); // prints false
      * console.log(ObjectUtils.isObject(undefined)); // prints false
      * console.log(ObjectUtils.isObject(null)); // prints false
      * console.log(ObjectUtils.isObject([])); // prints false
      * console.log(ObjectUtils.isObject(() => {})); // prints false
      * console.log(ObjectUtils.isObject({})); // prints true
+     * console.log(ObjectUtils.isObject({name: "John"})); // prints true
      * ```
      */
-    isObject(value?: unknown): boolean {
+    isObject(value: unknown): boolean {
         return Boolean(value) && typeof value === "object" && !Array.isArray(value);
     }
 }
