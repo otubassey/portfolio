@@ -1,0 +1,1 @@
+export {withProfile} from "./hoc";

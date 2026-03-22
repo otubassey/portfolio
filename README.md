@@ -12,6 +12,17 @@ Each nested monorepo represents a distinct theme or project within my portfolio.
 
 Below are the locations for the various packages and nested monorepos:
 
-- `/apps` - a directory will contain all the themed monorepos. Basically any user-facing appilication would live here.
-- `/services` - a directory where back-end services should live
-- `/packages` - a directory where packages designed to be consumed by other packages (published OR internal) live
+packages/
+├── design-system/           # UI + Theme (combined)
+│   ├── src/
+│   │   ├── components/      # Button, Card, Input, etc.
+│   │   ├── theme/           # ThemeProvider, useTheme, ThemeToggle
+│   │   ├── base.css
+│   │   └── index.ts
+│   └── package.json
+├── portfolio-domain/
+│   ├── profile/
+│   ├── professional/
+│   ├── showroom/
+│   └── contact/
+└── portfolio-layouts/

@@ -1,0 +1,49 @@
+{
+	"name": "pavilion",
+	"version": "0.1.0-SNAPSHOT",
+	"private": true,
+	"description": "The entry-point application for the portfolio ecosystem. Pavilion serves as a curated architectural shell designed to host and switch between various themed implementations and historical versions of the portfolio. It manages global state, cross-app navigation, and the high-level presentation of themed 'exhibits'.",
+	"type": "module",
+	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"license": "MIT",
+	"keywords": [
+		"portfolio",
+		"pavilion",
+		"micro-frontend",
+		"version-switcher",
+		"nextjs",
+		"react",
+		"monorepo"
+	],
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "eslint",
+    	"type-check": "tsc --noEmit"
+	},
+	"packageManager": "pnpm@10.24.0",
+	"dependencies": {
+		"next": "16.1.1",
+		"react": "19.2.3",
+		"react-dom": "19.2.3",
+		"helloworld-v1": "workspace:*",
+    	"helloworld-v2": "workspace:*",
+		"@otuekong-portfolio/core": "workspace:*",
+		"@otuekong-portfolio/design-system": "workspace:*",
+		"@otuekong-portfolio/layouts": "workspace:*"
+	},
+	"devDependencies": {
+		"@tailwindcss/postcss": "^4",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"eslint": "^9",
+		"eslint-config-next": "16.1.1",
+		"tailwindcss": "^4",
+		"typescript": "^5"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}
