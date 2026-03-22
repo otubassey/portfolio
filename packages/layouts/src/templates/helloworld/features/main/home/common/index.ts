@@ -1,0 +1,1 @@
+export { InteractiveHeroSection } from "./interactiveHero";

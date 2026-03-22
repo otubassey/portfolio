@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@import "@otuekong-portfolio/design-system/base";
+
+@source "../../../../packages/design-system/src/**/*.{js,jsx,ts,tsx}";
+@source "../../../../packages/layouts/src/**/*.{js,jsx,ts,tsx}";

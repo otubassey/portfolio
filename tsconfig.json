@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"baseUrl": ".",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"jsx": "preserve",
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"noEmit": true,
+		"paths": {
+			"@otuekong-portfolio/core": ["./packages/core/src"],
+			"@otuekong-portfolio/core/*": ["./packages/core/src/*"],
+			"@otuekong-portfolio/design-system": ["./packages/design-system/src"],
+			"@otuekong-portfolio/design-system/*": ["./packages/design-system/src/*"],
+			"@otuekong-portfolio/layouts": ["./packages/layouts/src"],
+			"@otuekong-portfolio/layouts/*": ["./packages/layouts/src/*"],
+
+			"lookbook": ["./apps/lookbook/"],
+			"lookbook/*": ["./apps/lookbook/*"],
+			"pavilion": ["./apps/pavilion/"],
+			"pavilion/*": ["./apps/pavilion/*"],
+
+			"helloworld-v1": ["./apps/helloworld/v1/"],
+			"helloworld-v1/*": ["./apps/helloworld/v1/*"],
+			"helloworld-v2": ["./apps/helloworld/v2/"],
+			"helloworld-v2/*": ["./apps/helloworld/v2/*"]
+		},
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ES2020"
+	}
+}

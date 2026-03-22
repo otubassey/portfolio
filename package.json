@@ -1,18 +1,42 @@
 {
-  "name": "@portfolio/monorepo",
-  "version": "1.0.0-SNAPSHOT",
-  "private": true,
-  "description": "A monorepo containing a combination of different technologies within a themed portfolio",
-  "workspaces": [
-    "packages/*",
-    "apps/*",
-    "services/*"
-  ],
-  "dependencies": {},
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+	"name": "otuekong-portfolio",
+	"version": "1.0.0-SNAPSHOT",
+	"private": true,
+	"description": "A monorepo portfolio system showcasing multiple named architectural implementations.",
+	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"license": "MIT",
+	"keywords": [
+		"portfolio",
+		"monorepo",
+		"react",
+		"nextjs",
+		"typescript",
+		"design-system"
+	],
+	"packageManager": "pnpm@10.32.1",
+	"workspaces": [
+		"apps/*",
+		"apps/**",
+		"packages/*"
+	],
+	"scripts": {
+		"build": "turbo run build",
+		"clean": "turbo run clean",
+		"create-ws": "node scripts/create-workspace.js",
+		"create:domain": "node scripts/create-workspace.js domain",
+		"create:app": "node scripts/create-workspace.js app",
+		"create:workspace": "node scripts/create-workspace.js",
+		"dev": "turbo run dev",
+		"install:all": "pnpm install -r",
+		"lint": "turbo run lint",
+		"type-check": "turbo run type-check"
+	},
+	"devDependencies": {
+		"turbo": "^2.7.2",
+		"typescript": "^5"
+	},
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=10.0.0"
+	}
 }

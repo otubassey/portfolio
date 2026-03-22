@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@variant dark (&:is(.dark *));
+
+@theme {
+	--z-index-ps-backdrop-clipped: 900;
+	--z-index-ps-appbar: 1000;
+	--z-index-ps-sidebar-clipped: 950;
+	--z-index-ps-backdrop: 2000;
+	--z-index-ps-sidebar-main: 3000;
+	--z-index-ps-tooltip: 5000;
+
+	--color-ps-main: var(--app-bg-main);
+	--color-ps-surface: var(--app-bg-surface);
+	--color-ps-surface-elevated: var(--app-bg-surface-elevated);
+	--color-ps-surface-sunken: var(--app-bg-surface-sunken);
+
+
+	/* Template A */
+	/* --color-ps-main: var(--app-bg-main);
+	--color-ps-surface: var(--app-bg-surface);
+	--color-ps-accent: var(--app-bg-accent);
+
+	--color-ps-primary: var(--app-text-primary);
+	--color-ps-secondary: var(--app-text-secondary);
+	--color-ps-inverse: var(--app-text-inverse);
+
+	--color-ps-border: var(--app-border-base); */
+}
+
+@layer base {
+	:root {
+		--app-bg-main: var(--color-white);             /* Page */
+		--app-bg-surface: var(--color-gray-50);        /* Sidebar/Header */
+		--app-bg-surface-elevated: var(--color-white); /* Cards (Pop out) */
+		--app-bg-surface-sunken: var(--color-gray-100);  /* Input fields */
+
+
+		/* Template A */
+		/* --bg-main: var(--color-white);
+		--bg-surface: var(--color-gray-800); /* Sidebar/Card in light if desired, or adjust
+
+		--app-bg-main: var(--color-white);
+		--app-bg-surface: var(--color-gray-50);
+		--app-bg-accent: var(--color-blue-50);
+
+		--app-text-primary: var(--color-gray-900);
+		--app-text-secondary: var(--color-gray-600);
+		--app-text-inverse: var(--color-white);
+
+		--app-border-base: var(--color-gray-200); */
+	}
+
+	.dark {
+		--app-bg-main: var(--color-gray-900);             /* Page */
+		--app-bg-surface: var(--color-gray-800);          /* Sidebar/Header */
+		--app-bg-surface-elevated: var(--color-gray-700); /* Cards (Pop out) */
+		--app-bg-surface-sunken: var(--color-gray-950);   /* Input fields (Recess) */
+
+		/* --bg-main: var(--color-gray-900);
+		--bg-surface: var(--color-gray-800);
+
+		--app-bg-main: var(--color-gray-900);
+		--app-bg-surface: var(--color-gray-800);
+		--app-bg-accent: var(--color-blue-950);
+
+		--app-text-primary: var(--color-gray-50);
+		--app-text-secondary: var(--color-gray-400);
+		--app-text-inverse: var(--color-gray-900);
+
+		--app-border-base: var(--color-gray-700); */
+	}
+
+	[data-theme="dark"] {
+		--app-bg-main: var(--color-gray-900);             /* Page */
+		--app-bg-surface: var(--color-gray-800);          /* Sidebar/Header */
+		--app-bg-surface-elevated: var(--color-gray-700); /* Cards (Pop out) */
+		--app-bg-surface-sunken: var(--color-gray-950);   /* Input fields (Recess) */
+	}
+
+	ul.allow-markers, ol.allow-markers {
+		list-style: revert;
+		padding-left: 1.25rem;
+	}
+
+	ul.list-stretch, ol.list-stretch {
+		list-style: none;
+		padding-left: 1.25rem;
+	}
+}
+
+@layer utilities {
+	/*
+	  Users with vestibular disorders can experience dizziness from
+	  constant or pulsing movement. This wraps animation classes to
+	  respect system settings for reduced motion.
+	*/
+    @media (prefers-reduced-motion: reduce) {
+        .animate-pulse {
+            animation: none !important;
+        }
+        .transition-all, .transition-transform, .transition-colors {
+            transition: none !important;
+        }
+    }
+}
+
+@utility z-ps-appbar {
+	z-index: var(--z-index-ps-appbar);
+}
+
+@utility z-ps-backdrop {
+	z-index: var(--z-index-ps-backdrop);
+}
+
+@utility z-ps-backdrop-clipped {
+	z-index: var(--z-index-ps-backdrop-clipped);
+}
+
+@utility z-ps-sidebar-clipped {
+	z-index: var(--z-index-ps-sidebar-clipped);
+}
+
+@utility z-ps-sidebar-main {
+	z-index: var(--z-index-ps-sidebar-main);
+}
+
+@utility z-ps-tooltip {
+	z-index: var(--z-index-ps-tooltip);
+}

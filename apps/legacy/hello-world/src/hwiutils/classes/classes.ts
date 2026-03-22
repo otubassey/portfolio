@@ -47,7 +47,7 @@ function merge(...classNames: ClassNameValue[]): string {
     return twMerge(classNames.map(className => {
         const isObject = Boolean(className) && typeof className === "object" && !Array.isArray(className);
         if(isObject) {
-            return Object.entries(className)
+            return Object.entries(className! as object)
                 .filter(([className, booleanExpression]) => Boolean(className && booleanExpression))
                 .map(([className, _]) => className)
                 .join(" ")

@@ -1,0 +1,25 @@
+{
+	"extends": "../../../tsconfig.json",
+	"compilerOptions": {
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": ["./*"],
+			"@otuekong-portfolio/core": ["../../../packages/core/src"],
+			"@otuekong-portfolio/design-system": ["../../../packages/design-system/src"],
+			"@otuekong-portfolio/layouts": ["../../../packages/layouts/src"]
+		}
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		".next/dev/types/**/*.ts",
+		"**/*.mts"
+	],
+	"exclude": ["node_modules"]
+}

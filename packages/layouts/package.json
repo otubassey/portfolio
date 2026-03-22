@@ -1,0 +1,46 @@
+{
+	"name": "@otuekong-portfolio/layouts",
+	"version": "0.1.0-SNAPSHOT",
+	"description": "The structural framework for assembling page experiences. This package consumes the design system and core logic to provide high-level structural components, such as application shells, navigation rails, and responsive grids. It acts as the bridge between raw domain data and the final user interface, defining how different versions of the portfolio are composed.",
+	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"type": "module",
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"license": "MIT",
+	"keywords": [
+		"react",
+		"components",
+		"composition",
+		"layouts",
+		"sections",
+		"templates",
+		"typescript",
+		"pages",
+		"portfolio",
+		"ui"
+	],
+	"packageManager": "pnpm@10.24.0",
+	"exports": {
+		".": "./src/index.ts",
+		"./templates": "./src/templates/index.ts"
+	},
+	"scripts": {
+		"lint": "eslint \"**/*.ts*\"",
+		"type-check": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@otuekong-portfolio/common": "workspace:*",
+		"@otuekong-portfolio/core": "workspace:*",
+		"@otuekong-portfolio/design-system": "workspace:*"
+	},
+	"peerDependencies": {
+		"react": "19.2.3",
+		"react-dom": "19.2.3"
+	},
+	"devDependencies": {
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"eslint": "^9",
+		"typescript": "^5"
+	}
+}
