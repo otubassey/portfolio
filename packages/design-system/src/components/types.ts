@@ -15,11 +15,9 @@ export interface ComponentParameter {
 	type: string;
 	defaultValue?: any;
 	options?:
-		| Array<number>
-		| Array<string>
+		| Array<any>
 		| Array<ComponentParameterOption>
-		| ReadonlyArray<number>
-		| ReadonlyArray<string>
+		| ReadonlyArray<any>
 		| ReadonlyArray<ComponentParameterOption>;
 	/** Determines execution order (lower numbers run first). Defaults: Static=0, Factory=1 */
 	priority?: number;

@@ -1,6 +1,6 @@
 import { Backdrop } from "@otuekong-portfolio/design-system";
 
-import { MainPage } from "../../constants";
+import { LookbookPageSectionName, MainPage } from "../../constants";
 import { LookbookView, PortfolioView } from "../../features";
 import { useAppDetails } from "../../providers";
 
@@ -21,8 +21,8 @@ function HelloworldV2Content() {
 
 			{selectedPage === MainPage.LOOKBOOK && (
 			<LookbookView
-				onPageSectionSelect={onPageSectionSelect}
-				selectedPageSection={selectedPageSection}
+				onComponentChange={onPageSectionSelect}
+				selectedPageSection={(selectedPageSection as LookbookPageSectionName) || null}
 			/>
 			)}
 

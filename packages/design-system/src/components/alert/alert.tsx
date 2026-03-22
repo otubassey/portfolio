@@ -125,7 +125,7 @@ const Alert = ({
 			<Collapse
 				className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
 				id={detailId}
-				in>
+				expand>
 
 				<div className="flex flex-col gap-4 p-4">
 

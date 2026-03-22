@@ -1,6 +1,6 @@
 import { Technology, TechnologyName } from "./technologies";
 
-export const PROFICIENCY: Record<TechnologyName, number> = {
+export const PROFICIENCY: Partial<Record<TechnologyName, number>> = {
 	[Technology.ANGULAR]: 60,
 	[Technology.BITBUCKET]: 95,
 	[Technology.CSS]: 80,
@@ -78,7 +78,7 @@ const createGroup = (
 	emojiLabel,
 	technologies: technologyNames.map(name => ({
 		name,
-		level: PROFICIENCY[name]
+		level: PROFICIENCY[name] ?? 0
 	}))
 });
 

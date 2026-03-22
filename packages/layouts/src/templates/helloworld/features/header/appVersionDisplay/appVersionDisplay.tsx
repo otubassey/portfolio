@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 
 import { Chip } from "@otuekong-portfolio/design-system";
@@ -7,7 +9,7 @@ import { AppDetail, AppDetailsByFamily } from "../../../constants";
 import { OnAppDetailSelectHandler } from "../../types";
 
 import AppVersionChip from "./appVersionChip";
-import AppVersionSelectorV1 from "./appVersionSelector";
+import AppVersionSelector from "./appVersionSelector";
 
 export interface AppVersionDisplayProps {
 	appDetailsByFamily: AppDetailsByFamily;
@@ -40,7 +42,7 @@ function AppVersionDisplay({
 			const matchingFamily = Object.keys(appDetailsByFamily)[0];
 			return (
 				<AppVersionChip
-					appDetail={appDetailsByFamily[matchingFamily][0]}
+					appDetail={(appDetailsByFamily[matchingFamily][0]) as AppDetail}
 					onAppDetailSelect={onAppDetailSelect}
 				/>
 			);
@@ -54,7 +56,7 @@ function AppVersionDisplay({
 	}
 
 	return (
-		<AppVersionSelectorV1
+		<AppVersionSelector
 			appDetail={appDetail}
 			appDetailsByFamily={appDetailsByFamily}
 			onAppDetailSelect={onAppDetailSelect}

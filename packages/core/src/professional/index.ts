@@ -8,4 +8,6 @@ export {
 	TerminalConsoleFrame
 } from "./components";
 
-export { Technology, TechnologyName } from "./data";
+export { Technology } from "./data";
+
+export type { TechnologyName } from "./data";

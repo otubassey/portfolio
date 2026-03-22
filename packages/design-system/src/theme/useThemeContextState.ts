@@ -19,7 +19,7 @@ const useThemeContextState = (): ThemeContextType => {
 		}
 	}, [isHydrated]);
 
-	const toggleTheme = useCallback((name?: ThemeType) => {
+	const toggleTheme = useCallback(() => {
 		setThemeName(previousThemeName => {
 			const nextThemeNameToSet = previousThemeName === ThemeName.DARK
 				? ThemeName.LIGHT

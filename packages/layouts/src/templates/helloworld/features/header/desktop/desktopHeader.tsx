@@ -1,3 +1,5 @@
+"use client";
+
 import { JSX, MouseEvent } from "react";
 
 import { Button, CssUtils, IconName, Text, ToggleIconButton, useTheme } from "@otuekong-portfolio/design-system";

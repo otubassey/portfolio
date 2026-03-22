@@ -4,7 +4,7 @@ import { createContext } from "react";
 
 import { INITIAL_THEME_CONTEXT, ThemeType } from "./themeUtils";
 
-export type OnToggleTheme = (theme?: ThemeType) => void;
+export type OnToggleTheme = () => void;
 
 export interface ThemeContextType {
 	isDarkMode: boolean;

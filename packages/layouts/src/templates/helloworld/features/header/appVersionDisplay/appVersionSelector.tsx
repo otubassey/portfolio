@@ -64,7 +64,7 @@ function AppVersionSelector({
 					<MenuItem
 						key={appDetail.version}
 						onClick={() => {
-							onAppDetailSelect(appDetail);
+							onAppDetailSelect(appDetail as AppDetail);
 							toggleShowPortfolioProjectDropdown(false);
 						}}
 						selected={appDetail.version === selectedAppDetail?.version}>

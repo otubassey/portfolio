@@ -19,7 +19,7 @@ type ToggleIconButtonOwnProps<T extends ElementType = "button"> =
 	& {
 		checkedIcon: IconName | ReactNode;
 		icon: IconName | ReactNode;
-		onToggle: (checked: boolean) => void;
+		onToggle: () => void;
 		checked?: boolean;
 		onClick?: MouseEventHandler<any>;
 		ref?: Ref<any>;
@@ -40,7 +40,7 @@ const ToggleIconButton = <T extends ElementType = "button">({
 }: ToggleIconButtonProps<T>) => {
 	const handleClick = useCallback((event: MouseEvent<any>) => {
 		onClick?.(event);
-		onToggle(!checked);
+		onToggle();
 	}, [checked, onClick, onToggle]);
 
 	const activeIcon = checked ? (checkedIcon || icon) : icon;

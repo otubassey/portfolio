@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, HTMLAttributes, ReactNode, RefObject, useEffect, useRef } from "react";
+import { AriaRole, CSSProperties, HTMLAttributes, ReactNode, RefObject, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import { useFloatingElement } from "../../hooks";
@@ -8,15 +8,15 @@ import { CssUtils } from "../../utils";
 
 import MenuProvider from "./menuProvider";
 
-export interface MenuProps extends HTMLAttributes<HTMLDivElement> {
+export interface MenuProps extends HTMLAttributes<HTMLUListElement> {
 	anchorRef: RefObject<HTMLElement | null>;
 	children: ReactNode;
-	highlightedIndex: number;
 	onChange: (value: any) => void;
 	onClose: () => void;
 	onHighlightedIndexChange: (index: number) => void;
 	open: boolean;
 	className?: string;
+	highlightedIndex?: number;
 	ref?: RefObject<HTMLUListElement>;
 	role?: "menu" | "listbox";
 	style?: CSSProperties;
@@ -25,13 +25,13 @@ export interface MenuProps extends HTMLAttributes<HTMLDivElement> {
 const Menu = ({
 	anchorRef,
 	children,
-	highlightedIndex = -1,
 	id,
 	onChange,
 	onClose,
 	onHighlightedIndexChange,
 	open = false,
 	className = "",
+	highlightedIndex = -1,
 	defaultValue,
 	ref: externalRef,
 	role = "menu",
@@ -39,7 +39,7 @@ const Menu = ({
 	...props
 }: MenuProps) => {
 	const internalRef = useRef<HTMLUListElement>(null);
-	const menuRef = (externalRef as RefObject<HTMLUListElement>) || internalRef;
+	const menuRef = (externalRef as RefObject<HTMLUListElement | null>) || internalRef;
 
 	const { style: listStyle } = useFloatingElement(anchorRef, {
 		isOpen: Boolean(open),
@@ -83,7 +83,7 @@ const Menu = ({
 					"animate-in fade-in zoom-in-95 duration-100",
 					className
 				)}
-				role={role}
+				role={(role === "listbox" ? "listbox" : "menu") as AriaRole}
 				style={{
 					...listStyle,
 					...styleProp,

@@ -76,7 +76,7 @@ function InteractiveHeroSection({
 							className: "min-w-[180px]"
 						}
 					}}
-					onChange={setCurrentVariant}
+					onChange={(variant) => setCurrentVariant(variant as InteractiveHeroVariantType)}
 					options={INTERACTIVE_HERO_VIEWS}
 					value={currentVariant}
 				/>

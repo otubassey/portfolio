@@ -65,7 +65,7 @@ export const HELLOWORLD_COMPONENT_KEYS = [
 	ComponentName.TEXT,
 	ComponentName.TEXT_AREA,
 	ComponentName.TEXT_FIELD,
-	ComponentName.TYPOGRAPHY,
+	ComponentName.TYPOGRAPHY
 ] as const;
 
 export const HELLOWORLD_COMPONENTS_BY_CATEGORY: ComponentsByCategoryType = Object.fromEntries(

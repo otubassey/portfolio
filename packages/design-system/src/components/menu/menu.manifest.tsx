@@ -50,9 +50,9 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button ref={setAnchor} onClick={() => setOpen(true)}>Open Menu</Button>
-    <Menu 
-      anchorRef={{ current: anchor }} 
-      open={open} 
+    <Menu
+      anchorRef={{ current: anchor }}
+      open={open}
       onClose={() => setOpen(false)}
     >
       <MenuItem value="edit">Edit</MenuItem>
@@ -80,20 +80,6 @@ return (
 			name: "children",
 			required: true,
 			type: "ReactNode"
-		},
-		{
-			control: "select",
-			defaultValue: -1,
-			description: "The index of the item currently receiving keyboard focus or hover highlighting.",
-			name: "highlightedIndex",
-			options: [
-				{ label: "0", value: 0 },
-				{ label: "1", value: 1 },
-				{ label: "2", value: 2 },
-				{ label: "3 (OutOfBounds)", value: 3 }
-			],
-			required: true,
-			type: "number"
 		},
 		{
 			control: "none",
@@ -130,6 +116,20 @@ return (
 			name: "className",
 			required: false,
 			type: "string"
+		},
+		{
+			control: "select",
+			defaultValue: -1,
+			description: "The index of the item currently receiving keyboard focus or hover highlighting.",
+			name: "highlightedIndex",
+			options: [
+				{ label: "0", value: 0 },
+				{ label: "1", value: 1 },
+				{ label: "2", value: 2 },
+				{ label: "3 (OutOfBounds)", value: 3 }
+			],
+			required: false,
+			type: "number"
 		},
 		{
 			control: "select",

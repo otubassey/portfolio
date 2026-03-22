@@ -10,10 +10,11 @@ import {
 } from "../../lookbook";
 
 import { PageLayoutShell } from "../components";
-import { LookbookPageSectionName } from "../constants";
+import { LookbookPageSectionName, MainPageSectionType } from "../constants";
 import { COMPONENT_REGISTRY } from "../registry";
 
 import SidebarNavigation from "./sidebarNavigation";
+import { OnPageSectionSelectHandler } from "./types";
 
 const SectionClassname = {
 	CONTAINER: "flex flex-col gap-8 p-8",
@@ -21,11 +22,12 @@ const SectionClassname = {
 } as const;
 
 interface LookbookViewProps {
+	onComponentChange: OnPageSectionSelectHandler;
 	selectedPageSection: LookbookPageSectionName | null;
 }
 
 function LookbookView({
-	onPageSectionSelect,
+	onComponentChange,
 	selectedPageSection
 }: LookbookViewProps) {
 	const {
@@ -56,7 +58,9 @@ function LookbookView({
 						<LookbookComponentDocumentationApi
 							className={SectionClassname.SECTION}
 							manifest={manifest}
-							parameters={manifest?.parameters}
+							onExtendedComponentClick={
+								(component) => onComponentChange(component as MainPageSectionType)
+							}
 						/>
 
 						<LookbookComponentCodeSnippet
@@ -76,7 +80,7 @@ function LookbookView({
 			sidebar={
 				<SidebarNavigation
 					selectedComponent={selectedPageSection}
-					onComponentChange={onPageSectionSelect}
+					onComponentChange={onComponentChange}
 				/>
 			}>
 
@@ -99,7 +103,9 @@ function LookbookView({
 					<LookbookComponentDocumentationApi
 						className={SectionClassname.SECTION}
 						manifest={manifest}
-						parameters={manifest?.parameters}
+						onExtendedComponentClick={
+							(component) => onComponentChange(component as MainPageSectionType)
+						}
 					/>
 
 					<LookbookComponentCodeSnippet

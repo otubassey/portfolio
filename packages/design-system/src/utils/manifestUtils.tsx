@@ -2,30 +2,33 @@
 
 import { ComponentParameter, Icon, IconName, IconProps, ICONS_NAME, TypographyColor } from "../components";
 
-const getErrorParameterOptions = (
-	options?: Omit<Options, "capitalize">
-): ComponentParameter["options"] => {
-	const { excludeNone = false } = options || {};
-	const list = excludeNone ? [] : [NONE_OPTION];
-	[
-		{ label: "Sample Error", value: "This field is required." },
-		{ label: "Long Error", value: "This is a longer error message to demonstrate text wrapping and layout adjustments when error messages span multiple lines." },
-		{ label: "Has Error", value: true },
-		{ label: "No Error", value: false }
-	].forEach(error => list.push(error));
-
-	return list;
-};
+interface Options {
+	capitalize?: boolean;
+	excludeNone?: boolean;
+}
 
 const NONE_OPTION = {
 	label: "None" as string,
 	value: "" as string
 } as const;
 
-interface Options {
-	capitalize?: boolean;
-	excludeNone?: boolean;
-}
+const getErrorParameterOptions = (
+	options?: Omit<Options, "capitalize">
+): ComponentParameter["options"] => {
+	const { excludeNone = false } = options || {};
+	const list: Array<{ label: string; value: string | boolean }> = excludeNone
+		? []
+		: [{ ...NONE_OPTION }];
+
+	[
+		{ label: "Sample Error", value: "This field is required." },
+		{ label: "Long Error", value: "This is a longer error message..." },
+		{ label: "Has Error", value: true },
+		{ label: "No Error", value: false }
+	].forEach(error => list.push(error));
+
+	return list;
+};
 
 interface IconConfig {
 	name: IconName;
@@ -43,7 +46,9 @@ const getIconParameterOptions = (
 	options?: Options
 ): ComponentParameter["options"] => {
 	const { capitalize = false, excludeNone = false } = options || {};
-	const list = excludeNone ? [] : [NONE_OPTION];
+	const list: Array<{ label: string; value: any }> = excludeNone
+		? []
+		: [NONE_OPTION];
 	icons.forEach(icon => {
 		const label = icon.label || icon.name;
 		list.push({
@@ -60,8 +65,9 @@ const getIconParameterOptions = (
 				: icon.name
 		});
 	});
+
 	return list;
-}
+};
 
 const getIconNames = (): string => {
 	return Object.values(ICONS_NAME)

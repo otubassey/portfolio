@@ -1,16 +1,18 @@
 "use client";
 
-import React, { JSX, useEffect } from "react";
+import { JSX, useEffect } from "react";
 
 import { Chip } from "@otuekong-portfolio/design-system";
 
-import { AppVersionDisplayDetail, OnAppVersionDisplayDetailSelectHandler } from "../../types";
+import { AppDetail } from "../../../constants";
+
+import { OnAppDetailSelectHandler } from "../../types";
 
 import DetailDisplay from "./detailDisplay";
 
 export interface AppVersionChipProps {
-	appDetail: AppVersionDisplayDetail;
-	onAppDetailSelect: OnAppVersionDisplayDetailSelectHandler
+	appDetail: AppDetail;
+	onAppDetailSelect: OnAppDetailSelectHandler
 	className?: string;
 }
 
@@ -31,9 +33,9 @@ function AppVersionChip({
 			className={className}
 			color="default"
 			label={
-				<DetailDisplay 
-					family={appDetail.family} 
-					version={appDetail.version} 
+				<DetailDisplay
+					family={appDetail.family}
+					version={appDetail.version}
 				/>
 			}
 			size="medium"

@@ -1,3 +1,5 @@
+"use client";
+
 import { JSX, MouseEvent } from "react";
 
 import { StringUtils } from "@otuekong-portfolio/common";
@@ -17,14 +19,15 @@ import {
 
 import { AppPageDetail, AppDetailsByFamily, MainPageSectionType, MainPageType, AppDetail } from "../../../constants";
 
-import { AppVersionDisplay } from "../appVersionDisplay";
-import AuthorInfo from "../authorInfo";
-import MenuButton from "../menuButton";
 import {
 	OnAppDetailSelectHandler,
 	OnPageSectionSelectHandler,
 	OnPageSelectHandler
 } from "../../types";
+
+import { AppVersionDisplay } from "../appVersionDisplay";
+import AuthorInfo from "../authorInfo";
+import MenuButton from "../menuButton";
 
 const extractPageSections = (
 	pageDetails: ReadonlyArray<AppPageDetail>,
@@ -68,13 +71,13 @@ function MobileHeader({
 }: MobileHeaderProps): JSX.Element {
 	const { isDarkMode, toggleTheme } = useTheme();
 
-	const handlePageSectionChange = (event: MouseEvent<HTMLDivElement>) => {
+	const handlePageSectionChange = (event: MouseEvent<HTMLButtonElement>) => {
 		const pageSectionName = event.currentTarget.getAttribute("data-page-section") || "";
 		onMobilePageSectionSelect(pageSectionName as MainPageSectionType);
 		toggleIsMenuOpen(false);
 	};
 
-	const handlePageChange = (event: MouseEvent<HTMLDivElement>) => {
+	const handlePageChange = (event: MouseEvent<HTMLButtonElement>) => {
 		const pageName = event.currentTarget.getAttribute("data-page") || "";
 		onPageSelect(pageName as MainPageType);
 		toggleIsMenuOpen(false);
@@ -166,24 +169,26 @@ function MobileHeader({
 							}}
 						/>
 					</ListSubHeader>
-					{activePageSections.map((pageSection) => (
-					<ListItem key={pageSection.name}>
-						<ListItemButton
-							color={StringUtils.equalsIgnoreCase(activePageSection, pageSection.name) ? "primary" : "inherit"}
-							data-page-section={pageSection.name}
-							fullWidth
-							onClick={handlePageSectionChange}
-							selected={StringUtils.equalsIgnoreCase(activePageSection, pageSection.name)}
-							startIcon={pageSection.icon}>
-							<ListItemText
-								primary={pageSection.name}
-								primaryTextProps={{
-									color: "default"
-								}}
-							/>
-						</ListItemButton>
-					</ListItem>
-					))}
+					<div className="max-h-64 overflow-y-auto">
+						{activePageSections.map((pageSection) => (
+						<ListItem key={pageSection.name}>
+							<ListItemButton
+								color={StringUtils.equalsIgnoreCase(activePageSection, pageSection.name) ? "primary" : "inherit"}
+								data-page-section={pageSection.name}
+								fullWidth
+								onClick={handlePageSectionChange}
+								selected={StringUtils.equalsIgnoreCase(activePageSection, pageSection.name)}
+								startIcon={pageSection.icon}>
+								<ListItemText
+									primary={pageSection.name}
+									primaryTextProps={{
+										color: "default"
+									}}
+								/>
+							</ListItemButton>
+						</ListItem>
+						))}
+					</div>
 				</List>
 
 				<div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700">

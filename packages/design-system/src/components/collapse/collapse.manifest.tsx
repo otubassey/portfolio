@@ -16,11 +16,11 @@ const CollapseManifest: ComponentManifest<CollapseProps> = {
 	category: ComponentCategory.FEEDBACK,
 	codeExamples: [
 		{
-			code: `<Collapse in={isOpen}>\n  <Typography>This content expands and collapses vertically.</Typography>\n</Collapse>`,
+			code: `<Collapse expand={isOpen}>\n  <Typography>This content expands and collapses vertically.</Typography>\n</Collapse>`,
 			title: "Basic Vertical Collapse"
 		},
 		{
-			code: `<Collapse in={isOpen} orientation="horizontal" collapsedSize={40}>\n  <div className="w-64 bg-blue-500 h-10" />\n</Collapse>`,
+			code: `<Collapse expand={isOpen} orientation="horizontal" collapsedSize={40}>\n  <div className="w-64 bg-blue-500 h-10" />\n</Collapse>`,
 			title: "Horizontal Partial Collapse"
 		}
 	],
