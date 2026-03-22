@@ -58,7 +58,7 @@ function SkillsSection({
 							className: "min-w-[180px]"
 						}
 					}}
-					onChange={setCurrentVariant}
+					onChange={(value) => setCurrentVariant(value as SkillsSectionVariant)}
 					options={SKILLS_VIEWS}
 					value={currentVariant}
 				/>

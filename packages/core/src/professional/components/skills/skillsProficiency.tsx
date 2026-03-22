@@ -50,8 +50,8 @@ const SkillsProficiency: FC<SkillsProficiencyProps> = ({
 						<div
 							aria-labelledby={`label-${technologyItem.name}`}
 							aria-valuenow={technologyItem.level}
-							aria-valuemin="0"
-							aria-valuemax="100"
+							aria-valuemin={0}
+							aria-valuemax={100}
 							className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden"
 							role="progressbar">
 							<div

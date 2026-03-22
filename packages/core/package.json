@@ -21,7 +21,7 @@
 		"typescript",
 		"ui"
 	],
-	"packageManager": "pnpm@10.24.0",
+	"packageManager": "pnpm@10.32.1",
 	"exports": {
 		".": "./src/index.ts",
 		"./contact": "./src/contact/index.ts",

@@ -40,7 +40,7 @@ import { FaNetworkWired } from "react-icons/fa6";
 import {
 	SiAngular,
 	SiBitbucket,
-	SiCss3,
+	SiCss,
 	SiCypress,
 	SiDart,
 	SiElectron,
@@ -178,7 +178,7 @@ export const ICONS_BY_NAME: Record<IconName, ElementType> = {
 	close: X,
 	code: Code,
 	copy: Copy,
-	css: SiCss3,
+	css: SiCss,
 	"curators-loupe": lazy(() => import("./svg/curatorsLoupeSvg")),
 	cypress: SiCypress,
 	dart: SiDart,
