@@ -1,6 +1,6 @@
 {
 	"name": "otuekong-portfolio",
-	"version": "1.0.0-SNAPSHOT",
+	"version": "1.0.0",
 	"private": true,
 	"description": "A monorepo portfolio system showcasing multiple named architectural implementations.",
 	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",

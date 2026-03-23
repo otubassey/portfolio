@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/design-system",
-	"version": "0.1.0-SNAPSHOT",
+	"version": "1.0.0",
 	"description": "A presentational-only library of atomic UI components and design tokens. Built on Tailwind CSS v4 and React 19, this package provides the consistent visual language used across all apps. It includes the standard theme configuration (dark/light), interactive UI primitives, and a meta-tooling playground for component documentation.",
 	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
 	"type": "module",

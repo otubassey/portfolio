@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/core",
-	"version": "0.1.0-SNAPSHOT",
+	"version": "1.0.0",
 	"description": "Core business logic package containing all portfolio domains (profile, professional, showroom, contact) and shared utilities. Provides types, components, hooks, and business logic for managing portfolio data.",
 	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
 	"type": "module",

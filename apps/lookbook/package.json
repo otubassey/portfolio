@@ -1,6 +1,6 @@
 {
 	"name": "lookbook",
-	"version": "0.1.0-SNAPSHOT",
+	"version": "1.0.0",
 	"private": true,
 	"description": "The interactive design system workbench and component documentation for the portfolio ecosystem.",
 	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",

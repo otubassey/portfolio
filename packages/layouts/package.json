@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/layouts",
-	"version": "0.1.0-SNAPSHOT",
+	"version": "1.0.0",
 	"description": "The structural framework for assembling page experiences. This package consumes the design system and core logic to provide high-level structural components, such as application shells, navigation rails, and responsive grids. It acts as the bridge between raw domain data and the final user interface, defining how different versions of the portfolio are composed.",
 	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
 	"type": "module",

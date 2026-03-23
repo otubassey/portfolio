@@ -1,6 +1,6 @@
 {
 	"name": "helloworld-v2",
-	"version": "0.1.0-SNAPSHOT",
+	"version": "1.0.0",
 	"private": true,
 	"description": "Helloworld v2 - A portfolio with modern web stack",
 	"type": "module",

@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/common",
-	"version": "0.1.0-SNAPSHOT",
+	"version": "1.0.0",
 	"description": "Common utilities and hooks",
 	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
 	"type": "module",
