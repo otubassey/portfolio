@@ -1,1 +1,0 @@
-export {default as withAdditionalProps} from "./withAdditionalProps";
