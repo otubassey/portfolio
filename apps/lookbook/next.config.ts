@@ -2,9 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
 	transpilePackages: [
-		"@otuekong-portfolio/common",
-		"@otuekong-portfolio/design-system",
-		"@otuekong-portfolio/layouts"
+		"@otuekong-portfolio/exhibit",
+		"@otuekong-portfolio/curio"
 	]
 };
 

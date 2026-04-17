@@ -3,9 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
 	output: "standalone",
 	transpilePackages: [
-		"@otuekong-portfolio/core",
-		"@otuekong-portfolio/design-system",
-		"@otuekong-portfolio/layouts",
+		"@otuekong-portfolio/curio",
+		"@otuekong-portfolio/exhibit",
+		"@otuekong-portfolio/features",
 		"helloworld-v1",
 		"helloworld-v2"
 	]

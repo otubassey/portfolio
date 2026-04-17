@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "../../packages/design-system/src/utils/lookbookRegistry.ts", "../../packages/layouts/src/templates/lookbook/components/sidebar.tsx"  ],
+  ],
   "exclude": ["node_modules"]
 }

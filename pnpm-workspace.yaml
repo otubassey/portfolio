@@ -1,4 +1,7 @@
 packages:
+  # Applications (Pavilion, Lookbook, and all Gallery themes)
   - "apps/*"
-  - "apps/*/*"
+  - "apps/galleries/**"
+
+  # Core Infrastructure & UI
   - "packages/*"

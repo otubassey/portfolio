@@ -1,6 +1,6 @@
 {
 	"name": "pavilion",
-	"version": "1.0.0",
+	"version": "1.1.0-SNAPSHOT",
 	"private": true,
 	"description": "The entry-point application for the portfolio ecosystem. Pavilion serves as a curated architectural shell designed to host and switch between various themed implementations and historical versions of the portfolio. It manages global state, cross-app navigation, and the high-level presentation of themed 'exhibits'.",
 	"type": "module",
@@ -16,22 +16,23 @@
 		"monorepo"
 	],
 	"scripts": {
+		"clean": "rm -rf .next node_modules .turbo",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint",
-    	"type-check": "tsc --noEmit"
+		"type-check": "tsc --noEmit"
 	},
 	"packageManager": "pnpm@10.32.1",
 	"dependencies": {
+		"@otuekong-portfolio/curio": "workspace:*",
+		"@otuekong-portfolio/exhibit": "workspace:*",
+		"@otuekong-portfolio/features": "workspace:*",
+		"helloworld-v1": "workspace:*",
+		"helloworld-v2": "workspace:*",
 		"next": "16.1.1",
 		"react": "19.2.3",
-		"react-dom": "19.2.3",
-		"helloworld-v1": "workspace:*",
-    	"helloworld-v2": "workspace:*",
-		"@otuekong-portfolio/core": "workspace:*",
-		"@otuekong-portfolio/design-system": "workspace:*",
-		"@otuekong-portfolio/layouts": "workspace:*"
+		"react-dom": "19.2.3"
 	},
 	"devDependencies": {
 		"@tailwindcss/postcss": "^4",
@@ -40,6 +41,7 @@
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "16.1.1",
+		"postcss": "^8.5.8",
 		"tailwindcss": "^4",
 		"typescript": "^5"
 	},
