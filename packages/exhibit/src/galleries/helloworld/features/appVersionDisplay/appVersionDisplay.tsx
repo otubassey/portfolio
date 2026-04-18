@@ -4,9 +4,9 @@ import { useEffect } from "react";
 
 import { Chip } from "@otuekong-portfolio/curio";
 
-import { AppDetail, AppDetailsByFamily } from "../../../constants";
+import { AppDetail, AppDetailsByFamily } from "../../constants";
 
-import { OnAppDetailSelectHandler } from "../../types";
+import { OnAppDetailSelectHandler } from "../types";
 
 import AppVersionChip from "./appVersionChip";
 import AppVersionSelector from "./appVersionSelector";

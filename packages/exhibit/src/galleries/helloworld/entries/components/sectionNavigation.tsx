@@ -4,7 +4,7 @@ import { CssUtils, List, ListItem, ListItemText } from "@otuekong-portfolio/curi
 
 import { PortfolioPageSectionName, PortfolioPageSection } from "../../constants";
 
-import { OnPageSectionSelectHandler } from "../types";
+import { OnPageSectionSelectHandler } from "../../features/types";
 
 const NAV_ITEMS = Object.values(PortfolioPageSection) as ReadonlyArray<PortfolioPageSectionName>;
 

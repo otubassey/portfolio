@@ -4,9 +4,9 @@ import { JSX, useEffect } from "react";
 
 import { Chip } from "@otuekong-portfolio/curio";
 
-import { AppDetail } from "../../../constants";
+import { AppDetail } from "../../constants";
 
-import { OnAppDetailSelectHandler } from "../../types";
+import { OnAppDetailSelectHandler } from "../types";
 
 import DetailDisplay from "./detailDisplay";
 

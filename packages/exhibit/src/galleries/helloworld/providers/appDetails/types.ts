@@ -1,5 +1,5 @@
-import { OnAppDetailSelectHandler, OnPageSectionSelectHandler, OnPageSelectHandler } from "../../features";
 import { AppDetail, AppDetailsByFamily, AppPageDetail, MainPageSectionType, MainPageType } from "../../constants";
+import { OnAppDetailSelectHandler, OnPageSectionSelectHandler, OnPageSelectHandler } from "../../features";
 import { AppRegistry } from "../../utils";
 
 export interface AppDetailsState {
