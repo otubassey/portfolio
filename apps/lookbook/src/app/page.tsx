@@ -1,8 +1,8 @@
-import { LookbookLayout } from "@otuekong-portfolio/layouts";
+import { LookbookMain } from "@otuekong-portfolio/exhibit";
 
 function Home() {
 	return (
-		<LookbookLayout />
+		<LookbookMain />
 	);
 }
 

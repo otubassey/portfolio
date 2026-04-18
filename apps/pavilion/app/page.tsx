@@ -2,14 +2,14 @@
 
 import {
 	HelloworldAppRenderer,
-	PavilionLayout
-} from "@otuekong-portfolio/layouts";
+	PavilionMain
+} from "@otuekong-portfolio/exhibit";
 
 function PortfolioSystem() {
 	return (
-		<PavilionLayout>
+		<PavilionMain>
 			<HelloworldAppRenderer />
-		</PavilionLayout>
+		</PavilionMain>
 	);
 }
 

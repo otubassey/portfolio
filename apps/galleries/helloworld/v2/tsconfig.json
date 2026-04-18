@@ -1,0 +1,25 @@
+{
+	"extends": "../../../../tsconfig.json",
+	"compilerOptions": {
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": ["./*"],
+			"@otuekong-portfolio/curio": ["../../../../../packages/curio/src"],
+			"@otuekong-portfolio/exhibit": ["../../../../../packages/exhibit/src"],
+			"@otuekong-portfolio/features": ["../../../../../packages/features/src"]
+		}
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		".next/dev/types/**/*.ts",
+		"**/*.mts"
+	],
+	"exclude": ["node_modules"]
+}
