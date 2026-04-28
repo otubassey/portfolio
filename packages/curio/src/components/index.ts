@@ -3,6 +3,7 @@ export * from "./backdrop";
 export * from "./button";
 export * from "./card";
 export * from "./chip";
+export * from "./collapse";
 export * from "./copyButton";
 export * from "./dropdown";
 export * from "./editorShell";

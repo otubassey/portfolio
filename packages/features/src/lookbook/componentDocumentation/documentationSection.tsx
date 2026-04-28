@@ -7,21 +7,21 @@ import { Alert, ComponentManifest, Section, Typography } from "@otuekong-portfol
 import ComponentHeading from "./componentHeading";
 
 interface DocumentationSectionProps {
-	children?: ReactNode;
-	className?: string;
 	isManifestLoading: boolean;
 	manifest: ComponentManifest | null;
 	manifestError: Error | null;
 	selectedComponent: string | null;
+	children?: ReactNode;
+	className?: string;
 }
 
 function DocumentationSection({
-	children,
-	className,
 	isManifestLoading,
 	manifest,
 	manifestError,
-	selectedComponent
+	selectedComponent,
+	children,
+	className
 }: DocumentationSectionProps) {
 	if(!selectedComponent) {
 		return (
@@ -31,6 +31,16 @@ function DocumentationSection({
 					message="Select a component to view its documentation."
 					severity="warning"
 				/>
+
+			</Section>
+		);
+	}
+
+	if(isManifestLoading) {
+		return (
+			<Section className={className}>
+
+				<Typography>Loading documentation...</Typography>
 
 			</Section>
 		);
@@ -50,22 +60,6 @@ function DocumentationSection({
 					message={manifestError.message}
 					severity="error"
 				/>
-
-			</Section>
-		);
-	}
-
-	if(isManifestLoading) {
-		return (
-			<Section
-				className={className}
-				heading={
-					<ComponentHeading
-						name={selectedComponent}
-					/>
-				}>
-
-				<Typography>Loading documentation...</Typography>
 
 			</Section>
 		);

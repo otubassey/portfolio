@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0-SNAPSHOT] - Unreleased
 ### Changed
 * Updating postcss version to ^8.5.8
+* Updating pnpm version to ^10.33.1
 * Replacing the following workspaces below with their replacements:
     * @otuekong-portfolio/common - wasn't being used
     * @otuekong-portfolio/design-system - replaced by @otuekong-portfolio/curio

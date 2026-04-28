@@ -26,22 +26,27 @@ const Tooltip = ({
 	useImperativeHandle(ref, () => internalRef.current!);
 
 	const { style, isFlipped } = useFloatingElement(internalRef, {
-		isOpen: Boolean(show),
+		isOpen: Boolean(show && content),
 		type: "tooltip"
 	});
-
-	if(!content) return <>{children}</>;
 
 	return (
 		<span
 			ref={internalRef}
-			className={CssUtils.mergeClasses("relative inline-block w-full", className)}>
+			className={CssUtils.mergeClasses(
+				"relative inline-block w-full",
+				className
+			)}>
 
 			{children}
 
-			{show && createPortal(
+			{content && show && createPortal(
 			<div
-				className="px-2 py-1 text-xs font-medium text-white bg-gray-900 rounded shadow-xl whitespace-nowrap z-ps-tooltip pointer-events-none"
+				className={CssUtils.mergeClasses(
+					"px-2 py-1",
+					"text-xs font-medium text-white bg-gray-900 whitespace-nowrap",
+					"rounded shadow-xl z-ps-tooltip pointer-events-none"
+				)}
 				style={style}>
 
 				{content}

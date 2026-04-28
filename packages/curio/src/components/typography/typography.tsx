@@ -1,6 +1,6 @@
 "use client";
 
-import { createElement, MouseEvent, MouseEventHandler, ReactNode, Ref } from "react";
+import { createElement, MouseEvent, MouseEventHandler, ReactNode, Ref, useCallback, useMemo } from "react";
 
 import { useIsTruncated, useToggle } from "../../hooks";
 import { CssUtils } from "../../utils";
@@ -117,7 +117,7 @@ const Typography = ({
 	id,
 	onMouseEnter,
 	onMouseLeave,
-	ref,
+	ref: forwardedRef,
 	truncate = false,
 	variant: variantProp = "body1",
 	weight,
@@ -126,53 +126,54 @@ const Typography = ({
 	const [isTruncated, targetRef] = useIsTruncated();
 	const [isHovered, toggleIsHovered] = useToggle(false);
 
-	const handleMouseEnter = (event: MouseEvent<HTMLDivElement>) => {
+	const handleMouseEnter = useCallback((event: MouseEvent<HTMLDivElement>) => {
 		toggleIsHovered(true);
 		onMouseEnter?.(event);
-	};
+	}, [onMouseEnter, toggleIsHovered]);
 
-	const handleMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
+	const handleMouseLeave = useCallback((event: MouseEvent<HTMLDivElement>) => {
 		toggleIsHovered(false);
 		onMouseLeave?.(event);
-	};
+	}, [onMouseLeave, toggleIsHovered]);
 
-	const setRefs = (node: HTMLElement | null) => {
+	const setRefs = useCallback((node: HTMLElement | null) => {
 		targetRef(node);
 
-		if(typeof ref === "function") {
-			ref(node);
-		} else if (ref) {
-			(ref as any).current = node;
+		if(typeof forwardedRef === "function") {
+			forwardedRef(node);
+		} else if(forwardedRef) {
+			(forwardedRef as any).current = node;
 		}
-	};
+	}, [forwardedRef, targetRef]);
 
 	const supportedVariant = VARIANT_MAPPING[variantProp] ? variantProp : "body1";
 
-    const classes = CssUtils.mergeClasses(
+    const classes = useMemo(() => (CssUtils.mergeClasses(
 		VARIANT_STYLES[supportedVariant],
 		COLOR_STYLES[color],
 		ALIGN_STYLES[align],
-		truncate && "truncate block w-full",
+		truncate && "truncate block",
 		weight && WEIGHT_STYLES[weight],
 		className
-    );
+    )), [align, className, color, supportedVariant, truncate, weight]);
 
-	const element = createElement(
+	const elementProps = useMemo(() => ({
+		ref: setRefs,
+		className: classes,
+		id,
+		onMouseEnter: handleMouseEnter,
+		onMouseLeave: handleMouseLeave,
+		title: (truncate && isTruncated && typeof children === "string")
+			? (children as string)
+			: undefined,
+		...props
+	}), [children, classes, id, handleMouseEnter, handleMouseLeave, id, isTruncated, props, setRefs, truncate]);
+
+	const element = useMemo(() => createElement(
 		component || VARIANT_MAPPING[supportedVariant],
-		{
-			ref: setRefs,
-			className: classes,
-			id,
-			onMouseEnter: handleMouseEnter,
-			onMouseLeave: handleMouseLeave,
-			// If truncated, we add a native title as a fallback if no Tooltip is used
-			title: (truncate && isTruncated && typeof children === "string")
-				? (children as string)
-				: undefined,
-			...props
-		},
+		elementProps,
 		children
-	);
+	), [children, component, elementProps, supportedVariant]);
 
 	if(truncate) {
 		return (

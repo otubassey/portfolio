@@ -8,16 +8,19 @@
 	"types": "./src/index.ts",
 	"license": "MIT",
 	"keywords": [
+		"atoms",
 		"components",
 		"design-system",
+		"foundation",
 		"hooks",
 		"react",
 		"tailwind",
+		"tokens",
 		"typescript",
 		"ui",
 		"utilities"
 	],
-	"packageManager": "pnpm@10.32.1",
+	"packageManager": "pnpm@10.33.1",
 	"exports": {
 		".": "./src/index.ts",
 		"./base": "./src/base.css",

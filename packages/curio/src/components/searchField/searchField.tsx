@@ -28,7 +28,7 @@ const SearchField = ({
         <TextField
 			ref={ref}
 			aria-invalid="false"
-            className={CssUtils.mergeClasses("hidden md:flex flex-1 max-w-md", className)}
+            className={CssUtils.mergeClasses("flex flex-1", className)}
             fullWidth={fullWidth}
             id={componentId}
             onChange={(e) => onChange?.(e.target.value)}
