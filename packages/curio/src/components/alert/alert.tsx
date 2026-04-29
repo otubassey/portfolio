@@ -45,8 +45,11 @@ type Variant = "filled" | "outlined" | "standard";
 
 export interface AlertProps {
 	message: string;
+	className?: string;
 	copyText?: string;
 	detail?: ReactNode;
+	detailProps?: Omit<TypographyProps, "children">;
+	messageProps?: Omit<TypographyProps, "children">;
 	ref?: Ref<HTMLDivElement>;
 	severity?: Severity;
   	variant?: Variant;
@@ -56,6 +59,8 @@ const Alert = ({
 	message,
 	copyText,
 	detail,
+	detailProps,
+	messageProps,
 	ref,
 	severity: severityProp,
 	variant: variantProp
@@ -73,6 +78,9 @@ const Alert = ({
 
 	// Only apply Typography color if NOT in "filled" variant to avoid low contrast
 	const textOverride = isFilled ? "inherit" : (severity as TypographyProps["color"]);
+
+	const { color: detailColor, truncate: detailTruncate, variant: detailVariant, ...detailTypographyProps} = detailProps ?? {};
+	const { color: messageColor, truncate: messageTruncate, variant: messageVariant, ...messageTypographyProps} = messageProps ?? {};
 
 	return (
 		<div
@@ -99,7 +107,8 @@ const Alert = ({
 					<Typography
 						color={textOverride}
 						truncate
-						variant="h6">
+						variant="h6"
+						{...messageTypographyProps}>
 						{message}
 					</Typography>
 				</div>
@@ -142,11 +151,16 @@ const Alert = ({
 
 					<div
 						className={CssUtils.mergeClasses(
-							"font-mono text-[11px] md:text-xs text-gray-700 dark:text-gray-300",
-							"whitespace-pre-wrap scrollbar-thin overflow-y-auto",
+							"scrollbar-thin overflow-y-auto",
 							"h-48"
 						)}>
-						{detail}
+						<Typography
+							className="whitespace-pre-wrap font-mono text-[11px] md:text-xs text-gray-700 dark:text-gray-300"
+							color={textOverride}
+							variant="body1"
+							{...detailTypographyProps}>
+							{detail}
+						</Typography>
 					</div>
 
 				</div>

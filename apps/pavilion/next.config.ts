@@ -5,9 +5,8 @@ const nextConfig: NextConfig = {
 	transpilePackages: [
 		"@otuekong-portfolio/curio",
 		"@otuekong-portfolio/exhibit",
-		"@otuekong-portfolio/features",
-		"helloworld-v1",
-		"helloworld-v2"
+		"helloworld-classic",
+		"helloworld-composite"
 	]
 };
 

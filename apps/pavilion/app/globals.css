@@ -1,7 +1,8 @@
 @import "@otuekong-portfolio/curio/base";
 
-@source "../../../packages/exhibit/src/**/*.{js,jsx,ts,tsx}";
+@source "../../../packages/archives/src/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/curio/src/**/*.{js,jsx,ts,tsx}";
+@source "../../../packages/exhibit/src/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/features/src/**/*.{js,jsx,ts,tsx}";
 
 :root {

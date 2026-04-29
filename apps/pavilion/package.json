@@ -23,13 +23,10 @@
 		"lint": "eslint",
 		"type-check": "tsc --noEmit"
 	},
-	"packageManager": "pnpm@10.32.1",
+	"packageManager": "pnpm@10.33.1",
 	"dependencies": {
 		"@otuekong-portfolio/curio": "workspace:*",
 		"@otuekong-portfolio/exhibit": "workspace:*",
-		"@otuekong-portfolio/features": "workspace:*",
-		"helloworld-v1": "workspace:*",
-		"helloworld-v2": "workspace:*",
 		"next": "16.1.1",
 		"react": "19.2.3",
 		"react-dom": "19.2.3"

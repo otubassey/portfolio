@@ -5,8 +5,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { ReactNode } from "react";
 
-import {PavilionProvider} from "@otuekong-portfolio/exhibit";
-
 const geistSans = Geist({
 	subsets: ["latin"],
   	variable: "--font-geist-sans"
@@ -32,7 +30,7 @@ function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<PavilionProvider>{children}</PavilionProvider>
+				{children}
 			</body>
 		</html>
 	);

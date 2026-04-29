@@ -1,31 +1,27 @@
 "use client";
 
 import {
+	COMPONENTS_BY_CATEGORY,
 	CssUtils,
-	ErrorBoundary,
-	List,
-	ListItem,
-	ListItemButton,
-	Typography
+	ErrorBoundary
 } from "@otuekong-portfolio/curio";
+import { Breadcrumb, NavigationList, OnNavigateHandler } from "@otuekong-portfolio/features";
 
 interface SidebarProps {
-	activeComponent: string | null;
-	componentsByCategory: Record<string, Array<string>>;
+	breadcrumbs: ReadonlyArray<Breadcrumb>;
 	disabled: boolean;
 	isMobileMenuOpen: boolean;
-	onComponentChange: (component: string) => void;
+	onComponentClick: OnNavigateHandler;
 	onIsMobileMenuToggle: (open: boolean) => void;
 	className?: string;
 	overlay?: boolean;
 }
 
 function Sidebar({
-	activeComponent,
-	componentsByCategory,
+	breadcrumbs,
 	disabled = false,
 	isMobileMenuOpen,
-	onComponentChange,
+	onComponentClick,
 	onIsMobileMenuToggle,
 	className = "",
 	overlay = false
@@ -43,34 +39,15 @@ function Sidebar({
 				<nav className="p-4">
 					{/* Component List */}
 					<div className="space-y-6">
-						{Object.entries(componentsByCategory).map(([category, components]) => (
-						<div key={category}>
-							<Typography
-								className="font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2"
-								variant="caption">
-								{category}
-							</Typography>
-							<List>
-								{components.map((component) => (
-									<ListItem key={component} disabled={disabled}>
-										<ListItemButton
-											className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
-												activeComponent === component
-													? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium"
-													: "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-											}`}
-											disabled={disabled}
-											onClick={() => {
-												onComponentChange(component);
-												onIsMobileMenuToggle(false);
-											}}>
-											{component}
-										</ListItemButton>
-									</ListItem>
-								))}
-							</List>
-						</div>
-						))}
+						<NavigationList
+							breadcrumbs={breadcrumbs}
+							disabled={disabled}
+							registry={COMPONENTS_BY_CATEGORY}
+							onNavigate={(selectedComponent) => {
+								onComponentClick(selectedComponent);
+								onIsMobileMenuToggle(false);
+							}}
+						/>
 					</div>
 				</nav>
 			</aside>

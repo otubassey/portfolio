@@ -1,10 +1,6 @@
 export {
-	HELLOWORLD_V1_APP_DETAILS,
-	HELLOWORLD_V2_APP_DETAILS
-} from "./data";
-
-export { HelloworldAppRenderer, HelloworldMainV1, HelloworldMainV2 } from "./entries";
-
-export {
-	Provider as HelloworldProvider
-} from "./providers";
+	ClassicApp as HelloworldClassicApp,
+	ClassicHeadlessMain as HelloworldClassicHeadlessMain,
+	CompositeApp as HelloworldCompositeApp,
+	CompositeHeadlessMain as HelloworldCompositeHeadlessMain
+} from "./entries";

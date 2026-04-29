@@ -1,1 +1,0 @@
-export { InteractiveHeroSection } from "./interactiveHero";

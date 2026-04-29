@@ -3,22 +3,22 @@
 import { ReactNode } from "react";
 
 import { Heading, Text } from "@otuekong-portfolio/curio";
+import { GalleryHeader, GalleryHeaderProps, Footer } from "@otuekong-portfolio/features";
 
 import { PageContainer } from "../../../../common";
 
-import { Footer } from "../../features/footer";
-import { Header } from "../../features/header";
-
 interface HelloworldLayoutProps {
 	children: ReactNode;
+	headerProps?: GalleryHeaderProps;
 }
 
 function HelloworldLayout({
-	children
+	children,
+	headerProps
 }: HelloworldLayoutProps) {
 	return (
 		<PageContainer>
-			<Header />
+			<GalleryHeader {...headerProps} />
 
 			{children}
 
@@ -26,7 +26,7 @@ function HelloworldLayout({
 			<main>
 				<Heading>Hello World!!</Heading>
 				<Text>
-					Welcome to the Hello World application!
+					Welcome to the Helloworld themed portfolio application!
 				</Text>
 			</main>
 			)}

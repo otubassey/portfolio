@@ -1,1 +1,1 @@
-export { LookbookMain } from "./components";
+export { default as LookbookApp } from "./lookbookApp";

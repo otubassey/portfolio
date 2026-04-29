@@ -5,8 +5,6 @@ import { ComponentManifest } from "../types";
 
 import Link, { LinkProps } from "./link";
 
-// TODO: the following are outstanding:
-// - just like with 'syncWith', introduce associated props: for example, for external href, component doesn't apply and as such the field could be disabled or removed from view to only be present when needed
 const LinkManifest: ComponentManifest<LinkProps> = {
 	category: ComponentCategory.NAVIGATION,
 	codeExamples: [

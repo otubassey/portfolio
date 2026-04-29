@@ -1,2 +1,1 @@
-export { PavilionMain } from "./components";
-export { PavilionProvider } from "./providers";
+export { default as PavilionApp } from "./pavilionApp";
