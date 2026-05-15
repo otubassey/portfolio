@@ -5,6 +5,7 @@ import {
 } from "@otuekong-portfolio/common";
 import {
 	ConfiguredResendClient,
+	EnvironmentRegistry,
 	HttpRequest,
 	HttpResponse,
 	ResourceHandler,
@@ -25,7 +26,7 @@ class SendEmailHandler implements ResourceHandler<ContactFormField, { success: b
     constructor(
         private readonly resendClient: typeof ConfiguredResendClient,
 		private readonly validator: ZodSchemaValidator<ContactFormField>,
-		private readonly systemSenderEmail: string
+		private readonly environmentRegistry: typeof EnvironmentRegistry
     ) {
 		if(!resendClient) {
             throw new ConfigurationError(
@@ -39,10 +40,10 @@ class SendEmailHandler implements ResourceHandler<ContactFormField, { success: b
                 "A valid ZodSchemaValidator engine instance must be supplied to construct the SendEmailHandler."
             );
         }
-		if(!systemSenderEmail) {
+		if(!environmentRegistry) {
             throw new ConfigurationError(
                 "Resource Handler Initialization Failed",
-                "A valid sender email must be supplied to construct the SendEmailHandler."
+                "A valid EnvironmentRegistry must be supplied to construct the SendEmailHandler."
             );
         }
 	}
@@ -51,13 +52,14 @@ class SendEmailHandler implements ResourceHandler<ContactFormField, { success: b
         request: HttpRequest<ContactFormField>
     ): Promise<HttpResponse<{ success: boolean }>> {
 		const formField = request.body;
+		const systemSenderEmail = this.environmentRegistry.SYSTEM_SENDER_EMAIL;
 
 		const emailPipeline = this.resendClient.sendEmail()
 			.withContext({
-				sender: `Portfolio Contact <${this.systemSenderEmail}>`,
+				sender: `Portfolio Contact <${systemSenderEmail}>`,
 				subject: `Portfolio Inquiry from ${formField.name}`,
 				text: formField.message,
-				origin: this.systemSenderEmail,
+				origin: systemSenderEmail,
 				target: "", // Target is filled securely behind the scenes by the ResendClient
 				html: `<p><strong>Name:</strong> ${formField.name}</p>
 					<p><strong>Email:</strong> ${formField.email}</p>

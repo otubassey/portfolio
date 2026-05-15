@@ -11,16 +11,9 @@ export const ProfessionalNetworkLink = {
 } as const;
 
 const CONTACT_DETAILS = {
-	email: "otuekong.bassey@gmail.com",
 	github: ProfessionalNetworkLink.GITHUB,
-	jobEmail: "contact@otuekongbassey.com",
 	linkedin: ProfessionalNetworkLink.LINKED_IN,
-	location: "Missouri, United States",
-	phone: "+1 786-448-4446"
+	location: "Missouri, United States"
 } as const;
-
-export type ContactDetailsAttributes = typeof CONTACT_DETAILS;
-
-export const getInContactDetails = (property: keyof ContactDetailsAttributes) => CONTACT_DETAILS[property];
 
 export default CONTACT_DETAILS;

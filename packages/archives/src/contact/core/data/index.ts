@@ -1,3 +1,3 @@
-export {default as CONTACT_DETAILS, ProfessionalNetwork, getInContactDetails} from "./contactDetails";
+export { default as CONTACT_DETAILS, ProfessionalNetwork } from "./contactDetails";
 
-export type {ContactDetailsAttributes, ProfessionalNetworkType} from "./contactDetails";
+export type { ProfessionalNetworkType } from "./contactDetails";

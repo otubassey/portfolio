@@ -23,6 +23,10 @@ class EnvironmentRegistryInternal {
 		return this.get("RESEND_API_KEY");
 	}
 
+    public get SYSTEM_SENDER_EMAIL(): string {
+		return this.get("SYSTEM_SENDER_EMAIL");
+	}
+
     public get UPSTASH_REDIS_REST_TOKEN(): string {
 		return this.get("UPSTASH_REDIS_REST_TOKEN");
 	}

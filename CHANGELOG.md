@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Adding `packages/archives`, abstracted from `packages/features`
 * Adding `packages/infrastructure-server`
+* Adding environment variables to `turbo.json` file
 
 ### Changed
 * Updating `pnpm` version to ^10.33.1

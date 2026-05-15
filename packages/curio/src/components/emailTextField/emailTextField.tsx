@@ -4,6 +4,7 @@ import { ChangeEvent, FocusEvent, useCallback, useState, useId, Ref } from "reac
 
 import { TextField, TextFieldProps } from "../textField";
 
+// TODO: replace with using ZodSchemaValidator
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const validateEmailFormat = (
