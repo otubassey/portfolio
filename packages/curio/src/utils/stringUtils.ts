@@ -24,7 +24,7 @@ export class StringUtils {
 			return true;
 		}
 
-		if (string1 == null || string2 == null) {
+		if(string1 == null || string2 == null) {
 			return false;
 		}
 

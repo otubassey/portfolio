@@ -2,13 +2,15 @@
 
 import { useReducer, useEffect, useCallback } from "react";
 
+import { BaseError, FalloutError } from "@otuekong-portfolio/common";
+
 import useIsMounted from "./useIsMounted";
 
 interface AsyncState<T> {
 	/** Whether the async operation is currently in progress */
 	isLoading: boolean;
 	/** Error object if the operation failed, null otherwise */
-	error: Error | null;
+	error: BaseError | null;
 	/** Data returned from the async operation, null if not yet successful */
 	data: T | null;
 }
@@ -22,7 +24,7 @@ enum AsyncActionType {
 type AsyncAction<T> =
 	| { type: AsyncActionType.PENDING }
 	| { type: AsyncActionType.SUCCESS; payload: T }
-	| { type: AsyncActionType.ERROR; payload: Error };
+	| { type: AsyncActionType.ERROR; payload: BaseError };
 
 interface UseAsyncOptions<P extends any[]> {
 	/** Whether to require manual execution. Defaults to false (auto-runs on mount). */
@@ -87,11 +89,19 @@ function useAsync<T, P extends Array<any> = []>(
 				}
 			})
 			.catch((error) => {
-				const errorObject = error instanceof Error ? error : new Error(String(error));
+				if(!isMounted.current) return;
 
-				if(isMounted.current) {
-					dispatch({ type: AsyncActionType.ERROR, payload: errorObject });
+				let errorPayload: BaseError;
+
+				if(error instanceof BaseError) {
+					errorPayload = error;
+				} else if(error instanceof Error) {
+					errorPayload = new FalloutError(error.message);
+				} else {
+					errorPayload = new FalloutError(String(error));
 				}
+
+				dispatch({ type: AsyncActionType.ERROR, payload: errorPayload });
 			});
     }, [asyncFunction, isMounted]);
 

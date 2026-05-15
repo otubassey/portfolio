@@ -1,0 +1,303 @@
+openapi: 3.0.3
+info:
+  title: Professional Portfolio API
+  version: 1.0.0
+  description: API for managing contact requests and other portfolio interactions.
+servers:
+  - description: local
+    url: http://localhost:3000/api/portfolio
+  - description: prod
+    url: https://otuekongbassey.com/api/portfolio
+tags:
+  - name: Monitoring
+    description: Health and liveness protocols of the portfolio's infrastructure.
+  - name: Contact
+    description: Public-facing communication and archival dispatch services.
+paths:
+  /contact/v1/email/send:
+    post:
+      summary: Send Contact Inquiry Email
+      description: Transmits a validated contact inquiry directly down through the server pipeline to the third-party mailer infrastructure driver.
+      operationId: sendEmailInquiry
+      tags:
+        - Contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactFormField"
+      responses:
+        "200":
+          description: Contact inquiry processed and dispatched successfully.
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "400":
+          description: Inbound data shape boundary violation validation anomaly.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+        "422":
+          description: Inbound data shape schema validation constraint violation anomaly.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+        "429":
+          description: Client transmission threshold boundary rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: The maximum number of requests allowed within the current evaluation window.
+              schema:
+                type: integer
+                example: 3
+            X-RateLimit-Remaining:
+              description: The number of requests remaining in the current window.
+              schema:
+                type: integer
+                example: 0
+            X-RateLimit-Reset:
+              description: The Unix epoch timestamp (in milliseconds) when the current rate limit window resets.
+              schema:
+                type: integer
+                example: 1778427600000
+            Retry-After:
+              description: The number of seconds the client must wait before making a new transmission request.
+              schema:
+                type: integer
+                example: 3600
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TooManyRequestsError"
+        "500":
+          description: Internal system operation panic fallback anomaly.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FalloutError"
+
+  /health:
+    get:
+      summary: Query Holistic System Health Telemetry
+      description: Evaluates the live operating state of all back-end infrastructure server components concurrently using synchronous lifecycle monitoring pipelines.
+      operationId: getSystemHealth
+      tags:
+        - Monitoring
+      responses:
+        "200":
+          description: All monitored server infrastructure components are fully operational.
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store, must-revalidate
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemHealthReport"
+        "500":
+          description: Internal system operation panic fallback anomaly.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FalloutError"
+        "503":
+          description: Degraded platform state or critical service outage intercepted.
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store, must-revalidate
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemHealthReport"
+
+components:
+  schemas:
+    # --- Data Payloads ---
+    ContactFormField:
+      type: object
+      required:
+        - name
+        - email
+        - message
+      properties:
+        name:
+          type: string
+          example: Jane Doe
+        email:
+          type: string
+          format: email
+          example: janedoe@example.com
+        message:
+          type: string
+          example: Hello, I would love to talk about a design proposal for my gallery app.
+        zipCode:
+          type: string
+          description: Hidden bot validation honeypot field. Must be left empty by regular client users.
+          example: ""
+
+    SystemHealthReport:
+      type: object
+      description: A map of monitored server component health metrics keyed by identification labels.
+      additionalProperties:
+        $ref: "#/components/schemas/ServerComponentHealth"
+      example:
+        redis:
+          isHealthy: true
+          latencyMs: 14
+          timestamp: "2026-05-10T03:21:00.000Z"
+        resend:
+          isHealthy: true
+          latencyMs: 112
+          timestamp: "2026-05-10T03:21:00.000Z"
+
+    ServerComponentHealth:
+      type: object
+      required:
+        - isHealthy
+        - latencyMs
+        - timestamp
+      properties:
+        isHealthy:
+          type: boolean
+          example: true
+        latencyMs:
+          type: integer
+          example: 14
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-05-10T03:21:00.000Z"
+
+    # --- Core Error schemas ---
+    ErrorAttribute:
+      type: object
+      required:
+        - attribute
+        - errors
+      properties:
+        attribute:
+          type: string
+          description: The structural field path identifier where the validation anomaly occurred.
+          example: email
+        errors:
+          type: array
+          description: Read-only array containing string descriptions of violated rules.
+          items:
+            type: string
+          example:
+            - "Invalid email style formatting schema string detected."
+
+    ValidationError:
+      type: object
+      required:
+        - name
+        - message
+        - detail
+        - errors
+        - statusCode
+        - transactionId
+      properties:
+        name:
+          type: string
+          example: ValidationError
+        message:
+          type: string
+          example: Input validation constraints violated
+        detail:
+          type: string
+          example: Inbound schema constraints violated.
+        errors:
+          type: array
+          description: Structured collection mapping broken constraints to specific payload keys.
+          items:
+            $ref: "#/components/schemas/ErrorAttribute"
+        statusCode:
+          type: integer
+          example: 422
+        transactionId:
+          type: string
+          format: uuid
+          example: 8eb51d9e-1f2b-4e08-8e6d-5558913b8656
+
+    TooManyRequestsError:
+      type: object
+      required:
+        - name
+        - message
+        - detail
+        - limit
+        - remaining
+        - reset
+        - statusCode
+        - transactionId
+      properties:
+        name:
+          type: string
+          example: TooManyRequestsError
+        message:
+          type: string
+          example: Rate threshold exceeded for action group contact-email-submission
+        detail:
+          type: string
+          example: Rate limit exceeded for resource prefix configuration windows.
+        limit:
+          type: integer
+          description: Maximum operations threshold quota allowed within the active evaluation slice.
+          example: 3
+        remaining:
+          type: integer
+          description: Remaining execution requests available before transaction locking.
+          example: 0
+        reset:
+          type: integer
+          description: Millisecond Unix epoch timestamp signaling pool replenishment.
+          example: 1778427600000
+        statusCode:
+          type: integer
+          example: 429
+        transactionId:
+          type: string
+          format: uuid
+          example: 2f741da3-b09e-4c57-bc0c-11234b321a41
+
+    FalloutError:
+      type: object
+      required:
+        - name
+        - message
+        - detail
+        - statusCode
+        - transactionId
+      properties:
+        name:
+          type: string
+          example: FalloutError
+        message:
+          type: string
+          example: An unexpected system error occurred
+        detail:
+          type: string
+          example: The downstream communications provider infrastructure link timed out during runtime processing.
+        statusCode:
+          type: integer
+          example: 500
+        transactionId:
+          type: string
+          format: uuid
+          example: c9bf4242-9988-4221-a1e1-e1234f9aa12b

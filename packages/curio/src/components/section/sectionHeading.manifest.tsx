@@ -6,12 +6,12 @@ const SectionHeadingManifest: ComponentManifest<SectionHeadingProps> = {
 	category: "Layout",
 	codeExamples: [
 		{
-			code: `<SectionHeading heading="Analytics Dashboard" subtitle="Real-time data for your application." />`,
+			code: `<SectionHeading heading="Analytics Dashboard" subheading="Real-time data for your application." />`,
 			title: "Standard Heading Pair"
 		}
 	],
 	component: SectionHeading,
-	description: "An internal layout utility that renders a consistent heading and subtitle pair with intelligent string-to-typography conversion.",
+	description: "An internal layout utility that renders a consistent heading and subheading pair with intelligent string-to-typography conversion.",
 	name: "SectionHeading",
 	parameters: [
 		{
@@ -37,10 +37,10 @@ const SectionHeadingManifest: ComponentManifest<SectionHeadingProps> = {
 		{
 			control: "select",
 			description: "Optional descriptive text. Strings are automatically wrapped in muted body1 Typography.",
-			name: "subtitle",
+			name: "subheading",
 			options: [
-				{label: "String Subtitle", value: "This is a subtitle providing additional context for the section."},
-				{label: "Custom ReactNode", value: <span className="text-gray-500">Custom Subtitle</span>},
+				{label: "String Subheading", value: "This is a subheading providing additional context for the section."},
+				{label: "Custom ReactNode", value: <span className="text-gray-500">Custom Subheading</span>},
 				{label: "None", value: null}
 			],
 			required: false,
@@ -49,8 +49,8 @@ const SectionHeadingManifest: ComponentManifest<SectionHeadingProps> = {
 		{
 			control: "none",
 			defaultValue: {},
-			description: "Custom props for the internal subtitle Typography element.",
-			name: "subtitleProps",
+			description: "Custom props for the internal subheading Typography element.",
+			name: "subheadingProps",
 			required: false,
 			type: "object"
 		}

@@ -55,8 +55,8 @@ const ListItemButton = ({
 	const size = sizeProp && sizeProp in SIZE_CLASSES ? sizeProp : "medium";
 	const iconSize = SIZE_CLASSES[size].icon;
 	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-		if (disabled) return;
-		if (event.key === "Enter" || event.key === " ") {
+		if(disabled) return;
+		if(event.key === "Enter" || event.key === " ") {
 			event.preventDefault();
 			(onClick as any)?.(event);
 		}

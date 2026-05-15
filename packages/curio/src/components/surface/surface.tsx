@@ -14,6 +14,12 @@ const ELEVATION_CLASSES: Record<number, string> = {
 	6: "shadow-2xl"
 };
 
+const SHADE_CLASSES = {
+	dark: "bg-[var(--portfolio-surface-bg-dark)]",
+	light: "bg-[var(--portfolio-surface-bg-light)]",
+	main: "bg-[var(--portfolio-surface-bg-main)]"
+} as const;
+
 export interface SurfaceOwnProps<T extends ElementType> {
 	children?: ReactNode;
 	className?: string;
@@ -22,6 +28,7 @@ export interface SurfaceOwnProps<T extends ElementType> {
 	outlined?: boolean;
 	ref?: Ref<any>;
 	rounded?: boolean;
+	shade?: "main" | "light" | "dark";
 }
 
 export type SurfaceProps<T extends ElementType> = SurfaceOwnProps<T>
@@ -35,6 +42,7 @@ const Surface = <T extends ElementType = "div">({
 	outlined = false,
 	ref,
 	rounded = false,
+	shade = "main",
 	...props
 }: SurfaceProps<T>) => {
 	const Renderable = (component || "div") as ElementType;
@@ -46,9 +54,9 @@ const Surface = <T extends ElementType = "div">({
 			className={CssUtils.mergeClasses(
 				"transition-shadow duration-200",
 				"text-gray-900 dark:text-gray-50",
-				"bg-ps-main",
 				ELEVATION_CLASSES[validElevation],
-				outlined && "border border-gray-200 dark:border-gray-700",
+				SHADE_CLASSES[shade],
+				outlined && "border border-[var(--portfolio-surface-border)]",
 				rounded && "rounded-xl",
 				className
 			)}

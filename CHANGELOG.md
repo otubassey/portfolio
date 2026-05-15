@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0-SNAPSHOT] - Unreleased
 ### Added
 * Adding `packages/archives`, abstracted from `packages/features`
+* Adding `packages/infrastructure-server`
 
 ### Changed
-* Updating pnpm version to ^10.33.1
+* Updating `pnpm` version to ^10.33.1
 * Workspace restructuring

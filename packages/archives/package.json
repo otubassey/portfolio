@@ -20,6 +20,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./contact": "./src/contact/index.ts",
+		"./contact/api": "./src/contact/api/index.ts",
+		"./contact/ui": "./src/contact/ui/index.ts",
 		"./professional": "./src/professional/index.ts",
 		"./profile": "./src/profile/index.ts",
 		"./showroom": "./src/showroom/index.ts"
@@ -33,7 +35,10 @@
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@otuekong-portfolio/curio": "workspace:*"
+		"@otuekong-portfolio/common": "workspace:*",
+		"@otuekong-portfolio/curio": "workspace:*",
+		"@otuekong-portfolio/infrastructure-server": "workspace:*",
+		"zod": "^4.3.6"
 	},
 	"peerDependencies": {
 		"react": "19.2.3",

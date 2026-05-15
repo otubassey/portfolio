@@ -28,8 +28,8 @@ function ExperienceSection({
 				className: "sm:text-left lg:text-center"
 			}}
 			id={id}
-			subtitle="A timeline of my professional journey, focused on solving complex problems and delivering scalable solutions."
-			subtitleProps={{
+			subheading="A timeline of my professional journey, focused on solving complex problems and delivering scalable solutions."
+			subheadingProps={{
 				className: "sm:text-left lg:text-center"
 			}}>
 

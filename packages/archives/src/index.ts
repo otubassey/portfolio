@@ -1,4 +1,4 @@
-export { ContactSection } from "./contact";
+export { ConfiguredSendEmailHandler, ContactSection } from "./contact";
 
 export {
 	ExperienceSection,

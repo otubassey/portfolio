@@ -38,7 +38,7 @@ const EmailTextFieldManifest: ComponentManifest<EmailTextFieldProps> = {
 		{
 			control: "select",
 			description: "An external error message that overrides internal validation.",
-			name: "customError",
+			name: "error",
 			options: [
 				{ label: "None", value: "" },
 				{ label: "Invalid email format", value: "Invalid email format" },

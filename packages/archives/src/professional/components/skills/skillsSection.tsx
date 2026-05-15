@@ -46,8 +46,8 @@ function SkillsSection({
 				className: "sm:text-left lg:text-center"
 			}}
 			id={id}
-			subtitle="Technologies and tools I work with to build exceptional software."
-			subtitleProps={{
+			subheading="Technologies and tools I work with to build exceptional software."
+			subheadingProps={{
 				className: "sm:text-left lg:text-center"
 			}}>
 

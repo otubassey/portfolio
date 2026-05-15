@@ -6,10 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.0.0-SNAPSHOT] - Unreleased
+### Added
+* Adding @otuekong-portfolio/common to dependency list
+
 ### Changed
-* Update Alert component
+* Update `useAsyc` to handle the error updates
+* Update `subtitle` and `subtitleProps` to `subheading` and `subheadingPRops` in the follwoing components:
+	* Section
+	* SectionHeading
+* Update to include the shade behavior to Surface components. Below are the list of components impacted:
+	* Surface
+	* Section
+* Update `EmailTextField` component to rename `customError` to `error` to match the `TextField` component
+* Update `Alert` component
 	* Adding className, detailProps, and messageProps
-	* Displaying "detail" within a Typography
+	* Displaying "detail" within a `Typography`
+	* Adding the ability to display `transactionId` for easy tracking/troubleshooting
 * Update pnpm version to ^10.33.1
 * Initial commit of merging former design-system and common packages alongside work towards themeing
 

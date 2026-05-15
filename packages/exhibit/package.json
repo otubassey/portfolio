@@ -28,8 +28,12 @@
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@otuekong-portfolio/common": "workspace:*",
 		"@otuekong-portfolio/curio": "workspace:*",
-		"@otuekong-portfolio/features": "workspace:*"
+		"@otuekong-portfolio/features": "workspace:*",
+		"@otuekong-portfolio/infrastructure-server": "workspace:*",
+		"@vercel/functions": "^1.6.0",
+    	"next": "16.1.1"
 	},
 	"peerDependencies": {
 		"react": "19.2.3",

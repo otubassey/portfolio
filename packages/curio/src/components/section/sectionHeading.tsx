@@ -9,18 +9,18 @@ export interface SectionHeadingProps {
     heading?: ReactNode;
     headingProps?: Omit<HeadingProps, "children">;
 	ref?: Ref<HTMLDivElement>;
-    subtitle?: ReactNode;
-    subtitleProps?: Omit<TypographyProps, "children">;
+    subheading?: ReactNode;
+    subheadingProps?: Omit<TypographyProps, "children">;
 }
 
 const SectionHeading = ({
     heading,
     headingProps,
 	ref,
-    subtitle,
-    subtitleProps
+    subheading,
+    subheadingProps
 }: SectionHeadingProps) => {
-    if(!heading && !subtitle) return null;
+    if(!heading && !subheading) return null;
 
     return (
         <div ref={ref} className="flex flex-col gap-1">
@@ -32,17 +32,17 @@ const SectionHeading = ({
             )
 			: heading}
 
-            {subtitle && (
-			typeof subtitle === "string" ? (
+            {subheading && (
+			typeof subheading === "string" ? (
 				<Typography
 					className="max-w-3xl"
 					color="muted"
 					variant="body1"
-					{...subtitleProps}>
-					{subtitle}
+					{...subheadingProps}>
+					{subheading}
 				</Typography>
 			) : (
-				subtitle
+				subheading
 			)
             )}
         </div>

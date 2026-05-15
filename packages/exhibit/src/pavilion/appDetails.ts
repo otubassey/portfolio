@@ -6,12 +6,12 @@ import { AppDetail } from "./types";
 
 const APP_DETAILS: ReadonlyArray<AppDetail> = [
 	{
-		component: lazy(() => import("../galleries/helloworld")
+		component: lazy(() => import("../galleries/ui/helloworld")
 			.then(exportedComponents => ({ default: exportedComponents.HelloworldClassicHeadlessMain }))),
 		manifest: HELLOWORLD_CLASSIC_APP_MANIFEST
 	},
 	{
-		component: lazy(() => import("../galleries/helloworld")
+		component: lazy(() => import("../galleries/ui/helloworld")
 			.then(exportedComponents => ({ default: exportedComponents.HelloworldCompositeHeadlessMain }))),
 		manifest: HELLOWORLD_COMPOSITE_APP_MANIFEST
 	}

@@ -19,8 +19,9 @@ export type SectionProps<T extends ElementType = "div"> = Omit<SurfaceProps<T>, 
 	raised?: boolean;
 	ref?: Ref<SectionHandle>;
 	rounded?: boolean;
-	subtitle?: ReactNode;
-	subtitleProps?: Omit<TypographyProps, "children">;
+	shade?: "light" | "dark" | "main";
+	subheading?: ReactNode;
+	subheadingProps?: Omit<TypographyProps, "children">;
 };
 
 const Section = <T extends ElementType = "div">({
@@ -32,14 +33,15 @@ const Section = <T extends ElementType = "div">({
 	raised = false,
 	ref,
 	rounded = false,
-	subtitle,
-	subtitleProps,
+	shade = "main",
+	subheading,
+	subheadingProps,
 	...props
 }: SectionProps<T>) => {
 	const internalRef = useRef<HTMLDivElement>(null);
 	const generatedId = useId();
 	const componentId = id || generatedId;
-	const effectiveElevation = raised ? 4 : 0;
+	const effectiveElevation = raised ? 3 : 0;
 
 	useImperativeHandle(ref, () => ({
 		scroll: (options?: ScrollIntoViewOptions) => {
@@ -65,6 +67,7 @@ const Section = <T extends ElementType = "div">({
 				elevation={effectiveElevation}
 				id={componentId}
 				rounded={rounded}
+				shade={shade}
 				{...props}>
 
 				<SectionHeading
@@ -73,8 +76,8 @@ const Section = <T extends ElementType = "div">({
 						id: `${componentId}-heading-label`,
 						...headingProps
 					}}
-					subtitle={subtitle}
-					subtitleProps={subtitleProps}
+					subheading={subheading}
+					subheadingProps={subheadingProps}
 				/>
 
 				{children}

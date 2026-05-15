@@ -26,7 +26,7 @@ import { RefObject, useEffect, useRef } from "react";
  *
  *     // We check the LIVE ref value, which stays accurate even if
  *     // this function was defined many renders ago.
- *     if (isMounted.current) {
+ *     if(isMounted.current) {
  *       setData(result);
  *     }
  *   }, [isMounted]); // isMounted ref is stable and won't trigger re-renders

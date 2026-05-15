@@ -52,6 +52,7 @@ export interface AlertProps {
 	messageProps?: Omit<TypographyProps, "children">;
 	ref?: Ref<HTMLDivElement>;
 	severity?: Severity;
+	transactionId?: string;
   	variant?: Variant;
 }
 
@@ -63,6 +64,7 @@ const Alert = ({
 	messageProps,
 	ref,
 	severity: severityProp,
+	transactionId,
 	variant: variantProp
 }: AlertProps) => {
 	const [isOpen, toggleIsOpen] = useToggle(false);
@@ -111,6 +113,12 @@ const Alert = ({
 						{...messageTypographyProps}>
 						{message}
 					</Typography>
+
+					{!isOpen && transactionId && !detail && (
+					<Typography variant="caption" className="opacity-60 font-mono text-[10px]">
+						REF ID: {transactionId.slice(0, 8)}...
+					</Typography>
+					)}
 				</div>
 
 				{detail && (
@@ -137,25 +145,46 @@ const Alert = ({
 
 				<div className="flex flex-col gap-4 p-4">
 
-					<div className="flex justify-end">
+					<div className="flex justify-between border border-red-500">
+
+						{transactionId && (
+						<span className="flex gap-1">
+							<Typography
+								className="whitespace-pre-wrap"
+								color={textOverride}
+								variant="caption"
+								weight="bold">
+								REF ID:
+							</Typography>
+							<Typography
+								className="whitespace-pre-wrap"
+								color={textOverride}
+								variant="overline"
+								weight="medium">
+								{transactionId}
+							</Typography>
+						</span>
+						)}
+
 						{copyText && (
 						<CopyButton
 							color={isFilled
 								? "inherit"
 								: (severity === "error" ? "error" : "primary")
 							}
-							value={copyText}
+							value={`Reference ID: ${transactionId}\nDetails: ${detail ?? "No additional details provided."}`}
 						/>
 						)}
+
 					</div>
 
 					<div
 						className={CssUtils.mergeClasses(
 							"scrollbar-thin overflow-y-auto",
-							"h-48"
+							"max-h-48"
 						)}>
 						<Typography
-							className="whitespace-pre-wrap font-mono text-[11px] md:text-xs text-gray-700 dark:text-gray-300"
+							className="whitespace-pre-wrap"
 							color={textOverride}
 							variant="body1"
 							{...detailTypographyProps}>
