@@ -93,7 +93,7 @@ function DocumentationSection({
 					status={manifest.status}
 				/>
 			}
-			subtitle={manifest.description}>
+			subheading={manifest.description}>
 
 			{children}
 

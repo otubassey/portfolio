@@ -1,4 +1,5 @@
-import { FalloutError, HttpClient, OperationPipeline, ServerComponentHealth } from "@otuekong-portfolio/common";
+import { FalloutError, HttpClient, OperationPipeline } from "@otuekong-portfolio/common";
+import { ServerComponentHealth } from "@otuekong-portfolio/infrastructure-server";
 
 export type SystemHealthReport = Record<string, ServerComponentHealth>;
 

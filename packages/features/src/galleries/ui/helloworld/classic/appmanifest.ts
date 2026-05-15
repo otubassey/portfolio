@@ -1,4 +1,4 @@
-import { AppManifest } from "../../../applicationContext/types";
+import { AppManifest } from "../../../../applicationContext";
 
 import { PORTFOLIO_BLUEPRINT } from "../common";
 

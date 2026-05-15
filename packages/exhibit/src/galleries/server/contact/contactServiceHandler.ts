@@ -1,5 +1,5 @@
-import { ConfiguredSendEmailHandler } from "@otuekong-portfolio/archives";
 import { ConfigurationError } from "@otuekong-portfolio/common";
+import { ConfiguredSendEmailHandler } from "@otuekong-portfolio/features";
 
 import { createNextRoute } from "../../../common";
 

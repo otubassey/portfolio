@@ -1,4 +1,4 @@
-import { ConfiguredSendEmailHandler } from "@otuekong-portfolio/archives";
+import { ConfiguredSendEmailHandler } from "@otuekong-portfolio/features";
 
 import ContactServiceHandler from "./contactServiceHandler";
 

@@ -1,4 +1,4 @@
-import { AppBlueprint } from "../../../applicationContext";
+import { AppBlueprint } from "../../../../applicationContext";
 
 export const PortfolioSubViewName = {
 	HOME: "Home",
