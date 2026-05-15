@@ -1,7 +1,9 @@
 {
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],
-	"globalEnv": ["ENABLE_EXPERIMENTAL_COREPACK"],
+	"globalEnv": [
+		"ENABLE_EXPERIMENTAL_COREPACK"
+	],
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],

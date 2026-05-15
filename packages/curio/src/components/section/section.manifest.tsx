@@ -8,7 +8,7 @@ const SectionManifest: ComponentManifest<SectionProps> = {
 	category: ComponentCategory.LAYOUT,
 	codeExamples: [
 		{
-			code: `<Section heading="User Profile" subtitle="Manage your account settings" raised rounded>\n  <ProfileForm />\n</Section>`,
+			code: `<Section heading="User Profile" subheading="Manage your account settings" raised rounded>\n  <ProfileForm />\n</Section>`,
 			title: "Raised Rounded Section"
 		}
 	],
@@ -76,10 +76,10 @@ const SectionManifest: ComponentManifest<SectionProps> = {
 		{
 			control: "select",
 			description: "Optional secondary text or component displayed beneath the heading.",
-			name: "subtitle",
+			name: "subheading",
 			options: [
-				{label: "String Subtitle", value: "This is a subtitle providing additional context for the section."},
-				{label: "Custom ReactNode", value: <span className="text-gray-500">Custom Subtitle</span>},
+				{label: "String Subheading", value: "This is a subheading providing additional context for the section."},
+				{label: "Custom ReactNode", value: <span className="text-gray-500">Custom Subheading</span>},
 				{label: "None", value: null}
 			],
 			required: false,
@@ -88,8 +88,8 @@ const SectionManifest: ComponentManifest<SectionProps> = {
 		{
 			control: "none",
 			defaultValue: {},
-			description: "Configuration properties passed directly to the internal Typography component for the subtitle.",
-			name: "subtitleProps",
+			description: "Configuration properties passed directly to the internal Typography component for the subheading.",
+			name: "subheadingProps",
 			required: false,
 			type: "object"
 		}

@@ -1,5 +1,6 @@
+export { ConfiguredSendEmailHandler } from "./server";
 export {
 	ContactSection,
 	GitHubLinkButton,
 	LinkedInLinkButton
-} from "./components";
+} from "./ui";

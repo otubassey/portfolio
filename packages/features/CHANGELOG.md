@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding application-level Navigation with breadcrumbs
 
 ### Changed
+* Project folder restructuring: moving all current contents into the `ui` folder
+* Renaming `Subtitle` component in `PropsSection` to `Subheading`
 * Replacing AppDetailsContext with both ApplicationContext and NavigationContext
 * Updating pnpm version to ^10.33.1
 * Renaming and restructuring of the former `core` package

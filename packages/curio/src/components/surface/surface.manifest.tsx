@@ -76,6 +76,19 @@ const SurfaceManifest: ComponentManifest<SurfaceProps<any>> = {
 			name: "rounded",
 			required: false,
 			type: "boolean"
+		},
+		{
+			control: "select",
+			defaultValue: "main",
+			description: "Determines the background layer color style from themed custom property utility sets.",
+			name: "shade",
+			options: [
+				{ label: "Main background surface", value: "main" },
+				{ label: "Light highlighted surface variation", value: "light" },
+				{ label: "Dark shadowed surface variation", value: "dark" }
+			],
+			required: false,
+			type: '"main" | "light" | "dark"'
 		}
 	],
 	status: "unstable"

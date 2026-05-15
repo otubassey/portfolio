@@ -1,0 +1,1 @@
+export { ConfiguredSendEmailHandler } from "./bootstrap";

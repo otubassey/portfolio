@@ -28,8 +28,8 @@ function ProjectsSection({
 				className: "sm:text-left lg:text-center"
 			}}
 			id={id}
-			subtitle="A collection of personal ventures and experimental builds ranging from production-ready tools to active explorations."
-			subtitleProps={{
+			subheading="A collection of personal ventures and experimental builds ranging from production-ready tools to active explorations."
+			subheadingProps={{
 				className: "sm:text-left lg:text-center"
 			}}>
 

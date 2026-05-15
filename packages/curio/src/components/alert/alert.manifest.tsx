@@ -82,6 +82,17 @@ const AlertManifest: ComponentManifest<AlertProps> = {
 		},
 		{
 			control: "select",
+			description: "Optional text identifier that serves as an essential correlation token linking client-facing errors directly to server-side telemetry log entries.",
+			name: "transactionId",
+			options: [
+				{label: "None", value: ""},
+				{label: "UUID", value: "e6b6274a-4492-4b52-8a80-9c1ea5c3c137"}
+			],
+			required: false,
+			type: "string"
+		},
+		{
+			control: "select",
 			defaultValue: "standard",
 			description: "The visual style variant of the alert container.",
 			name: "variant",

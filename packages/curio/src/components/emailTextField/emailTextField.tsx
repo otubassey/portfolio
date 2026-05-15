@@ -24,8 +24,9 @@ const validateEmailFormat = (
 	};
 };
 
-export interface EmailTextFieldProps extends Omit<TextFieldProps, "error" | "type"> {
-	customError?: string;
+export interface EmailTextFieldProps extends Omit<TextFieldProps, "type"> {
+	error?: string;
+	id?: string;
 	onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
 	onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 	onValidityChange?: (isValid: boolean) => void;
@@ -34,7 +35,7 @@ export interface EmailTextFieldProps extends Omit<TextFieldProps, "error" | "typ
 }
 
 const EmailTextField = ({
-	customError,
+	error,
 	id: idProp,
 	onBlur,
 	onChange,
@@ -69,7 +70,7 @@ const EmailTextField = ({
 			{...props}
 			ref={ref}
 			autoComplete="email"
-			error={customError || internalError}
+			error={error || internalError}
 			id={componentId}
 			onBlur={handleBlur}
 			onChange={handleChange}

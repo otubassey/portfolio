@@ -32,15 +32,15 @@ function mapDefaultValue(value: any): string {
 	return String(value);
 }
 
-interface SubtitleProps {
+interface SubheadingProps {
 	extendList: Array<string> | undefined;
 	onLinkClick: (componentName: string) => void;
 }
 
-function Subtitle({
+function Subheading({
 	extendList,
 	onLinkClick
-}: SubtitleProps) {
+}: SubheadingProps) {
 	if(!extendList || extendList.length === 0) {
 		return "Props of the native component are also available.";
 	}
@@ -81,8 +81,8 @@ function PropsSection({
 		<Section
 			className={className}
 			heading="Props"
-			subtitle={
-				<Subtitle
+			subheading={
+				<Subheading
 					extendList={manifest.extends}
 					onLinkClick={onExtendedComponentClick}
 				/>
