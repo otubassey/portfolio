@@ -24,3 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	* renaming `subtitleProps` to `subheadingProps`
 * Updating pnpm version to ^10.33.1
 * Initial commit for this package - abstracting all domain related core pieces
+
+### Removed
+* Removed the display of phone number and email address to avoid continuous spam

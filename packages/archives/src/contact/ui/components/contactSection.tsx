@@ -36,7 +36,7 @@ function ContactSection({
 
 			<div className="flex flex-col gap-8">
 				<ContactInformationCard
-					contactDetails={CONTACT_DETAILS}
+					location={CONTACT_DETAILS.location}
 					id={`${id}-contact-information`}
 				/>
 

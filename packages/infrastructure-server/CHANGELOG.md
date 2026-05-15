@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-SNAPSHOT] - Unreleased
 ### Added
+* Adding new environment variable to registry
 * Adding and configuring implementation of `SystemHealthClient` and `SystemHealthHandler`
 * Adding implementation of `EnvironmentRegistry`
 * Adding implementation of `ResendClient`
