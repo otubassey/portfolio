@@ -4,7 +4,7 @@ import { FC } from "react";
 
 import { Card, CardContent, CssUtils } from "@otuekong-portfolio/curio";
 
-import { TechnologyChips } from "../..";
+import TechnologyPills from "../technologyPills";
 
 import { SkillGroup } from "../../data";
 
@@ -31,9 +31,9 @@ export const SkillsGrid: FC<SkillsGridProps> = ({
 				component="article">
 				<SkillsGridHeader groupedSkill={groupedSkill} />
 				<CardContent className="flex flex-wrap gap-2">
-					<TechnologyChips
+					<TechnologyPills
 						only={groupedSkill.technologies.map(item => item.name)}
-						chipProps={{
+						pillProps={{
 							iconProps: {
 								role: undefined
 							},

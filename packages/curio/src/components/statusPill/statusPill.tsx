@@ -2,7 +2,7 @@
 
 import { Ref } from "react";
 
-import { Chip, ChipProps } from "../chip";
+import { Pill, PillProps } from "../pill";
 
 const mapErrorLabel = (
 	status: string | undefined,
@@ -19,24 +19,24 @@ const mapErrorLabel = (
 	return "Invalid Status Configuration";
 };
 
-export interface StatusChipProps<T extends string> extends Omit<ChipProps, "color" | "label"> {
+export interface StatusPillProps<T extends string> extends Omit<PillProps, "color" | "label"> {
 	status: T;
-	statusMapping: Record<T, { color: ChipProps["color"]; label: string }>;
+	statusMapping: Record<T, { color: PillProps["color"]; label: string }>;
 	ref?: Ref<HTMLDivElement>;
 	srOnlyPrefix?: string;
 }
 
-const StatusChip = <T extends string>({
+const StatusPill = <T extends string>({
 	status,
 	statusMapping,
 	ref,
 	srOnlyPrefix,
 	...props
-}: StatusChipProps<T>) => {
+}: StatusPillProps<T>) => {
 	const config = statusMapping?.[status];
 	if(!config) {
 		return (
-			<Chip
+			<Pill
 				{...props}
 				ref={ref}
 				color="error"
@@ -47,7 +47,7 @@ const StatusChip = <T extends string>({
 		);
 	}
 	return (
-		<Chip
+		<Pill
 			role="status"
 			{...props}
 			ref={ref}
@@ -62,6 +62,6 @@ const StatusChip = <T extends string>({
 	);
 };
 
-StatusChip.displayName = "StatusChip";
+StatusPill.displayName = "StatusPill";
 
-export default StatusChip;
+export default StatusPill;

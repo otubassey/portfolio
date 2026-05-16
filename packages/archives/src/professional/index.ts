@@ -5,7 +5,7 @@ export {
 	HelloworldInteractiveHero,
 	MatrixInteractiveHero,
 	SkillsSection,
-	TechnologyChips,
+	TechnologyPills,
 	TerminalConsoleFrame
 } from "./components";
 

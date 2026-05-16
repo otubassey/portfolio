@@ -38,7 +38,7 @@ const TableBodyCellManifest: ComponentManifest<TableBodyCellProps> = {
 	parameters: [
 		{
 			control: "none",
-			description: "The content (text, chips, or custom components) to be rendered within the cell.",
+			description: "The content (text, pills, or custom components) to be rendered within the cell.",
 			name: "children",
 			required: true,
 			type: "ReactNode"

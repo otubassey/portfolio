@@ -13,15 +13,15 @@ import {
 	List,
 	ListItem,
 	ListItemText,
-	StatusChip,
+	StatusPill,
 	Text,
 	Typography,
 	useToggle
 } from "@otuekong-portfolio/curio";
 
-import { TechnologyChips } from "../..";
-
 import { Experience } from "../../data";
+
+import TechnologyPills from "../technologyPills";
 
 const EXPERIENCE_STATUS_MAPPING = {
 	active: { color: "success", label: "Active" },
@@ -84,7 +84,7 @@ const ExperienceCard: FC<ExperienceCardProps> = ({
 					</span>
 				</Text>
 
-				<StatusChip
+				<StatusPill
 					status={isCurrent ? "active" : "completed"}
 					statusMapping={EXPERIENCE_STATUS_MAPPING}
 				/>
@@ -97,9 +97,9 @@ const ExperienceCard: FC<ExperienceCardProps> = ({
 					{description}
 				</Text>
 
-				<TechnologyChips
+				<TechnologyPills
 					only={technologies}
-					chipProps={{ size: "medium" }}
+					pillProps={{ size: "medium" }}
 				/>
 
 			</CardContent>

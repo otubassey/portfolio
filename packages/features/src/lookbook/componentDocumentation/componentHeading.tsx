@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentManifest, Heading, StatusChip } from "@otuekong-portfolio/curio";
+import { ComponentManifest, Heading, StatusPill } from "@otuekong-portfolio/curio";
 
 const LOOKBOOK_STATUS_MAPPING = {
 	stable: { color: "success", label: "Stable" },
@@ -21,11 +21,11 @@ function ComponentHeading<T extends string>({
 		<div className="flex items-center gap-3">
 			<Heading level={1}>{name ?? "Not Available"}</Heading>
 
-			<StatusChip
+			<StatusPill
+				size="medium"
+				srOnlyPrefix="Status: "
 				status={status ?? "unknown"}
 				statusMapping={LOOKBOOK_STATUS_MAPPING}
-				srOnlyPrefix="Status: "
-				size="medium"
 			/>
 
 		</div>

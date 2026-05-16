@@ -3,31 +3,31 @@ import { ManifestUtils } from "../../utils";
 
 import { ComponentManifest } from "../types";
 
-import Chip, { ChipProps } from "./chip";
+import Pill, { PillProps } from "./pill";
 
-const ChipManifest: ComponentManifest<ChipProps> = {
+const PillManifest: ComponentManifest<PillProps> = {
 	category: ComponentCategory.DATA_DISPLAY,
 	codeExamples: [
 		{
-			title: "Themed Success Chip",
-			code: `<Chip label="Completed" color="success" icon="check" />`
+			title: "Themed Success Pill",
+			code: `<Pill label="Completed" color="success" icon="check" />`
 		},
 		{
 			title: "Custom Hex Color",
-			code: `<Chip label="Custom Color" color="#ff5722" variant="outlined" />`
+			code: `<Pill label="Custom Color" color="#ff5722" variant="outlined" />`
 		},
 		{
-			title: "Clickable Chip",
-			code: `<Chip label="Clickable" onClick={() => alert('Chip clicked!')} />`
+			title: "Clickable Pill",
+			code: `<Pill label="Clickable" onClick={() => alert('Pill clicked!')} />`
 		}
 	],
-	component: Chip,
+	component: Pill,
 	description: "A compact element used to represent an input, attribute, or action. Supports theme-based colors, custom hex colors, and leading icons.",
-	name: ComponentName.CHIP,
+	name: ComponentName.PILL,
 	parameters: [
 		{
 			control: "readonly",
-			description: "The text or element to display inside the chip.",
+			description: "The text or element to display inside the pill.",
 			name: "label",
 			required: true,
 			type: "ReactNode",
@@ -71,23 +71,9 @@ const ChipManifest: ComponentManifest<ChipProps> = {
 			type: "object"
 		},
 		{
-			control: "none",
-			description: "Callback function that is called when the chip is clicked.",
-			name: "onClick",
-			required: false,
-			type: "function"
-		},
-		{
-			control: "none",
-			description: "The ARIA role attribute for accessibility.",
-			name: "role",
-			required: false,
-			type: "string"
-		},
-		{
 			control: "select",
 			defaultValue: "small",
-			description: "The size of the chip.",
+			description: "The size of the pill.",
 			name: "size",
 			options: ["small", "medium"],
 			required: false,
@@ -96,7 +82,7 @@ const ChipManifest: ComponentManifest<ChipProps> = {
 		{
 			control: "select",
 			defaultValue: "filled",
-			description: "The visual style of the chip.",
+			description: "The visual style of the pill.",
 			name: "variant",
 			options: ["filled", "outlined"],
 			required: false,
@@ -106,4 +92,4 @@ const ChipManifest: ComponentManifest<ChipProps> = {
 	status: "stable"
 };
 
-export default ChipManifest;
+export default PillManifest;

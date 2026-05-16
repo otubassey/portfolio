@@ -1,4 +1,4 @@
-import { IconName, StatusChipProps } from "@otuekong-portfolio/curio";
+import { IconName, StatusPillProps } from "@otuekong-portfolio/curio";
 
 import { Technology, TechnologyName } from "../../professional";
 
@@ -6,7 +6,7 @@ export interface Project {
 	description: string;
 	id: string;
 	repositoryUrl: string;
-	status: StatusChipProps<any>["status"];
+	status: StatusPillProps<any>["status"];
 	technologies: Array<TechnologyName>;
 	title: string;
 	demoUrl?: string;
@@ -16,7 +16,7 @@ export interface Project {
 export const PROJECTS: Array<Project> = [
 	{
 		id: "project-otuekong-portfolio-system",
-		title: "Otuekong Portfolio System",
+		title: "Otuekong's Portfolio System",
 		description: "Monorepo portfolio meta-system with version switching, showcasing different architectural approaches. Built with Turborepo, featuring dynamic module loading and micro-frontend patterns.",
 		repositoryUrl: "portfolio",
 		technologies: [
