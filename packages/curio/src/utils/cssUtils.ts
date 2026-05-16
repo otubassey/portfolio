@@ -29,8 +29,28 @@ function mergeClasses(...classes: Array<ClassValue>) {
 	return twMerge(clsx(classes));
 }
 
+/**
+ * Generates a CSS color-mix string to apply transparency to a color.
+ *
+ * @param {string} color - The base CSS color (hex, named, hsl, etc.).
+ * @param {number} [weight=50] - The percentage of transparency (0-100).
+ *                               Higher means more transparent.
+ * @returns {string} The CSS color-mix functional notation.
+ * @throws {TypeError} If weight is not a number.
+ */
+function transparentize(color: string, weight: number = 50): string {
+	if(typeof weight !== "number" || isNaN(weight)) {
+    	throw new TypeError("Weight must be a number");
+  	}
+
+	const safeWeight = Math.min(Math.max(weight, 0), 100);
+
+	return `color-mix(in srgb, ${color}, transparent ${safeWeight}%)`;
+}
+
 const CssUtils = {
-	mergeClasses
+	mergeClasses,
+	transparentize
 } as const;
 
 export default CssUtils;

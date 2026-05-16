@@ -1,5 +1,6 @@
 export {
 	CodeEditorConsoleFrame,
+	ExperienceBadge,
 	ExperienceSection,
 	HelloworldInteractiveHero,
 	MatrixInteractiveHero,

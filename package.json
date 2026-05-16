@@ -3,7 +3,7 @@
 	"version": "1.0.1-SNAPSHOT",
 	"private": true,
 	"description": "A curated monorepo ecosystem of art-driven portfolio themes and server-side vaulting.",
-	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"author": "Otuekong",
 	"license": "MIT",
 	"keywords": [
 		"design-system",

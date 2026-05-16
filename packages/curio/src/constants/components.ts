@@ -9,6 +9,7 @@ export const ComponentCategory = {
 export const ComponentName = {
 	ALERT: "Alert",
 	BACKDROP: "Backdrop",
+	BADGE: "Badge",
 	BUTTON: "Button",
 	BUTTON_BASE: "ButtonBase",
 	CARD: "Card",
@@ -72,6 +73,7 @@ export type ComponentsByCategoryType = Record<ComponentCategoryType, Array<Compo
 
 export const COMPONENTS_BY_CATEGORY: ComponentsByCategoryType = {
 	[ComponentCategory.DATA_DISPLAY]: [
+		ComponentName.BADGE,
 		ComponentName.CHIP,
 		ComponentName.EDITOR_SHELL,
 		ComponentName.HEADING,

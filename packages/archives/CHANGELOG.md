@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-SNAPSHOT] - Unreleased
 ### Added
+* Adding a `ExperienceBadge` component
 * Adding a `useContactSendEmail` hook
 * Adding and configuring `ContactService` and `ContactHttpClient`
 * Adding and configuring `SendEmailHandler`
@@ -17,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	* `@otuekong-portfolio/infrastructure-server`
 
 ### Changed
+* Updating `BioSection` component to display both bio text and `children`, when provided
+* Updating bio text to abstract metadata
+* Updating author information in `package.json`
 * Implementing the send email functionality from `ContactFormCard`
 * Restructuring of `/src/contact/` folder into: `core`, `server`, and `ui`
 * Applying `Section` component changes

@@ -4,7 +4,7 @@
 	"private": true,
 	"description": "The entry-point application for the portfolio ecosystem. Pavilion serves as a curated architectural shell designed to host and switch between various themed implementations and historical versions of the portfolio. It manages global state, cross-app navigation, and the high-level presentation of themed 'exhibits'.",
 	"type": "module",
-	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"author": "Otuekong",
 	"license": "MIT",
 	"keywords": [
 		"portfolio",

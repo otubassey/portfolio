@@ -5,6 +5,7 @@ export type ComponentRegistryType = Record<string, () => Promise<{ manifest: Com
 const COMPONENT_REGISTRY: ComponentRegistryType = {
 	Alert: () => import("../components/alert/alert.manifest").then(m => ({ manifest: m.default })),
 	Backdrop: () => import("../components/backdrop/backdrop.manifest").then(m => ({ manifest: m.default })),
+	Badge: () => import("../components/badge/badge.manifest").then(m => ({ manifest: m.default })),
 	Button: () => import("../components/button/button.manifest").then(m => ({ manifest: m.default })),
 	ButtonBase: () => import("../components/buttonBase/buttonBase.manifest").then(m => ({ manifest: m.default })),
 	Card: () => import("../components/card/card.manifest").then(m => ({ manifest: m.default })),

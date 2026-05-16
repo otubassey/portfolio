@@ -4,7 +4,7 @@
 	"private": true,
 	"description": "The foundational 'Helloworld' exhibit. A streamlined, single-track portfolio implementation with a focus on essential professional storytelling.",
 	"type": "module",
-	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"author": "Otuekong",
 	"license": "MIT",
 	"keywords": [
 		"portfolio",

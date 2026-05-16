@@ -2,7 +2,7 @@
 	"name": "@otuekong-portfolio/infrastructure-server",
 	"version": "1.0.0-SNAPSHOT",
 	"description": "Server-only edge platform infrastructure and adapter utilities for the portfolio ecosystem. Manages environmental configuration validation, Upstash Redis client instantiations, rate-limiting interceptors, Resend API mail distribution workflows, and server-side telemetry handlers, completely decoupled from browser runtimes.",
-	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"author": "Otuekong",
 	"type": "module",
 	"main": "./src/index.ts",
 	"types": "./src/index.ts",

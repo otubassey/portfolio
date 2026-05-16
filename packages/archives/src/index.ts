@@ -1,6 +1,7 @@
 export { ConfiguredSendEmailHandler, ContactSection } from "./contact";
 
 export {
+	ExperienceBadge,
 	ExperienceSection,
 	HelloworldInteractiveHero,
 	MatrixInteractiveHero,

@@ -2,7 +2,7 @@
 	"name": "@otuekong-portfolio/features",
 	"version": "1.0.0-SNAPSHOT",
 	"description": "Internal application logic. Manages routing, page orchestration, and specialized behaviors for the various applications.",
-	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"author": "Otuekong",
 	"type": "module",
 	"main": "./src/index.ts",
 	"types": "./src/index.ts",

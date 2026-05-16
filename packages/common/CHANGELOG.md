@@ -16,3 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding `OperationPipeline` implementation
 * Adding `Validator` and `ZodSchemaValidator` implementations
 * Initial commit for this package
+
+### Changed
+* Updating author information in `package.json`

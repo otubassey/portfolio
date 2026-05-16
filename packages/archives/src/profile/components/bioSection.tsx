@@ -19,13 +19,20 @@ function BioSection({
 	id,
 	textProps
 }: BioSectionProps) {
-  	const content = children || <Text {...textProps}>{PERSONA_INFO.bio}</Text>;
 	return (
 		<Section
 			className={CssUtils.mergeClasses("flex flex-col gap-6", className)}
 			heading={PERSONA_INFO.role}
 			id={id}>
-			{content}
+
+			<Text color="muted" {...textProps}>{PERSONA_INFO.bio}</Text>
+
+			{children && (
+			 <div>
+                {children}
+            </div>
+			)}
+
 		</Section>
 	);
 }

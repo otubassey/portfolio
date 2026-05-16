@@ -12,5 +12,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding environment variables to `turbo.json` file
 
 ### Changed
+* Updating author information in `package.json`
 * Updating `pnpm` version to ^10.33.1
 * Workspace restructuring

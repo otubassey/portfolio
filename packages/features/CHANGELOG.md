@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Exporting ConfiguredSendEmailHandler from `@otuekong-portfolio/archives`
 
 ### Changed
+* Updating author information in `package.json`
 * Project folder restructuring: moving all current contents into the `ui` folder
 * Renaming `Subtitle` component in `PropsSection` to `Subheading`
 * Replacing AppDetailsContext with both ApplicationContext and NavigationContext

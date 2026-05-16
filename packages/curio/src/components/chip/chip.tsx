@@ -5,6 +5,7 @@ import { HTMLAttributes, isValidElement, MouseEvent, ReactNode, Ref } from "reac
 import { CssUtils } from "../../utils";
 
 import { Icon, IconName, IconProps } from "../icon";
+import { Surface } from "../surface";
 
 type ChipColor = "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
 
@@ -12,7 +13,7 @@ type ChipColor = "default" | "primary" | "secondary" | "error" | "info" | "succe
  * Mapping theme colors to specific Tailwind utility classes.
  * We write these out fully to ensure the Tailwind compiler doesn"t purge them.
  */
-const themeStyles: Record<ChipColor, { filled: string; outlined: string }> = {
+const THEME_STYLE: Record<ChipColor, { filled: string; outlined: string }> = {
 	default: {
 		filled: "bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700",
 		outlined: "bg-transparent text-gray-600 border-gray-400 dark:text-gray-300 dark:border-gray-500"
@@ -49,12 +50,13 @@ export interface ChipProps extends HTMLAttributes<HTMLSpanElement> {
 	color?: ChipColor | string;
 	icon?: IconName;
 	iconProps?: Partial<IconProps>;
-	onClick?: (event: MouseEvent<HTMLSpanElement>) => void;
 	ref?: Ref<HTMLSpanElement>;
 	role?: string;
 	size?: "small" | "medium";
 	variant?: "filled" | "outlined";
 }
+
+// TODO: rename to Pill
 
 const Chip = ({
 	label,
@@ -62,42 +64,41 @@ const Chip = ({
 	color = "default",
 	icon,
 	iconProps,
-	onClick,
 	ref,
 	role,
 	size = "small",
 	variant = "filled",
 	...props
 }: ChipProps) => {
-	const isThemeColor = color in themeStyles;
+	const isThemeColor = color in THEME_STYLE;
 
-	const computedRole = role || (typeof onClick === "function" ? "button" : undefined);
-
-	const customStyles = !isThemeColor ? {
-		backgroundColor: variant === "filled" ? `${color}33` : "transparent",
+	const customStyles = !isThemeColor
+	? {
+		backgroundColor: variant === "filled"
+			? CssUtils.transparentize(color, 80)
+			: "transparent",
 		color: color,
-		borderColor: color,
-	} : {};
+		borderColor: color
+	}
+	: {};
 
 	return (
-		<span
+		<Surface
 			{...props}
 			ref={ref}
 			className={CssUtils.mergeClasses(
-				"inline-flex max-w-fit items-center gap-1.5 flex-shrink-0 rounded-full font-bold border transition-all duration-200",
-				computedRole === "button" && "cursor-pointer hover:opacity-80 active:scale-95 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
-				isThemeColor && themeStyles[color as ChipColor][variant],
+				"inline-flex max-w-fit items-center gap-1.5 flex-shrink-0 font-bold border transition-all duration-200",
+				"rounded-full",
+				isThemeColor && THEME_STYLE[color as ChipColor][variant],
 				size === "small" ? "px-2 py-0.5 text-xs" : "px-3 py-1",
-				typeof onClick === "function" && "cursor-pointer hover:opacity-80 active:scale-95",
 				className
 			)}
-			onClick={onClick}
-			role={computedRole}
-			style={customStyles}
-			tabIndex={computedRole === "button" ? 0 : undefined}>
+			component="span"
+			elevation={0}
+			style={customStyles}>
 			{icon && <Icon name={icon} size={size === "small" ? 12 : 16} {...iconProps} />}
 			{isValidElement(label) ? label : <span className="truncate">{label}</span>}
-		</span>
+		</Surface>
 	);
 };
 

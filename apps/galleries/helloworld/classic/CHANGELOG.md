@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	* `/api/portfolio/health`
 
 ### Changed
+* Updating author information in `package.json`
 * Renaming from `helloworld-v1` to `helloworld-classic`
 * Updating pnpm version to ^10.33.1
 * Updating postcss version to ^8.5.8
