@@ -53,11 +53,11 @@
     --shadow-portfolio-4: 0 20px 25px -5px rgb(0 0 0 / 0.1); /* shadow-xl */
     --shadow-portfolio-5: 0 25px 50px -12px rgb(0 0 0 / 0.25); /* shadow-2xl */
 
-	/* Chip Sizing Tokens */
-    --spacing-ps-chip-sm-px: 0.5rem;    /* px-2 */
-    --spacing-ps-chip-sm-py: 0.125rem;  /* py-0.5 */
-    --spacing-ps-chip-md-px: 0.75rem;   /* px-3 */
-    --spacing-ps-chip-md-py: 0.25rem;    /* py-1 */
+	/* Pill Sizing Tokens */
+    --spacing-ps-pill-sm-px: 0.5rem;    /* px-2 */
+    --spacing-ps-pill-sm-py: 0.125rem;  /* py-0.5 */
+    --spacing-ps-pill-md-px: 0.75rem;   /* px-3 */
+    --spacing-ps-pill-md-py: 0.25rem;    /* py-1 */
 
 	/* Icon Sizing Tokens */
 	--spacing-ps-icon-sm: 1.8rem;   /* Small */
@@ -122,48 +122,48 @@
 		--app-bg-surface-elevated: var(--color-white); /* Cards (Pop out) */
 		--app-bg-surface-sunken: var(--color-gray-100);  /* Input fields */
 
-		/* Chip Tokens */
-		--portfolio-chip-filled-bg-default: var(--color-gray-100);
-		--portfolio-chip-filled-text-default: var(--color-gray-700);
-		--portfolio-chip-filled-border-default: var(--color-gray-200);
-		--portfolio-chip-outlined-text-default: var(--color-gray-600);
-		--portfolio-chip-outlined-border-default: var(--color-gray-400);
+		/* Pill Tokens */
+		--portfolio-pill-filled-bg-default: var(--color-gray-100);
+		--portfolio-pill-filled-text-default: var(--color-gray-700);
+		--portfolio-pill-filled-border-default: var(--color-gray-200);
+		--portfolio-pill-outlined-text-default: var(--color-gray-600);
+		--portfolio-pill-outlined-border-default: var(--color-gray-400);
 
-		--portfolio-chip-filled-bg-error: var(--color-red-100);
-		--portfolio-chip-filled-text-error: var(--color-red-700);
-		--portfolio-chip-filled-border-error: var(--color-red-200);
-		--portfolio-chip-outlined-text-error: var(--color-red-600);
-		--portfolio-chip-outlined-border-error: var(--color-red-500);
+		--portfolio-pill-filled-bg-error: var(--color-red-100);
+		--portfolio-pill-filled-text-error: var(--color-red-700);
+		--portfolio-pill-filled-border-error: var(--color-red-200);
+		--portfolio-pill-outlined-text-error: var(--color-red-600);
+		--portfolio-pill-outlined-border-error: var(--color-red-500);
 
-		--portfolio-chip-filled-bg-info: var(--color-sky-100);
-		--portfolio-chip-filled-text-info: var(--color-sky-700);
-		--portfolio-chip-filled-border-info: var(--color-sky-200);
-		--portfolio-chip-outlined-text-info: var(--color-sky-600);
-		--portfolio-chip-outlined-border-info: var(--color-sky-500);
+		--portfolio-pill-filled-bg-info: var(--color-sky-100);
+		--portfolio-pill-filled-text-info: var(--color-sky-700);
+		--portfolio-pill-filled-border-info: var(--color-sky-200);
+		--portfolio-pill-outlined-text-info: var(--color-sky-600);
+		--portfolio-pill-outlined-border-info: var(--color-sky-500);
 
-		--portfolio-chip-filled-bg-primary: var(--color-blue-100);
-		--portfolio-chip-filled-text-primary: var(--color-blue-700);
-		--portfolio-chip-filled-border-primary: var(--color-blue-200);
-		--portfolio-chip-outlined-text-primary: var(--color-blue-600);
-		--portfolio-chip-outlined-border-primary: var(--color-blue-500);
+		--portfolio-pill-filled-bg-primary: var(--color-blue-100);
+		--portfolio-pill-filled-text-primary: var(--color-blue-700);
+		--portfolio-pill-filled-border-primary: var(--color-blue-200);
+		--portfolio-pill-outlined-text-primary: var(--color-blue-600);
+		--portfolio-pill-outlined-border-primary: var(--color-blue-500);
 
-		--portfolio-chip-filled-bg-secondary: var(--color-purple-100);
-		--portfolio-chip-filled-text-secondary: var(--color-purple-700);
-		--portfolio-chip-filled-border-secondary: var(--color-purple-200);
-		--portfolio-chip-outlined-text-secondary: var(--color-purple-600);
-		--portfolio-chip-outlined-border-secondary: var(--color-purple-500);
+		--portfolio-pill-filled-bg-secondary: var(--color-purple-100);
+		--portfolio-pill-filled-text-secondary: var(--color-purple-700);
+		--portfolio-pill-filled-border-secondary: var(--color-purple-200);
+		--portfolio-pill-outlined-text-secondary: var(--color-purple-600);
+		--portfolio-pill-outlined-border-secondary: var(--color-purple-500);
 
-		--portfolio-chip-filled-bg-success: var(--color-emerald-100);
-		--portfolio-chip-filled-text-success: var(--color-emerald-700);
-		--portfolio-chip-filled-border-success: var(--color-emerald-200);
-		--portfolio-chip-outlined-text-success: var(--color-emerald-600);
-		--portfolio-chip-outlined-border-success: var(--color-emerald-500);
+		--portfolio-pill-filled-bg-success: var(--color-emerald-100);
+		--portfolio-pill-filled-text-success: var(--color-emerald-700);
+		--portfolio-pill-filled-border-success: var(--color-emerald-200);
+		--portfolio-pill-outlined-text-success: var(--color-emerald-600);
+		--portfolio-pill-outlined-border-success: var(--color-emerald-500);
 
-		--portfolio-chip-filled-bg-warning: var(--color-amber-100);
-		--portfolio-chip-filled-text-warning: var(--color-amber-700);
-		--portfolio-chip-filled-border-warning: var(--color-amber-200);
-		--portfolio-chip-outlined-text-warning: var(--color-amber-600);
-		--portfolio-chip-outlined-border-warning: var(--color-amber-500);
+		--portfolio-pill-filled-bg-warning: var(--color-amber-100);
+		--portfolio-pill-filled-text-warning: var(--color-amber-700);
+		--portfolio-pill-filled-border-warning: var(--color-amber-200);
+		--portfolio-pill-outlined-text-warning: var(--color-amber-600);
+		--portfolio-pill-outlined-border-warning: var(--color-amber-500);
 
 		--portfolio-divider-color: var(--color-slate-300);
 
@@ -194,48 +194,48 @@
 		--app-bg-surface-elevated: var(--color-gray-700); /* Cards (Pop out) */
 		--app-bg-surface-sunken: var(--color-gray-950);   /* Input fields (Recess) */
 
-		/* Chip Tokens */
-		--portfolio-chip-filled-bg-default: var(--color-gray-800);
-		--portfolio-chip-filled-text-default: var(--color-gray-300);
-		--portfolio-chip-filled-border-default: var(--color-gray-700);
-		--portfolio-chip-outlined-text-default: var(--color-gray-300);
-		--portfolio-chip-outlined-border-default: var(--color-gray-500);
+		/* Pill Tokens */
+		--portfolio-pill-filled-bg-default: var(--color-gray-800);
+		--portfolio-pill-filled-text-default: var(--color-gray-300);
+		--portfolio-pill-filled-border-default: var(--color-gray-700);
+		--portfolio-pill-outlined-text-default: var(--color-gray-300);
+		--portfolio-pill-outlined-border-default: var(--color-gray-500);
 
-		--portfolio-chip-filled-bg-error: color-mix(in srgb, var(--color-red-900) 30%, transparent);
-		--portfolio-chip-filled-text-error: var(--color-red-300);
-		--portfolio-chip-filled-border-error: var(--color-red-800);
-		--portfolio-chip-outlined-text-error: var(--color-red-300);
-		--portfolio-chip-outlined-border-error: var(--color-red-500);
+		--portfolio-pill-filled-bg-error: color-mix(in srgb, var(--color-red-900) 30%, transparent);
+		--portfolio-pill-filled-text-error: var(--color-red-300);
+		--portfolio-pill-filled-border-error: var(--color-red-800);
+		--portfolio-pill-outlined-text-error: var(--color-red-300);
+		--portfolio-pill-outlined-border-error: var(--color-red-500);
 
-		--portfolio-chip-filled-bg-info: color-mix(in srgb, var(--color-sky-900) 30%, transparent);
-		--portfolio-chip-filled-text-info: var(--color-sky-300);
-		--portfolio-chip-filled-border-info: var(--color-sky-800);
-		--portfolio-chip-outlined-text-info: var(--color-sky-300);
-		--portfolio-chip-outlined-border-info: var(--color-sky-500);
+		--portfolio-pill-filled-bg-info: color-mix(in srgb, var(--color-sky-900) 30%, transparent);
+		--portfolio-pill-filled-text-info: var(--color-sky-300);
+		--portfolio-pill-filled-border-info: var(--color-sky-800);
+		--portfolio-pill-outlined-text-info: var(--color-sky-300);
+		--portfolio-pill-outlined-border-info: var(--color-sky-500);
 
-		--portfolio-chip-filled-bg-primary: color-mix(in srgb, var(--color-blue-900) 30%, transparent);
-		--portfolio-chip-filled-text-primary: var(--color-blue-300);
-		--portfolio-chip-filled-border-primary: var(--color-blue-800);
-		--portfolio-chip-outlined-text-primary: var(--color-blue-300);
-		--portfolio-chip-outlined-border-primary: var(--color-blue-500);
+		--portfolio-pill-filled-bg-primary: color-mix(in srgb, var(--color-blue-900) 30%, transparent);
+		--portfolio-pill-filled-text-primary: var(--color-blue-300);
+		--portfolio-pill-filled-border-primary: var(--color-blue-800);
+		--portfolio-pill-outlined-text-primary: var(--color-blue-300);
+		--portfolio-pill-outlined-border-primary: var(--color-blue-500);
 
-		--portfolio-chip-filled-bg-secondary: color-mix(in srgb, var(--color-purple-900) 30%, transparent);
-		--portfolio-chip-filled-text-secondary: var(--color-purple-300);
-		--portfolio-chip-filled-border-secondary: var(--color-purple-800);
-		--portfolio-chip-outlined-text-secondary: var(--color-purple-300);
-		--portfolio-chip-outlined-border-secondary: var(--color-purple-500);
+		--portfolio-pill-filled-bg-secondary: color-mix(in srgb, var(--color-purple-900) 30%, transparent);
+		--portfolio-pill-filled-text-secondary: var(--color-purple-300);
+		--portfolio-pill-filled-border-secondary: var(--color-purple-800);
+		--portfolio-pill-outlined-text-secondary: var(--color-purple-300);
+		--portfolio-pill-outlined-border-secondary: var(--color-purple-500);
 
-		--portfolio-chip-filled-bg-success: color-mix(in srgb, var(--color-emerald-900) 30%, transparent);
-		--portfolio-chip-filled-text-success: var(--color-emerald-300);
-		--portfolio-chip-filled-border-success: var(--color-emerald-800);
-		--portfolio-chip-outlined-text-success: var(--color-emerald-300);
-		--portfolio-chip-outlined-border-success: var(--color-emerald-500);
+		--portfolio-pill-filled-bg-success: color-mix(in srgb, var(--color-emerald-900) 30%, transparent);
+		--portfolio-pill-filled-text-success: var(--color-emerald-300);
+		--portfolio-pill-filled-border-success: var(--color-emerald-800);
+		--portfolio-pill-outlined-text-success: var(--color-emerald-300);
+		--portfolio-pill-outlined-border-success: var(--color-emerald-500);
 
-		--portfolio-chip-filled-bg-warning: color-mix(in srgb, var(--color-amber-900) 30%, transparent);
-		--portfolio-chip-filled-text-warning: var(--color-amber-300);
-		--portfolio-chip-filled-border-warning: var(--color-amber-800);
-		--portfolio-chip-outlined-text-warning: var(--color-amber-300);
-		--portfolio-chip-outlined-border-warning: var(--color-amber-500);
+		--portfolio-pill-filled-bg-warning: color-mix(in srgb, var(--color-amber-900) 30%, transparent);
+		--portfolio-pill-filled-text-warning: var(--color-amber-300);
+		--portfolio-pill-filled-border-warning: var(--color-amber-800);
+		--portfolio-pill-outlined-text-warning: var(--color-amber-300);
+		--portfolio-pill-outlined-border-warning: var(--color-amber-500);
 
 		--portfolio-divider-color: var(--color-slate-600);
 

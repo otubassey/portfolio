@@ -9,4 +9,4 @@ export {
 
 export {SkillsSection} from "./skills";
 
-export { default as TechnologyChips } from "./technologyChips";
+export { default as TechnologyPills } from "./technologyPills";

@@ -1,24 +1,24 @@
 import { ComponentCategory, ComponentName } from "../../constants";
 import { ComponentManifest } from "../types";
 
-import StatusChip, { StatusChipProps } from "./statusChip";
+import StatusPill, { StatusPillProps } from "./statusPill";
 
-const StatusChipManifest: ComponentManifest<StatusChipProps<string>> = {
+const StatusPillManifest: ComponentManifest<StatusPillProps<string>> = {
 	category: ComponentCategory.DATA_DISPLAY,
 	codeExamples: [
 		{
-			code: `const MAPPING = { \n  stable: { color: "success", label: "Stable" },\n  unstable: { color: "warning", label: "Unstable" }\n};\n\n<StatusChip \n  status="stable" \n  statusMapping={MAPPING} \n  srOnlyPrefix="Component status: " \n/>`,
+			code: `const MAPPING = { \n  stable: { color: "success", label: "Stable" },\n  unstable: { color: "warning", label: "Unstable" }\n};\n\n<StatusPill \n  status="stable" \n  statusMapping={MAPPING} \n  srOnlyPrefix="Component status: " \n/>`,
 			title: "Standard Domain Mapping"
 		},
 		{
-			code: `<StatusChip \n  status="missing-key" \n  statusMapping={{ active: { color: "success", label: "Active" } }} \n/>`,
+			code: `<StatusPill \n  status="missing-key" \n  statusMapping={{ active: { color: "success", label: "Active" } }} \n/>`,
 			title: "Diagnostic Error State"
 		}
 	],
-	component: StatusChip,
-	description: "A generic status indicator. If the provided status is null or missing from the mapping, it renders a high-visibility Error Chip with a specific diagnostic label.",
-	extends: [ComponentName.CHIP],
-	name: ComponentName.STATUS_CHIP,
+	component: StatusPill,
+	description: "A generic status indicator. If the provided status is null or missing from the mapping, it renders a high-visibility Error Pill with a specific diagnostic label.",
+	extends: [ComponentName.PILL],
+	name: ComponentName.STATUS_PILL,
 	parameters: [
 		{
 			control: "select",
@@ -68,4 +68,4 @@ const StatusChipManifest: ComponentManifest<StatusChipProps<string>> = {
 	status: "unstable"
 };
 
-export default StatusChipManifest;
+export default StatusPillManifest;

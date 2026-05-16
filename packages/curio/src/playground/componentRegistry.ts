@@ -18,7 +18,6 @@ const ComponentName = {
 	CARD_HEADER: "CardHeader",
 	CARD_MEDIA: "CardMedia",
 	CHECKBOX: "Checkbox",
-	CHIP: "Chip",
 	COLLAPSE: "Collapse",
 	COPY_BUTTON: "CopyButton",
 	DROPDOWN: "Dropdown",
@@ -37,6 +36,7 @@ const ComponentName = {
 	MENU: "Menu",
 	MENU_ITEM: "MenuItem",
 	PAPER: "Paper",
+	PILL: "Pill",
 	SEARCH_FIELD: "SearchField",
 	SECTION: "Section",
 	SELECT: "Select",
@@ -55,7 +55,6 @@ const ComponentName = {
 
 const COMPONENTS_BY_CATEGORY: Record<string, Array<string>> = {
 	[ComponentCategory.DATA_DISPLAY]: [
-		ComponentName.CHIP,
 		ComponentName.HEADING,
 		ComponentName.ICON,
 		ComponentName.LIST,
@@ -63,6 +62,7 @@ const COMPONENTS_BY_CATEGORY: Record<string, Array<string>> = {
 		ComponentName.LIST_ITEM_ICON,
 		ComponentName.LIST_ITEM_TEXT,
 		ComponentName.LIST_SUB_HEADER,
+		ComponentName.PILL,
 		ComponentName.TABLE,
 		ComponentName.TABLE_BODY,
 		ComponentName.TABLE_BODY_CELL,

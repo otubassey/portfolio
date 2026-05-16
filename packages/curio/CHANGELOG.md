@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding `@otuekong-portfolio/common` to dependency list
 
 ### Changed
+* Renaming `StatusChip` component to `StatusPill`
+* Renaming `Chip` component to `Pill`
+* Renaming chip related tokens in `base.css` to pill
 * Updating `Chip` component to use `Surface`, fix styles, and remove event handling
 * Updating `CssUtils` to expose a `transparentize` method
 * Including `Badge` to the `ComponentRegistry` to be display in `Lookbook`

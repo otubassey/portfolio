@@ -2,7 +2,7 @@
 
 import { JSX } from "react";
 
-import { Chip } from "@otuekong-portfolio/curio";
+import { Pill } from "@otuekong-portfolio/curio";
 
 import ExhibitLabelValue from "./exhibitLabelValue";
 import UnknownExhibitLabel from "./unknownExhibitLabel";
@@ -28,7 +28,7 @@ function ExhibitLabel({
 		);
 	}
 	return (
-		<Chip
+		<Pill
 			className={className}
 			color="default"
 			label={

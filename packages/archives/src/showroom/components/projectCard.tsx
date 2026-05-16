@@ -10,12 +10,12 @@ import {
 	Heading,
 	IconButton,
 	Link,
-	StatusChip,
+	StatusPill,
 	Text
 } from "@otuekong-portfolio/curio";
 
 import { GitHubLinkButton } from "../../contact";
-import { TechnologyChips } from "../../professional";
+import { TechnologyPills } from "../../professional";
 
 const PROJECT_STATUS_MAPPING = {
 	completed: { color: "default", label: "Completed" },
@@ -58,7 +58,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
 					{title}
 				</Heading>
 
-				<StatusChip
+				<StatusPill
 					status={status}
 					statusMapping={PROJECT_STATUS_MAPPING}
 				/>
@@ -71,9 +71,9 @@ const ProjectCard: FC<ProjectCardProps> = ({
 					{description}
 				</Text>
 
-				<TechnologyChips
+				<TechnologyPills
 					only={technologies}
-					chipProps={{ size: "medium" }}
+					pillProps={{ size: "medium" }}
 				/>
 
 			</CardContent>

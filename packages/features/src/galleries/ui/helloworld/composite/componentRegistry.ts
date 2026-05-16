@@ -14,7 +14,7 @@ const HelloworldComponentName = {
 	HERO_SIMPLE_VARIANT: "SimpleVariant",
 	HERO_TERMINAL: "ProfileTerminalInteractiveHero",
 	PROFESSIONAL_LINKS: "ProfessionalLinks",
-	TECHNOLOGY_CHIPS: "TechnologyChips"
+	TECHNOLOGY_PILLS: "TechnologyPills"
 } as const;
 
 export const HELLOWORLD_COMPONENTS = [
@@ -27,7 +27,6 @@ export const HELLOWORLD_COMPONENTS = [
 	ComponentName.CARD_ACTIONS,
 	ComponentName.CARD_CONTENT,
 	ComponentName.CARD_HEADER,
-	ComponentName.CHIP,
 	ComponentName.COLLAPSE,
 	// HelloworldComponentName.CONSOLE_FRAME,
 	ComponentName.COPY_BUTTON,
@@ -50,10 +49,11 @@ export const HELLOWORLD_COMPONENTS = [
 	ComponentName.LIST_ITEM_TEXT,
 	ComponentName.MENU,
 	ComponentName.MENU_ITEM,
+	ComponentName.PILL,
 	// HelloworldComponentName.PROFESSIONAL_LINKS,
 	ComponentName.SECTION,
 	ComponentName.SELECT,
-	ComponentName.STATUS_CHIP,
+	ComponentName.STATUS_PILL,
 	ComponentName.SURFACE,
 	ComponentName.TAB,
 	ComponentName.TABLE,
@@ -63,7 +63,7 @@ export const HELLOWORLD_COMPONENTS = [
 	ComponentName.TABLE_HEAD_CELL,
 	ComponentName.TABLE_ROW,
 	ComponentName.TABS,
-	// HelloworldComponentName.TECHNOLOGY_CHIPS,
+	// HelloworldComponentName.TECHNOLOGY_PILLS,
 	ComponentName.TEXT,
 	ComponentName.TEXT_AREA,
 	ComponentName.TEXT_FIELD,

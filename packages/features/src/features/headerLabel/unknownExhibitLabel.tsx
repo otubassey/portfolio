@@ -2,7 +2,7 @@
 
 import { JSX } from "react";
 
-import { Chip } from "@otuekong-portfolio/curio";
+import { Pill } from "@otuekong-portfolio/curio";
 
 export interface UnknownExhibitLabelProps {
 	className?: string;
@@ -16,7 +16,7 @@ function UnknownExhibitLabel({
 	className = ""
 }: UnknownExhibitLabelProps): JSX.Element {
 	return (
-		<Chip
+		<Pill
 			className={className}
 			color="error"
 			icon="alert-circle"

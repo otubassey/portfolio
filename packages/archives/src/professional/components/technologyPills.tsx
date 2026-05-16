@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip, ChipProps, IconName, ICONS_NAME, List, ListItem } from "@otuekong-portfolio/curio";
+import { Pill, PillProps, IconName, ICONS_NAME, List, ListItem } from "@otuekong-portfolio/curio";
 
 import { Technology, TechnologyName } from "../data";
 
@@ -48,17 +48,17 @@ const getFilteredTechnologies = (
 	return sourceList;
 }
 
-interface TechnologyChipsProps {
-	chipProps?: Partial<ChipProps>;
+interface TechnologyPillsProps {
 	exclude?: Array<TechnologyName>;
 	only?: Array<TechnologyName>;
+	pillProps?: Partial<PillProps>;
 }
 
-const TechnologyChips = ({
-	chipProps,
+const TechnologyPills = ({
 	exclude = [],
-	only = []
-}: TechnologyChipsProps) => {
+	only = [],
+	pillProps
+}: TechnologyPillsProps) => {
 	const filteredTechnologies = getFilteredTechnologies(exclude, only);
 
 	return (
@@ -69,11 +69,11 @@ const TechnologyChips = ({
 					<ListItem
 						key={technology}
 						className="inline-flex w-fit">
-						<Chip
+						<Pill
 							color="primary"
 							label={technology}
 							size="medium"
-							{...chipProps}
+							{...pillProps}
 							icon={iconName}
 						/>
 					</ListItem>
@@ -83,6 +83,6 @@ const TechnologyChips = ({
 	);
 };
 
-TechnologyChips.displayName = "TechnologyChips";
+TechnologyPills.displayName = "TechnologyPills";
 
-export default TechnologyChips;
+export default TechnologyPills;

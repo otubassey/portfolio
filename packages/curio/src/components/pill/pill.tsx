@@ -7,13 +7,13 @@ import { CssUtils } from "../../utils";
 import { Icon, IconName, IconProps } from "../icon";
 import { Surface } from "../surface";
 
-type ChipColor = "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
+type PillColor = "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
 
 /**
  * Mapping theme colors to specific Tailwind utility classes.
  * We write these out fully to ensure the Tailwind compiler doesn"t purge them.
  */
-const THEME_STYLE: Record<ChipColor, { filled: string; outlined: string }> = {
+const THEME_STYLE: Record<PillColor, { filled: string; outlined: string }> = {
 	default: {
 		filled: "bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700",
 		outlined: "bg-transparent text-gray-600 border-gray-400 dark:text-gray-300 dark:border-gray-500"
@@ -44,32 +44,28 @@ const THEME_STYLE: Record<ChipColor, { filled: string; outlined: string }> = {
 	}
 };
 
-export interface ChipProps extends HTMLAttributes<HTMLSpanElement> {
+export interface PillProps extends HTMLAttributes<HTMLSpanElement> {
 	label: ReactNode;
 	className?: string;
-	color?: ChipColor | string;
+	color?: PillColor | string;
 	icon?: IconName;
 	iconProps?: Partial<IconProps>;
 	ref?: Ref<HTMLSpanElement>;
-	role?: string;
 	size?: "small" | "medium";
 	variant?: "filled" | "outlined";
 }
 
-// TODO: rename to Pill
-
-const Chip = ({
+const Pill = ({
 	label,
 	className = "",
 	color = "default",
 	icon,
 	iconProps,
 	ref,
-	role,
 	size = "small",
 	variant = "filled",
 	...props
-}: ChipProps) => {
+}: PillProps) => {
 	const isThemeColor = color in THEME_STYLE;
 
 	const customStyles = !isThemeColor
@@ -89,7 +85,7 @@ const Chip = ({
 			className={CssUtils.mergeClasses(
 				"inline-flex max-w-fit items-center gap-1.5 flex-shrink-0 font-bold border transition-all duration-200",
 				"rounded-full",
-				isThemeColor && THEME_STYLE[color as ChipColor][variant],
+				isThemeColor && THEME_STYLE[color as PillColor][variant],
 				size === "small" ? "px-2 py-0.5 text-xs" : "px-3 py-1",
 				className
 			)}
@@ -102,6 +98,6 @@ const Chip = ({
 	);
 };
 
-Chip.displayName = "Chip";
+Pill.displayName = "Pill";
 
-export default Chip;
+export default Pill;
