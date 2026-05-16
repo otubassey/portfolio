@@ -1,4 +1,4 @@
-const BIO = `I'm a highly motivated and results-oriented Senior Full-Stack Developer with over 10 years of experience designing,
+const BIO = `I'm a highly motivated and results-oriented Senior Full-Stack Developer with extensive years of experience designing,
 developing, and deploying robust web applications. I possess a strong command of both front-end and back-end technologies, enabling me
 to deliver exceptional user experiences while ensuring efficient and scalable solutions.`;
 

@@ -4,6 +4,7 @@ import { useId } from "react";
 
 import {
 	BioSection,
+	ExperienceBadge,
 	Salutation
 } from "@otuekong-portfolio/archives";
 import {
@@ -33,8 +34,9 @@ const PortfolioViewSidebar = ({
 
 			<BioSection
 				className="p-8 bg-white dark:bg-gray-800"
-				id={`desktop-bio-${componentId}`}
-			/>
+				id={`desktop-bio-${componentId}`}>
+				<ExperienceBadge />
+			</BioSection>
 
 			<NavigationList
 				breadcrumbs={breadcrumbs}

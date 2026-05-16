@@ -1,4 +1,4 @@
-export {ExperienceSection} from "./experience";
+export {ExperienceBadge, ExperienceSection} from "./experience";
 
 export {
 	CodeEditorConsoleFrame,

@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding Postman collection and environment variable files
 
 ### Changed
+* Updating author information in `package.json`
 * Project folder restructuring to make room for ui-api and server implementations
 * Updating Header and Sidebar components for Lookbook to use new Navigation solution
 * Updating from importing archives components to importing features components for `PortfolioView`

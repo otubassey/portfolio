@@ -20,6 +20,7 @@ const HelloworldComponentName = {
 export const HELLOWORLD_COMPONENTS = [
 	ComponentName.ALERT,
 	ComponentName.BACKDROP,
+	ComponentName.BADGE,
 	ComponentName.BUTTON,
 	ComponentName.BUTTON_BASE,
 	ComponentName.CARD,

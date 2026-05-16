@@ -2,7 +2,7 @@
 
 import { Ref } from "react";
 
-import { BioSection, Salutation } from "@otuekong-portfolio/archives";
+import { BioSection, ExperienceBadge, Salutation } from "@otuekong-portfolio/archives";
 import { Section, SectionHandle } from "@otuekong-portfolio/curio";
 
 import { InteractiveHeroSection } from "./interactiveHero";
@@ -25,7 +25,9 @@ function MobileHomeSection({
 			id={id}>
 			<Salutation orientation="vertical" />
 
-			<BioSection className="p-0" />
+			<BioSection className="p-0">
+				<ExperienceBadge />
+			</BioSection>
 
 			<InteractiveHeroSection className="flex flex-col gap-6" />
 		</Section>

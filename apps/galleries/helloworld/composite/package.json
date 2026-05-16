@@ -4,7 +4,7 @@
 	"private": true,
 	"description": "An evolved, multi-view 'Helloworld' exhibit. This composite implementation integrates the core portfolio experience with a dedicated documentation layer.",
 	"type": "module",
-	"author": "Otuekong Bassey <otuekong.bassey@gmail.com>",
+	"author": "Otuekong",
 	"license": "MIT",
 	"keywords": [
 		"portfolio",
