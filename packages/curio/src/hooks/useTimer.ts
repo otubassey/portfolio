@@ -56,8 +56,8 @@ export const useTimer = ({
 }: UseTimerOptions): UseTimerResult => {
 	const initialProgress = direction === "drain" ? 100 : 0;
 
-	const timerRef = useRef<number | null>(null);
-	const progressIntervalRef = useRef<number | null>(null);
+	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
 	const totalDurationRef = useRef<number>(0);
 	const remainingTimeRef = useRef<number>(0);
