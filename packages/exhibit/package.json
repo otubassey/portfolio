@@ -1,0 +1,48 @@
+{
+	"name": "@otuekong-portfolio/exhibit",
+	"version": "1.0.0",
+	"description": "The structural framework for assembling page experiences. This package consumes the design system and core logic to provide high-level structural components, such as application shells, navigation rails, and responsive grids. It acts as the bridge between raw domain data and the final user interface, defining how different versions of the portfolio are composed.",
+	"author": "Otuekong",
+	"type": "module",
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"license": "MIT",
+	"keywords": [
+		"composition",
+		"exhibit",
+		"layouts",
+		"pages",
+		"portfolio",
+		"Unified"
+	],
+	"packageManager": "pnpm@10.33.1",
+	"exports": {
+		".": "./src/index.ts",
+		"./galleries": "./src/galleries/index.ts",
+		"./lookbook": "./src/lookbook/index.ts",
+		"./pavilion": "./src/pavilion/index.ts"
+	},
+	"scripts": {
+		"clean": "rm -rf dist node_modules .turbo",
+		"lint": "eslint \"**/*.ts*\"",
+		"type-check": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@otuekong-portfolio/common": "workspace:*",
+		"@otuekong-portfolio/curio": "workspace:*",
+		"@otuekong-portfolio/features": "workspace:*",
+		"@otuekong-portfolio/infrastructure-server": "workspace:*",
+		"@vercel/functions": "^1.6.0",
+    	"next": "16.1.1"
+	},
+	"peerDependencies": {
+		"react": "19.2.3",
+		"react-dom": "19.2.3"
+	},
+	"devDependencies": {
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"eslint": "^9",
+		"typescript": "^5"
+	}
+}

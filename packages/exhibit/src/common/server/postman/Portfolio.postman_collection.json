@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "b37ca2d5-4fe5-4d4f-8b6e-f9c7f2c71005",
+		"name": "Portfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2952496"
+	},
+	"item": [
+		{
+			"name": "sendEmailInquiry",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"john doe\",\n    \"email\": \"\",\n    \"message\": \"hello\",\n    \"zipCode\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basePath}}/contact/v1/email/send",
+					"host": [
+						"{{basePath}}"
+					],
+					"path": [
+						"contact",
+						"v1",
+						"email",
+						"send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSystemHealth",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{basePath}}/health",
+					"host": [
+						"{{basePath}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,7 +1,14 @@
 {
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],
-	"globalEnv": ["ENABLE_EXPERIMENTAL_COREPACK"],
+	"globalEnv": [
+		"CONTACT_FORM_RECIPIENT_EMAIL",
+		"ENABLE_EXPERIMENTAL_COREPACK",
+		"RESEND_API_KEY",
+		"SYSTEM_SENDER_EMAIL",
+		"UPSTASH_REDIS_REST_TOKEN",
+		"UPSTASH_REDIS_REST_URL"
+	],
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],
@@ -26,7 +33,8 @@
 			"outputs": ["dist/**"]
 		},
 		"clean": {
-			"cache": false
+			"cache": false,
+			"dependsOn": ["^clean"]
 		}
 	}
 }

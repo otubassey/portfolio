@@ -1,9 +1,11 @@
-import { LookbookLayout } from "@otuekong-portfolio/layouts";
+"use client";
 
-function Home() {
+import { LookbookApp } from "@otuekong-portfolio/exhibit";
+
+function App() {
 	return (
-		<LookbookLayout />
+		<LookbookApp />
 	);
 }
 
-export default Home;
+export default App;

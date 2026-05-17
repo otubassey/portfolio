@@ -1,16 +1,11 @@
 "use client";
 
-import {
-	HelloworldAppRenderer,
-	PavilionLayout
-} from "@otuekong-portfolio/layouts";
+import { PavilionApp } from "@otuekong-portfolio/exhibit";
 
-function PortfolioSystem() {
+function App() {
 	return (
-		<PavilionLayout>
-			<HelloworldAppRenderer />
-		</PavilionLayout>
+		<PavilionApp />
 	);
 }
 
-export default PortfolioSystem;
+export default App;
