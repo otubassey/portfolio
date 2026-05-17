@@ -7,10 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-SNAPSHOT] - Unreleased
 ### Added
+* Adding `LinearProgress` component and its manifest
+* Adding `useTimer` hook
 * Adding a `Badge` component and its manifest
 * Adding `@otuekong-portfolio/common` to dependency list
 
 ### Changed
+* Expanding the `Playground`'s preview display
+* Updating `Alert` component's manifest
+* Updating `Alert` component with the following changes:
+	* to include `LinearProgress` its behaviors
+	* manually or auto-dismiss the `Alert` component depending on the passed props
 * Renaming `StatusChip` component to `StatusPill`
 * Renaming `Chip` component to `Pill`
 * Renaming chip related tokens in `base.css` to pill

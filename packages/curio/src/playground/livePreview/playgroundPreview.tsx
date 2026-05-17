@@ -28,7 +28,7 @@ const PlaygroundPreview = ({
 	}
 
 	return (
-		<div>
+		<div className="col-span-2">
 			<Typography variant="h6" className="mb-4">Preview</Typography>
 			<div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 flex items-center justify-center min-h-[200px]">
 				{content}

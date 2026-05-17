@@ -30,6 +30,7 @@ export const ComponentName = {
 	INLINE_BUTTON: "InlineButton",
 	INPUT_ICON: "InputIcon",
 	LABEL: "Label",
+	LINEAR_PROGRESS: "LinearProgress",
 	LINK: "Link",
 	LINK_BUTTON: "LinkButton",
 	LIST: "List",
@@ -99,6 +100,7 @@ export const COMPONENTS_BY_CATEGORY: ComponentsByCategoryType = {
 		ComponentName.ALERT,
 		ComponentName.BACKDROP,
 		ComponentName.ERROR_BOUNDARY,
+		ComponentName.LINEAR_PROGRESS,
 		ComponentName.TOOLTIP
 	],
 	[ComponentCategory.INPUTS]: [
