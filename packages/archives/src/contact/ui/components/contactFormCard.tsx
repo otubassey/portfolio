@@ -102,8 +102,12 @@ function ContactFormCard({
 
 			{isEmailSent && (
 			<Alert
-				message="Thank you! Your message has been sent successfully."
-				severity="info"
+				autoHideDuration={10000}
+				message="Message sent successfully"
+				messageProps={{
+					className: "text-[15px] md:text-[18px]"
+				}}
+				severity="success"
 				variant="filled"
 			/>
 			)}

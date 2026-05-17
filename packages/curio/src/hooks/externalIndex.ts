@@ -3,4 +3,5 @@ export { default as useIsHydrated } from "./useIsHydrated";
 export { default as useIsMounted } from "./useIsMounted";
 export { default as useSetInterval } from "./useSetInterval";
 export { default as useStableValue } from "./useStableValue";
+export { default as useTimer } from "./useTimer";
 export { default as useToggle } from "./useToggle";

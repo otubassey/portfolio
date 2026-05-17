@@ -26,6 +26,7 @@ const COMPONENT_REGISTRY: ComponentRegistryType = {
 	InlineButton: () => import("../components/inlineButton/inlineButton.manifest").then(m => ({ manifest: m.default })),
 	InputIcon: () => import("../components/inputIcon/inputIcon.manifest").then(m => ({ manifest: m.default })),
 	Label: () => import("../components/label/label.manifest").then(m => ({ manifest: m.default })),
+	LinearProgress: () => import("../components/linearProgress/linearProgress.manifest").then(m => ({ manifest: m.default })),
 	Link: () => import("../components/link/link.manifest").then(m => ({ manifest: m.default })),
 	LinkButton: () => import("../components/linkButton/linkButton.manifest").then(m => ({ manifest: m.default })),
 	List: () => import("../components/list/list.manifest").then(m => ({ manifest: m.default })),

@@ -34,10 +34,33 @@ const AlertManifest: ComponentManifest<AlertProps> = {
 	severity="info"
 	variant="outlined"
 />`
+		},
+		{
+			title: "Auto-hiding Alert",
+			code: `
+<Alert
+	message="This message will disappear in 5 seconds."
+	autoHideDuration={5000}
+	severity="info"
+	onClose={() => console.log("Alert dismissed")}
+/>`
+		},
+		{
+			title: "Critical Error with Pause on Hover",
+			code: `
+<Alert
+	message="Critical system failure detected!"
+	autoHideDuration={10000}
+	continueOnHover={false}
+	severity="error"
+	variant="filled"
+	transactionId="e6b6274a-4492-4b52-8a80-9c1ea5c3c137"
+	detail="The upstream database connection timed out after 30 seconds."
+/>`
 		}
 	],
 	component: Alert,
-	description: "Displays important messages with varying severity levels. Supports collapsible detail sections with built-in copy-to-clipboard functionality.",
+	description: "Displays important messages with varying severity levels. Supports collapsible detail section with built-in copy-to-clipboard functionality, auto-hide timers with progress bars, and manual dismissal.",
 	name: ComponentName.ALERT,
 	parameters: [
 		{
@@ -50,6 +73,27 @@ const AlertManifest: ComponentManifest<AlertProps> = {
 			],
 			required: true,
 			type: "string"
+		},
+		{
+			control: "select",
+			description: "The time in milliseconds before the alert automatically closes. Set to a value > 0 to enable.",
+			name: "autoHideDuration",
+			options: [
+				{ label: "None", value: 0 },
+				{ label: "3 Seconds", value: 3000 },
+				{ label: "5 Seconds", value: 5000 },
+				{ label: "10 Seconds", value: 10000 }
+			],
+			required: false,
+			type: "number"
+		},
+		{
+			control: "switch",
+			defaultValue: false,
+			description: "If true, the auto-hide timer continues even when the user hovers over the alert.",
+			name: "continueOnHover",
+			required: false,
+			type: "boolean"
 		},
 		{
 			control: "readonly",
@@ -70,6 +114,13 @@ const AlertManifest: ComponentManifest<AlertProps> = {
 			],
 			required: false,
 			type: "ReactNode"
+		},
+		{
+			control: "none",
+			description: "Enables the manual close button if a callback is provided.",
+			name: "onClose",
+			required: false,
+			type: "function"
 		},
 		{
 			control: "select",
@@ -101,7 +152,7 @@ const AlertManifest: ComponentManifest<AlertProps> = {
 			type: "'filled' | 'outlined' | 'standard'"
 		}
 	],
-	status: "stable"
+	status: "unstable"
 };
 
 export default AlertManifest;

@@ -1,8 +1,8 @@
 "use client";
 
-import { ReactNode, Ref, useId } from "react";
+import { ReactNode, Ref, useEffect, useId } from "react";
 
-import { useToggle } from "../../hooks";
+import { useTimer, useToggle } from "../../hooks";
 import { CssUtils } from "../../utils";
 
 import { Collapse } from "../collapse";
@@ -10,6 +10,41 @@ import { CopyButton } from "../copyButton";
 import { Icon } from "../icon";
 import { ToggleIconButton } from "../toggleIconButton";
 import { Typography, TypographyProps } from "../typography";
+import { IconButton } from "../iconButton";
+import { LinearProgress } from "../linearProgress";
+
+type Severity = "error" | "info" | "success" | "warning";
+
+type Variant = "filled" | "outlined" | "standard";
+
+const getProgressColor = (
+	isFilled: boolean,
+	isOutlined: boolean,
+	severity: Severity
+) => {
+	if(isFilled) {
+		return "var(--color-portfolio-default-text-contrast)";
+	}
+
+	if(isOutlined) {
+		const colorMap: Record<Severity, string> = {
+			error: "var(--color-portfolio-error)",
+			info: "var(--color-portfolio-primary)",
+			success: "var(--color-portfolio-success)",
+			warning: "var(--color-portfolio-warning)"
+		};
+		return colorMap[severity];
+	}
+
+	const colorMap: Record<Severity, string> = {
+		error: "var(--color-portfolio-error-dark)",
+		info: "var(--color-portfolio-primary-dark)",
+		success: "var(--color-portfolio-success-dark)",
+		warning: "var(--color-portfolio-warning-dark)"
+	};
+
+	return colorMap[severity];
+};
 
 const ICON_NAME_BY_SEVERITY = {
 	success: "check-circle",
@@ -39,17 +74,16 @@ const VARIANT_STYLES = {
 	}
 } as const;
 
-type Severity = "error" | "info" | "success" | "warning";
-
-type Variant = "filled" | "outlined" | "standard";
-
 export interface AlertProps {
 	message: string;
+	autoHideDuration?: number;  // milliseconds
 	className?: string;
+	continueOnHover?: boolean;
 	copyText?: string;
 	detail?: ReactNode;
 	detailProps?: Omit<TypographyProps, "children">;
 	messageProps?: Omit<TypographyProps, "children">;
+	onClose?: () => void;
 	ref?: Ref<HTMLDivElement>;
 	severity?: Severity;
 	transactionId?: string;
@@ -58,19 +92,31 @@ export interface AlertProps {
 
 const Alert = ({
 	message,
+	autoHideDuration,
+	continueOnHover = false,
 	copyText,
 	detail,
 	detailProps,
 	messageProps,
+	onClose,
 	ref,
 	severity: severityProp,
 	transactionId,
 	variant: variantProp
 }: AlertProps) => {
-	const [isOpen, toggleIsOpen] = useToggle(false);
+	const [isDetailPanelExpanded, toggleIsDetailPanelExpanded] = useToggle(false);
+	const [isAlertVisible, toggleIsAlertVisible] = useToggle(true);
 
 	const generatedId = useId();
 	const detailId = `alert-detail-${generatedId}`;
+
+	const { clear, inProgress, pause, progress, resume, start } = useTimer({
+		direction: "drain",
+		onEnd: () => {
+			toggleIsAlertVisible(false);
+			onClose?.();
+		}
+	});
 
 	const severity = severityProp || "error";
 	const variant = variantProp || "standard";
@@ -84,6 +130,35 @@ const Alert = ({
 	const { color: detailColor, truncate: detailTruncate, variant: detailVariant, ...detailTypographyProps} = detailProps ?? {};
 	const { color: messageColor, truncate: messageTruncate, variant: messageVariant, ...messageTypographyProps} = messageProps ?? {};
 
+	const handleMouseEnter = () => {
+		if(!continueOnHover && inProgress) {
+			pause();
+		}
+	};
+
+	const handleMouseLeave = () => {
+		if(!isDetailPanelExpanded && !inProgress) {
+			resume();
+		}
+	};
+
+	useEffect(() => {
+		if(autoHideDuration) {
+			start(autoHideDuration);
+		}
+		return () => clear();
+	}, [autoHideDuration, clear, start]);
+
+	useEffect(() => {
+		if(isDetailPanelExpanded && inProgress) {
+			pause();
+		}
+	}, [isDetailPanelExpanded, pause]);
+
+	if(!isAlertVisible) {
+		return null;
+	}
+
 	return (
 		<div
 			ref={ref}
@@ -91,11 +166,23 @@ const Alert = ({
 				"w-full overflow-hidden rounded-lg shadow-sm",
 				isOutlined && VARIANT_STYLES.outlined[severity]
 			)}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 			role="alert">
+
+			{Boolean(autoHideDuration) && (
+			<LinearProgress
+				color={getProgressColor(isFilled, isOutlined, severity)}
+				variant="determinate"
+				value={progress}
+			/>
+			)}
+
 			<div
 				className={CssUtils.mergeClasses(
 					"flex items-center justify-between px-4 py-3 gap-3 w-full",
-					(isFilled && isOpen && detail) ? "rounded-t-lg" : "rounded-lg",
+					(isFilled && isDetailPanelExpanded && detail) ? "rounded-t-lg" : "rounded-lg",
+					Boolean(autoHideDuration) && "rounded-t-none",
 					isOutlined ? "bg-transparent" : VARIANT_STYLES[variant][severity]
 				)}>
 
@@ -114,51 +201,73 @@ const Alert = ({
 						{message}
 					</Typography>
 
-					{!isOpen && transactionId && !detail && (
+					{!isDetailPanelExpanded && transactionId && !detail && (
 					<Typography variant="caption" className="opacity-60 font-mono text-[10px]">
-						REF ID: {transactionId.slice(0, 8)}...
+						REF ID: {transactionId.slice(0, 8)}
 					</Typography>
 					)}
 				</div>
 
-				{detail && (
-				<div className="shrink-0">
+				<div className="flex items-center gap-2 shrink-0">
+
+					{detail && (
 					<ToggleIconButton
 						aria-controls={detailId}
-						aria-expanded={isOpen}
-						aria-label={isOpen ? "Collapse details" : "Expand details"}
-						checked={isOpen}
+						aria-expanded={isDetailPanelExpanded}
+						aria-label={isDetailPanelExpanded ? "Collapse details" : "Expand details"}
+						checked={isDetailPanelExpanded}
 						checkedIcon="chevron-up"
 						color={isFilled ? "inherit" : severity}
 						icon="chevron-down"
-						onToggle={toggleIsOpen}
+						onToggle={toggleIsDetailPanelExpanded}
 					/>
+					)}
+
+					{onClose && (
+					<IconButton
+						aria-label="Close alert"
+						color={isFilled ? "inherit" : severity}
+						icon="x"
+						onClick={onClose}
+						size="small"
+					/>
+					)}
+
 				</div>
-				)}
+
 			</div>
 
-			{isOpen && (
+			{isDetailPanelExpanded && (
 			<Collapse
 				className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
 				id={detailId}
 				expand>
 
-				<div className="flex flex-col gap-4 p-4">
+				<div className={CssUtils.mergeClasses(
+					"flex flex-col p-4",
+					(Boolean(copyText) || Boolean(transactionId)) && "gap-4"
+				)}>
 
-					<div className="flex justify-between border border-red-500">
+					{(Boolean(copyText) || Boolean(transactionId)) && (
+					<div
+						className={CssUtils.mergeClasses(
+							"flex items-center",
+							Boolean(transactionId && copyText) && "justify-between",
+							Boolean(copyText && !transactionId) && "justify-end"
+						)}>
 
 						{transactionId && (
 						<span className="flex gap-1">
 							<Typography
 								className="whitespace-pre-wrap"
-								color={textOverride}
+								color="primary"
 								variant="caption"
 								weight="bold">
 								REF ID:
 							</Typography>
 							<Typography
 								className="whitespace-pre-wrap"
-								color={textOverride}
+								color="muted"
 								variant="overline"
 								weight="medium">
 								{transactionId}
@@ -177,6 +286,7 @@ const Alert = ({
 						)}
 
 					</div>
+					)}
 
 					<div
 						className={CssUtils.mergeClasses(
