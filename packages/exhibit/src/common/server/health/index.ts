@@ -1,0 +1,1 @@
+export { ConfiguredHealthServiceHandler } from "./bootstrap";
