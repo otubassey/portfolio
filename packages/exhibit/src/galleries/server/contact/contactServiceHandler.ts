@@ -1,3 +1,5 @@
+import { NextRequest } from "next/server";
+
 import { ConfigurationError } from "@otuekong-portfolio/common";
 import { ConfiguredSendEmailHandler } from "@otuekong-portfolio/features";
 
@@ -17,8 +19,8 @@ class ContactServiceHandler {
 		}
 	}
 
-	public sendEmailInquiry = () => {
-        return createNextRoute(this.sendEmailInquiryHandler);
+	public sendEmailInquiry = (request: NextRequest) => {
+        return createNextRoute(this.sendEmailInquiryHandler)(request);
     };
 }
 

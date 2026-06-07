@@ -1,6 +1,6 @@
 {
 	"name": "pavilion",
-	"version": "1.1.0",
+	"version": "1.1.1-rc-1",
 	"private": true,
 	"description": "The entry-point application for the portfolio ecosystem. Pavilion serves as a curated architectural shell designed to host and switch between various themed implementations and historical versions of the portfolio. It manages global state, cross-app navigation, and the high-level presentation of themed 'exhibits'.",
 	"type": "module",
