@@ -1,4 +1,6 @@
-import { getSystemHealthHandler } from "@otuekong-portfolio/exhibit";
+import { NextRequest } from "next/server";
+
+import { ConfiguredHealthServiceHandler } from "@otuekong-portfolio/exhibit";
 
 /**
  * Enforces Next.js framework-level background cache revalidation (ISR).
@@ -12,4 +14,6 @@ import { getSystemHealthHandler } from "@otuekong-portfolio/exhibit";
  */
 export const revalidate = 43200000;
 
-export const GET = getSystemHealthHandler;
+export async function GET(request: NextRequest) {
+	return ConfiguredHealthServiceHandler.sendHealthInquiry(request);
+}
