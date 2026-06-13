@@ -20,7 +20,7 @@
 		"ui",
 		"utilities"
 	],
-	"packageManager": "pnpm@10.33.1",
+	"packageManager": "pnpm@11.6.0",
 	"exports": {
 		".": "./src/index.ts",
 		"./base": "./src/base.css",

@@ -1,11 +1,11 @@
 import {
 	ConfigurationError,
+	EnvironmentRegistry,
 	withSchemaValidation,
 	ZodSchemaValidator
 } from "@otuekong-portfolio/common";
 import {
 	ConfiguredResendClient,
-	EnvironmentRegistry,
 	HttpRequest,
 	HttpResponse,
 	ResourceHandler,
@@ -70,9 +70,11 @@ class SendEmailHandler implements ResourceHandler<ContactFormField, { success: b
 				withRateLimit(request?.ip, "contact-email-submission", 3, "1h")
 			)
 			.before(
-				withSchemaValidation(this.validator, formField, (result) => {
-					if(!result.success) {
-						const isBot = result.error.issues.some(issue => issue.path.includes("zipCode"));
+				withSchemaValidation(this.validator, formField, (validatorResult) => {
+					if(!validatorResult.isValid) {
+						const isBot = validatorResult.errors.some(validationError => (
+							validationError.path.includes("zipCode")
+						));
 						if(isBot && formField?.zipCode?.trim() !== "") {
 							return {
 								action: "SHORT_CIRCUIT",
@@ -89,13 +91,13 @@ class SendEmailHandler implements ResourceHandler<ContactFormField, { success: b
 				})
 			);
 
-        const pipelineResult = await emailPipeline.execute();
+        const pipelineExecutionResult = await emailPipeline.execute();
 
-        if(!pipelineResult.success && pipelineResult.error) {
+        if(!pipelineExecutionResult.success && pipelineExecutionResult.error) {
             return {
-                status: (pipelineResult.error as any).statusCode || 500,
-                error: pipelineResult.error,
-				headers: (pipelineResult.error as any).headers
+                status: (pipelineExecutionResult.error as any).statusCode || 500,
+                error: pipelineExecutionResult.error,
+				headers: (pipelineExecutionResult.error as any).headers
             };
         }
 

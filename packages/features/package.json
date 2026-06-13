@@ -14,7 +14,7 @@
 		"Page-Logic",
 		"Orchestration"
 	],
-	"packageManager": "pnpm@10.33.1",
+	"packageManager": "pnpm@11.6.0",
 	"exports": {
 		".": "./src/index.ts",
 		"./applicationContext": "./src/applicationContext/index.ts",

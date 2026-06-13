@@ -1,8 +1,14 @@
 import { Redis } from "@upstash/redis";
 
-import { ConfigurationError, DeferredOperationBuilder, ExecutionResult, ServerComponentClient } from "@otuekong-portfolio/common";
+import {
+	ConfigurationError,
+	DeferredOperationBuilder,
+	EnvironmentRegistry,
+	ExecutionResult,
+	LoggerFactory,
+	ServerComponentClient
+} from "@otuekong-portfolio/common";
 
-import { EnvironmentRegistry } from "../server";
 import { ServerComponentHealth, ServerComponentMonitor } from "../types";
 
 /**
@@ -13,6 +19,8 @@ import { ServerComponentHealth, ServerComponentMonitor } from "../types";
  * real-time latency diagnostics for automated platform monitoring.
  */
 class RedisClient extends ServerComponentClient implements ServerComponentMonitor {
+	private readonly logger = LoggerFactory.getLogger("RedisClient");
+
 	private client: Redis | null = null;
 
 	constructor(
@@ -57,8 +65,7 @@ class RedisClient extends ServerComponentClient implements ServerComponentMonito
 					error: null
 				};
 			} catch (error) {
-				// TODO: replace with logger
-				console.error("[Redis diagnostics failed]:", (error as any)?.message);
+				this.logger.error("[Redis diagnostics failed]:", (error as Error));
 
 				return {
 					// Graceful operational capture prevents pipeline termination crashes

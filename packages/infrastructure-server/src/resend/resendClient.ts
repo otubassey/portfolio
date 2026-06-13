@@ -3,13 +3,14 @@ import { Resend } from "resend";
 import {
 	ConfigurationError,
 	DeferredOperationBuilder,
+	EnvironmentRegistry,
 	ExecutionResult,
 	FalloutError,
+	LoggerFactory,
 	OperationPipeline,
 	ServerComponentClient
 } from "@otuekong-portfolio/common";
 
-import { EnvironmentRegistry } from "../server";
 import { ServerComponentHealth, ServerComponentMonitor } from "../types";
 
 export interface SendEmailParams {
@@ -28,6 +29,8 @@ export interface SendEmailParams {
  * failures gracefully to expose live health check telemetry.
  */
 class ResendClient extends ServerComponentClient implements ServerComponentMonitor {
+	private readonly logger = LoggerFactory.getLogger("ResendClient");
+
 	private driverInstance: Resend | null = null;
 
 	constructor(
@@ -85,8 +88,7 @@ class ResendClient extends ServerComponentClient implements ServerComponentMonit
 					(error as any)?.statusCode === 422;
 
 				if(!isAuthValid) {
-					// TODO: replace with logger
-					console.error("[Resend key diagnostics failed]:", (error as any)?.message);
+					this.logger.error("[Resend key diagnostics failed]:", (error as Error));
 
 					return {
 						success: true,

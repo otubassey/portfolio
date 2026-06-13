@@ -20,7 +20,7 @@
 		"lint": "eslint",
 		"type-check": "tsc --noEmit"
 	},
-	"packageManager": "pnpm@10.33.1",
+	"packageManager": "pnpm@11.6.0",
 	"dependencies": {
 		"@otuekong-portfolio/curio": "workspace:*",
 		"@otuekong-portfolio/exhibit": "workspace:*",

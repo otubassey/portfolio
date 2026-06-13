@@ -16,7 +16,7 @@
 		"redis",
 		"server-only"
 	],
-	"packageManager": "pnpm@10.33.1",
+	"packageManager": "pnpm@11.6.0",
 	"exports": {
 		".": "./src/index.ts"
 	},
@@ -32,8 +32,7 @@
 		"@upstash/ratelimit": "^2.0.8",
 		"@upstash/redis": "^1.37.0",
 		"@otuekong-portfolio/common": "workspace:*",
-		"resend": "^6.10.0",
-		"zod": "^4.3.6"
+		"resend": "^6.10.0"
 	},
 	"devDependencies": {
 		"eslint": "^9",

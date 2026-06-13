@@ -1,26 +1,51 @@
-import { ConfigurationError } from "@otuekong-portfolio/common";
+import { NodeEnvironment } from "../constants";
+import { ConfigurationError } from "../errors";
 
-import { EnvironmentSchema, EnvironmentVariable } from "./environmentSchema";
+import {
+	EnvironmentSchemaValidatorFactory,
+	EnvironmentSchemaValidatorFactoryType,
+	EnvironmentVariable
+} from "./environmentSchema";
 
 class EnvironmentRegistryInternal {
 	private static instance: EnvironmentRegistryInternal;
     private cache: Map<EnvironmentVariable, string> = new Map();
 
-    private constructor() {}
+    private constructor(
+		private readonly environmentSchemaValidatorFactory: EnvironmentSchemaValidatorFactoryType
+	) {}
 
-	public static getInstance(): EnvironmentRegistryInternal {
+	public static getInstance(
+		environmentSchemaValidatorFactory: EnvironmentSchemaValidatorFactoryType
+	): EnvironmentRegistryInternal {
 		if(!EnvironmentRegistryInternal.instance) {
-			EnvironmentRegistryInternal.instance = new EnvironmentRegistryInternal();
+			EnvironmentRegistryInternal.instance = new EnvironmentRegistryInternal(environmentSchemaValidatorFactory);
 		}
 		return EnvironmentRegistryInternal.instance;
     }
+
+    public get CLIENT_LOG_LEVEL(): string {
+		return this.get("CLIENT_LOG_LEVEL");
+	}
 
     public get CONTACT_FORM_RECIPIENT_EMAIL(): string {
 		return this.get("CONTACT_FORM_RECIPIENT_EMAIL");
 	}
 
+    public get LOG_LEVEL(): string {
+		return this.get("LOG_LEVEL");
+	}
+
+    public get NODE_ENV(): string {
+		return this.get("NODE_ENV") || NodeEnvironment.PROD;
+	}
+
     public get RESEND_API_KEY(): string {
 		return this.get("RESEND_API_KEY");
+	}
+
+    public get SERVER_LOG_LEVEL(): string {
+		return this.get("SERVER_LOG_LEVEL");
 	}
 
     public get SYSTEM_SENDER_EMAIL(): string {
@@ -42,14 +67,13 @@ class EnvironmentRegistryInternal {
 
         const value = process.env[key];
 
-		// TODO: enhance ZodSchemaValidator to handle this
-        const schema = EnvironmentSchema.shape[key];
-        const result = schema.safeParse(value);
+		const validationResult = this.environmentSchemaValidatorFactory(key)
+			.validate(value);
 
-        if(!result.success) {
-            const errorMessage = result.error.issues
-                .map(error => error.message)
-                .join(', ');
+        if(!validationResult.isValid) {
+            const errorMessage = validationResult.errors
+                .map(validationError => validationError.message)
+                .join(", ");
 
             throw new ConfigurationError(
                 "Environment Configuration Hydration Failure",
@@ -57,9 +81,9 @@ class EnvironmentRegistryInternal {
             );
         }
 
-        this.cache.set(key, result.data);
+        this.cache.set(key, validationResult.data ?? "");
 
-        return result.data;
+        return validationResult.data ?? "";
     }
 }
 
@@ -70,6 +94,6 @@ class EnvironmentRegistryInternal {
  * catching malformed platform states instantly and exposing verified, fully typed string
  * configurations via safe property getters.
  */
-const EnvironmentRegistry = EnvironmentRegistryInternal.getInstance();
+const EnvironmentRegistry = EnvironmentRegistryInternal.getInstance(EnvironmentSchemaValidatorFactory);
 
 export default EnvironmentRegistry;
