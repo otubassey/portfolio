@@ -3,14 +3,17 @@ import { Resend } from "resend";
 import {
 	ConfigurationError,
 	DeferredOperationBuilder,
+	EnvironmentRegistry,
 	ExecutionResult,
 	FalloutError,
+	LoggerProvider,
 	OperationPipeline,
 	ServerComponentClient
 } from "@otuekong-portfolio/common";
 
-import { EnvironmentRegistry } from "../server";
 import { ServerComponentHealth, ServerComponentMonitor } from "../types";
+
+import { ResendEnvironmentKeys } from "./types";
 
 export interface SendEmailParams {
 	origin: string;
@@ -28,24 +31,38 @@ export interface SendEmailParams {
  * failures gracefully to expose live health check telemetry.
  */
 class ResendClient extends ServerComponentClient implements ServerComponentMonitor {
+	private readonly CONFIGURATION_ERROR_MESSAGE = "Courier initialization failed";
+
+	private readonly logger;
+
 	private driverInstance: Resend | null = null;
 
 	constructor(
-		private readonly environmentRegistry: typeof EnvironmentRegistry
+		private readonly environmentRegistry: EnvironmentRegistry<ResendEnvironmentKeys>,
+		private readonly loggerProvider: LoggerProvider
 	) {
 		super();
 
 		if(!environmentRegistry) {
 			throw new ConfigurationError(
-				"Courier initialization failed",
+				this.CONFIGURATION_ERROR_MESSAGE,
 				"Missing required environment registry initialization parameters."
 			);
 		}
+
+		if(!loggerProvider) {
+			throw new ConfigurationError(
+				this.CONFIGURATION_ERROR_MESSAGE,
+				"Missing required LoggerProvider initialization parameters."
+			);
+		}
+
+		this.logger = this.loggerProvider.getLogger("ResendClient");
 	}
 
 	private get driver(): Resend {
         if(!this.driverInstance) {
-            this.driverInstance = new Resend(this.environmentRegistry.RESEND_API_KEY);
+            this.driverInstance = new Resend(this.environmentRegistry.get("RESEND_API_KEY"));
         }
         return this.driverInstance;
     }
@@ -85,8 +102,7 @@ class ResendClient extends ServerComponentClient implements ServerComponentMonit
 					(error as any)?.statusCode === 422;
 
 				if(!isAuthValid) {
-					// TODO: replace with logger
-					console.error("[Resend key diagnostics failed]:", (error as any)?.message);
+					this.logger.error("[Resend key diagnostics failed]:", (error as Error));
 
 					return {
 						success: true,
@@ -115,7 +131,7 @@ class ResendClient extends ServerComponentClient implements ServerComponentMonit
 	sendEmail(): OperationPipeline<SendEmailParams, any, any> {
         return this.create(async (payload: SendEmailParams): Promise<ExecutionResult<any>> => {
 			try {
-				payload.target = this.environmentRegistry.CONTACT_FORM_RECIPIENT_EMAIL;
+				payload.target = this.environmentRegistry.get("PORTFOLIO_EMAIL_TARGET");
 
 				const driverResponse = await this.driver.emails.send({
 					from: payload.sender,

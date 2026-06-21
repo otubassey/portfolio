@@ -1,11 +1,9 @@
 import { NextRequest } from "next/server";
 
 import { ConfigurationError } from "@otuekong-portfolio/common";
-import { ConfiguredSendEmailHandler } from "@otuekong-portfolio/features";
+import { SendEmailHandler } from "@otuekong-portfolio/features/galleries";
 
 import { createNextRoute } from "../../../common";
-
-type SendEmailHandler = typeof ConfiguredSendEmailHandler;
 
 class ContactServiceHandler {
     constructor(

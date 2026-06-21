@@ -1,18 +1,20 @@
 import {
 	ConfigurationError,
+	EnvironmentRegistry,
 	withSchemaValidation,
 	ZodSchemaValidator
 } from "@otuekong-portfolio/common";
 import {
-	ConfiguredResendClient,
-	EnvironmentRegistry,
 	HttpRequest,
 	HttpResponse,
+	ResendClient,
 	ResourceHandler,
-	withRateLimit
+	WithRateLimitPreHook
 } from "@otuekong-portfolio/infrastructure-server";
 
 import { ContactFormField } from "../../ui";
+
+import { SendEmailHandlerEnvironmentKeys } from "./types";
 
 /**
  * Resource handler orchestrating inbound contact form data submissions.
@@ -24,35 +26,36 @@ import { ContactFormField } from "../../ui";
 class SendEmailHandler implements ResourceHandler<ContactFormField, { success: boolean }> {
 
     constructor(
-        private readonly resendClient: typeof ConfiguredResendClient,
+		private readonly environmentRegistry: EnvironmentRegistry<SendEmailHandlerEnvironmentKeys>,
+        private readonly resendClient: ResendClient,
 		private readonly validator: ZodSchemaValidator<ContactFormField>,
-		private readonly environmentRegistry: typeof EnvironmentRegistry
+		private readonly withRateLimitPreHook: WithRateLimitPreHook
     ) {
-		if(!resendClient) {
-            throw new ConfigurationError(
-                "Resource Handler Initialization Failed",
-                "A valid ResendClient driver instance must be supplied to construct the SendEmailHandler."
-            );
-        }
-		if(!validator) {
-            throw new ConfigurationError(
-                "Resource Handler Initialization Failed",
-                "A valid ZodSchemaValidator engine instance must be supplied to construct the SendEmailHandler."
-            );
-        }
-		if(!environmentRegistry) {
-            throw new ConfigurationError(
-                "Resource Handler Initialization Failed",
-                "A valid EnvironmentRegistry must be supplied to construct the SendEmailHandler."
-            );
-        }
+		const requiredParameters = {
+			environmentRegistry,
+			resendClient,
+			validator,
+			withRateLimitPreHook
+		} as const;
+		if(!Object.values(requiredParameters).some(Boolean)) {
+			Object.entries(requiredParameters)
+				.forEach(([param, value]) => {
+					const formattedParam = `${param.charAt(0).toUpperCase()}${param.slice(1)}`;
+					if(!value) {
+						throw new ConfigurationError(
+							"Resource Handler Initialization Failed",
+							`A valid ${formattedParam} must be supplied to construct the SendEmailHandler.`
+						);
+					}
+				});
+		}
 	}
 
     public async handle(
         request: HttpRequest<ContactFormField>
     ): Promise<HttpResponse<{ success: boolean }>> {
 		const formField = request.body;
-		const systemSenderEmail = this.environmentRegistry.SYSTEM_SENDER_EMAIL;
+		const systemSenderEmail = this.environmentRegistry.get("PORTFOLIO_EMAIL_SENDER");
 
 		const emailPipeline = this.resendClient.sendEmail()
 			.withContext({
@@ -67,12 +70,14 @@ class SendEmailHandler implements ResourceHandler<ContactFormField, { success: b
 					<p>${formField.message}</p>`
 			})
 			.before(
-				withRateLimit(request?.ip, "contact-email-submission", 3, "1h")
+				this.withRateLimitPreHook(request?.ip, "contact-email-submission", 3, "1h")
 			)
 			.before(
-				withSchemaValidation(this.validator, formField, (result) => {
-					if(!result.success) {
-						const isBot = result.error.issues.some(issue => issue.path.includes("zipCode"));
+				withSchemaValidation(this.validator, formField, (validatorResult) => {
+					if(!validatorResult.isValid) {
+						const isBot = validatorResult.errors.some(validationError => (
+							validationError.path.includes("zipCode")
+						));
 						if(isBot && formField?.zipCode?.trim() !== "") {
 							return {
 								action: "SHORT_CIRCUIT",
@@ -89,13 +94,13 @@ class SendEmailHandler implements ResourceHandler<ContactFormField, { success: b
 				})
 			);
 
-        const pipelineResult = await emailPipeline.execute();
+        const pipelineExecutionResult = await emailPipeline.execute();
 
-        if(!pipelineResult.success && pipelineResult.error) {
+        if(!pipelineExecutionResult.success && pipelineExecutionResult.error) {
             return {
-                status: (pipelineResult.error as any).statusCode || 500,
-                error: pipelineResult.error,
-				headers: (pipelineResult.error as any).headers
+                status: (pipelineExecutionResult.error as any).statusCode || 500,
+                error: pipelineExecutionResult.error,
+				headers: (pipelineExecutionResult.error as any).headers
             };
         }
 

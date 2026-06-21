@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useToggle } from "@otuekong-portfolio/curio";
 
-import { AppManifest } from "../applicationContext";
+import { AppManifest } from "../../applicationContext";
 
 import BreadcrumbUtils from "./breadcrumbUtils";
 import { Breadcrumb, NavigationState } from "./types";

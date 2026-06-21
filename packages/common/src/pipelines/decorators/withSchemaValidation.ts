@@ -1,7 +1,5 @@
-import Zod from "zod";
-
 import { UnsupportedError, ValidationError } from "../../errors";
-import { ZodSchemaValidator } from "../../validators";
+import { ValidationResult, ZodSchemaValidator } from "../../validators";
 
 import { PipelineContext, PreHook, PipelineDirective } from "../types";
 
@@ -16,10 +14,10 @@ import { ValidationExpressionResult } from "./types";
 const withSchemaValidation = <Context extends PipelineContext, Payload>(
     validator: ZodSchemaValidator<Payload>,
 	payloadToValidate: any,
-    exceptionalPredicate?: (result: Zod.ZodSafeParseResult<Payload>) => ValidationExpressionResult
+    exceptionalPredicate?: (result: ValidationResult<Payload>) => ValidationExpressionResult
 ): PreHook<Context> => {
     return async (context: Context): Promise<PipelineDirective<Context>> => {
-        const parseResult: Zod.ZodSafeParseResult<Payload> = validator.apply(payloadToValidate);
+        const parseResult: ValidationResult<Payload> = validator.validate(payloadToValidate);
 
         if(exceptionalPredicate) {
             const outcome = exceptionalPredicate(parseResult);
@@ -41,10 +39,10 @@ const withSchemaValidation = <Context extends PipelineContext, Payload>(
 			}
         }
 
-        if(!parseResult.success) {
-            const structuredErrors = parseResult.error.issues.map((issue) => ({
-                attribute: issue.path.join("."),
-                errors: [issue.message]
+        if(!parseResult.isValid) {
+            const structuredErrors = parseResult.errors.map(validationError => ({
+                attribute: validationError.path,
+                errors: [validationError.message]
             }));
 
             throw ValidationError.Builder()

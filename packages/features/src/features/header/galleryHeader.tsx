@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 import { ErrorBoundary, useTheme } from "@otuekong-portfolio/curio";
 
-import { useNavigation } from "../../navigation";
+import { useNavigation } from "../navigation";
 
 import DesktopHeader from "./desktopHeader";
 import MobileHeader from "./mobileHeader";

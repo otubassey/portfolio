@@ -1,7 +1,8 @@
 import { NextRequest } from "next/server";
 
-import { ConfiguredContactServiceHandler } from "@otuekong-portfolio/exhibit";
+import { ExhibitContext, GalleriesContainer } from "@otuekong-portfolio/exhibit/galleries";
 
 export async function POST(request: NextRequest) {
-	return ConfiguredContactServiceHandler.sendEmailInquiry(request);
+	const galleryContainer = ExhibitContext.get<GalleriesContainer>();
+	return galleryContainer.contactServiceHandler.sendEmailInquiry(request);
 }

@@ -17,3 +17,9 @@ export type BackendEmailPipelineFactory = (
     formData: ContactFormField,
     client: ResendClient
 ) => OperationPipeline<EmailContext, any, EmailHttpResponse>;
+
+const SendEmailHandlerEnvironmentVariable = {
+	EMAIL_SENDER: "PORTFOLIO_EMAIL_SENDER"
+} as const;
+
+export type SendEmailHandlerEnvironmentKeys = typeof SendEmailHandlerEnvironmentVariable[keyof typeof SendEmailHandlerEnvironmentVariable];

@@ -25,18 +25,19 @@ class ContactService {
 	}
 
     async sendEmail(params: ContactFormField): Promise<boolean> {
-		const validation = this.contactFormSchemaValidator.apply(params);
+		const validation = this.contactFormSchemaValidator.validate(params);
 
-		if(!validation.success) {
-			const isBot = validation.error.issues.some(issue => issue.path.includes("zipCode"));
+		if(!validation.isValid) {
+			const isBot = validation.errors
+				.some(validationError => validationError.path.includes("zipCode"));
 			if(isBot) {
 				return true;
 			}
 
 			throw ValidationError.Builder()
-				.withErrors(validation.error.issues.map(issue => ({
-					attribute: issue.path.join("."),
-					errors: [issue.message]
+				.withErrors(validation.errors.map(validationError => ({
+					attribute: validationError.path,
+					errors: [validationError.message]
 				})))
 				.build();
 		}

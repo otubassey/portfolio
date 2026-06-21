@@ -4,8 +4,8 @@
 	"description": "Internal application logic. Manages routing, page orchestration, and specialized behaviors for the various applications.",
 	"author": "Otuekong",
 	"type": "module",
-	"main": "./src/index.ts",
-	"types": "./src/index.ts",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"license": "MIT",
 	"keywords": [
 		"Behaviors",
@@ -14,25 +14,27 @@
 		"Page-Logic",
 		"Orchestration"
 	],
-	"packageManager": "pnpm@10.33.1",
+	"packageManager": "pnpm@11.8.0",
 	"exports": {
 		".": "./src/index.ts",
-		"./applicationContext": "./src/applicationContext/index.ts",
 		"./galleries": "./src/galleries/index.ts",
 		"./lookbook": "./src/lookbook/index.ts",
-		"./navigation": "./src/navigation/index.ts"
+		"./pavilion": "./src/pavilion/index.ts"
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
 		"clean": "rm -rf dist node_modules .turbo",
+		"build": "tsc --project tsconfig.json",
 		"lint": "eslint \"**/*.ts*\"",
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@otuekong-portfolio/archives": "workspace:*",
-		"@otuekong-portfolio/curio": "workspace:*"
+		"@otuekong-portfolio/common": "workspace:*",
+		"@otuekong-portfolio/curio": "workspace:*",
+		"@otuekong-portfolio/infrastructure-server": "workspace:*"
 	},
 	"peerDependencies": {
 		"react": "19.2.3",

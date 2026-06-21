@@ -1,1 +1,1 @@
-export { ConfiguredContactServiceHandler } from "./bootstrap";
+export { default as ContactServiceHandler } from "./contactServiceHandler";

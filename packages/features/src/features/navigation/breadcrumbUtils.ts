@@ -1,4 +1,4 @@
-import { AppBlueprint } from "../applicationContext";
+import { AppBlueprint } from "../../applicationContext";
 
 import { Breadcrumb, BreadcrumbTree } from "./types";
 
