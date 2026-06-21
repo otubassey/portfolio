@@ -1,6 +1,6 @@
 import { ConfigurationError } from "@otuekong-portfolio/common";
 
-import { WithRateLimitPreHook } from "../../redis";
+import { WithRateLimitPreHook } from "../../redis/";
 import { ServerComponentHealth } from "../../types";
 
 import { HttpRequest, HttpResponse, ResourceHandler } from "../types";

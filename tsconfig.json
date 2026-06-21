@@ -8,7 +8,16 @@
 		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"noEmit": true,
+		"rootDirs": [
+			"./packages/archives/src",
+			"./packages/common/src",
+			"./packages/curio/src",
+			"./packages/exhibit/src",
+			"./packages/features/src",
+			"./packages/infrastructure-server/src"
+		],
 		"paths": {
+			// Package Paths
 			"@otuekong-portfolio/archives": ["./packages/archives/src"],
 			"@otuekong-portfolio/archives/*": ["./packages/archives/src/*"],
 			"@otuekong-portfolio/curio": ["./packages/curio/src"],
@@ -22,11 +31,15 @@
 			"@otuekong-portfolio/infrastructure-server": ["./packages/infrastructure-server/src"],
 			"@otuekong-portfolio/infrastructure-server/*": ["./packages/infrastructure-server/src/*"],
 
+			// Lookbook paths
 			"lookbook": ["./apps/lookbook/"],
 			"lookbook/*": ["./apps/lookbook/*"],
+
+			// Pavilion Paths
 			"pavilion": ["./apps/pavilion/"],
 			"pavilion/*": ["./apps/pavilion/*"],
 
+			// Gallery App Paths
 			"helloworld-classic": ["./apps/galleries/helloworld/classic/"],
 			"helloworld-classic/*": ["./apps/galleries/helloworld/classic/*"],
 			"helloworld-composite": ["./apps/galleries/helloworld/composite/"],

@@ -4,7 +4,7 @@ import { JSX, MouseEvent, ReactNode, useEffect, useState } from "react";
 
 import { Button, CssUtils, IconName, OnToggleTheme, Text, ToggleIconButton } from "@otuekong-portfolio/curio";
 
-import { Breadcrumb, OnNavigateHandler } from "../../navigation";
+import { Breadcrumb, OnNavigateHandler } from "../navigation";
 
 import AuthorInfo from "./authorInfo";
 

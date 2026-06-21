@@ -4,8 +4,8 @@
 	"description": "Server-only edge platform infrastructure and adapter utilities for the portfolio ecosystem. Manages environmental configuration validation, Upstash Redis client instantiations, rate-limiting interceptors, Resend API mail distribution workflows, and server-side telemetry handlers, completely decoupled from browser runtimes.",
 	"author": "Otuekong",
 	"type": "module",
-	"main": "./src/index.ts",
-	"types": "./src/index.ts",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"license": "MIT",
 	"keywords": [
 		"backend-adapters",
@@ -16,7 +16,7 @@
 		"redis",
 		"server-only"
 	],
-	"packageManager": "pnpm@11.6.0",
+	"packageManager": "pnpm@11.8.0",
 	"exports": {
 		".": "./src/index.ts"
 	},
@@ -25,6 +25,7 @@
 	],
 	"scripts": {
 		"clean": "rm -rf dist node_modules .turbo",
+		"build": "tsc --project tsconfig.json",
 		"lint": "eslint \"**/*.ts*\"",
 		"type-check": "tsc --noEmit"
 	},

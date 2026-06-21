@@ -1,1 +1,1 @@
-export { ConfiguredHealthServiceHandler } from "./bootstrap";
+export { default as HealthServiceHandler } from "./healthServiceHandler";

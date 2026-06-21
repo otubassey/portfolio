@@ -1,13 +1,13 @@
 import { NextRequest } from "next/server";
 
 import { ConfigurationError } from "@otuekong-portfolio/common";
-import { ConfiguredSystemHealthHandler } from "@otuekong-portfolio/infrastructure-server";
+import { SystemHealthHandler } from "@otuekong-portfolio/infrastructure-server";
 
 import createNextRoute from "../createNextRoute";
 
 class HealthServiceHandler {
     constructor(
-        private readonly sendHealthInquiryHandler: typeof ConfiguredSystemHealthHandler
+        private readonly sendHealthInquiryHandler: SystemHealthHandler
     ) {
 		if(!sendHealthInquiryHandler) {
 			throw new ConfigurationError(

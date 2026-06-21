@@ -10,7 +10,7 @@ import {
 } from "@otuekong-portfolio/archives";
 import { Section, SectionHandle } from "@otuekong-portfolio/curio";
 
-import { Breadcrumb } from "../../../../../navigation";
+import { Breadcrumb } from "../../../../../features";
 
 import { PortfolioSubViewName } from "../portfolio.constants";
 

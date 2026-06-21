@@ -5,11 +5,13 @@ import {
 	DeferredOperationBuilder,
 	EnvironmentRegistry,
 	ExecutionResult,
-	LoggerFactory,
+	LoggerProvider,
 	ServerComponentClient
 } from "@otuekong-portfolio/common";
 
 import { ServerComponentHealth, ServerComponentMonitor } from "../types";
+
+import { RedisEnvironmentKeys } from "./types";
 
 /**
  * Isolated server-only interface managing connection lifecycles to Upstash Redis.
@@ -19,25 +21,34 @@ import { ServerComponentHealth, ServerComponentMonitor } from "../types";
  * real-time latency diagnostics for automated platform monitoring.
  */
 class RedisClient extends ServerComponentClient implements ServerComponentMonitor {
-	private readonly logger = LoggerFactory.getLogger("RedisClient");
+	private readonly CONFIGURATION_ERROR_MESSAGE = "Vault connection failed";
+
+	private readonly logger;
 
 	private client: Redis | null = null;
 
 	constructor(
-		private readonly environmentRegistry: typeof EnvironmentRegistry
+		private readonly environmentRegistry: EnvironmentRegistry<RedisEnvironmentKeys>,
+		private readonly loggerProvider: LoggerProvider
 	) {
 		super();
 
         if(!environmentRegistry) {
-            throw new ConfigurationError("Vault connection failed", "Missing environment registry.");
+            throw new ConfigurationError(this.CONFIGURATION_ERROR_MESSAGE, "Missing environment registry.");
         }
+
+        if(!loggerProvider) {
+            throw new ConfigurationError(this.CONFIGURATION_ERROR_MESSAGE, "Missing LoggerProvider.");
+        }
+
+		this.logger = this.loggerProvider.getLogger("RedisClient");
 	}
 
 	public get connection(): Redis {
         if(!this.client) {
             this.client = new Redis({
-                url: this.environmentRegistry.UPSTASH_REDIS_REST_URL,
-                token: this.environmentRegistry.UPSTASH_REDIS_REST_TOKEN
+                url: this.environmentRegistry.get("UPSTASH_REDIS_REST_URL"),
+                token: this.environmentRegistry.get("UPSTASH_REDIS_REST_TOKEN")
             });
         }
         return this.client;

@@ -1,4 +1,6 @@
-export { ConfiguredSendEmailHandler, ContactSection } from "./contact";
+export { default as ArchivesModule } from "./archivesModule";
+
+export { ContactSection, SendEmailHandler } from "./contact";
 
 export {
 	ExperienceBadge,
@@ -18,3 +20,5 @@ export {
 } from "./profile";
 
 export { ProjectsSection } from "./showroom";
+
+export type { ArchivesModuleEnvironmentKeys } from "./types";

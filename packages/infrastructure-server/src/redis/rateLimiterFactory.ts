@@ -11,7 +11,6 @@ import RedisRateLimiter from "./redisRateLimiter";
  * across discrete edge API routing entry points.
  */
 class RateLimiterFactory {
-	private static instance: RateLimiterFactory;
 
 	constructor(private readonly redisClient: RedisClient) {
         if(!redisClient) {
@@ -21,13 +20,6 @@ class RateLimiterFactory {
             );
         }
 	}
-
-	public static getInstance(redisClient: RedisClient): RateLimiterFactory {
-        if(!RateLimiterFactory.instance) {
-            RateLimiterFactory.instance = new RateLimiterFactory(redisClient);
-        }
-        return RateLimiterFactory.instance;
-    }
 
 	public create(
 		prefix: string,

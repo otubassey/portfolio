@@ -1,1 +1,1 @@
-export { ConfiguredSendEmailHandler} from "./services";
+export { SendEmailHandler, type SendEmailHandlerEnvironmentKeys } from "./services";

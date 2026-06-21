@@ -10,9 +10,9 @@ import {
 	ToggleIconButton
 } from "@otuekong-portfolio/curio";
 
-import { Breadcrumb, NavigationList, OnNavigateHandler } from "../../navigation";
-
 import { MenuButton } from "../../components";
+
+import { Breadcrumb, NavigationList, OnNavigateHandler } from "../navigation";
 
 import AuthorInfo from "./authorInfo";
 

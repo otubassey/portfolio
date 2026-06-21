@@ -1,5 +1,3 @@
-"use client";
-
 import pino, { Logger as PinoLogger } from "pino";
 
 import { EnvironmentRegistry } from "../config";
@@ -7,13 +5,12 @@ import { LogLevel, NodeEnvironment } from "../constants";
 
 import Logger from "./logger";
 import TransactionLogger from "./transactionLogger";
-import { ILogger, ITransactionLogger } from "./types";
+import { ILogger, ITransactionLogger, LoggerFactoryEnvironmentKeys } from "./types";
 
-class LoggerFactoryInternal {
-	private static instance: LoggerFactoryInternal;
+class LoggerFactory {
 	private static rootLoggerRegistry = new Map<"client" | "server", PinoLogger>();
 
-	private constructor(private readonly environmentRegistry: typeof EnvironmentRegistry) {}
+	constructor(private readonly environmentRegistry: EnvironmentRegistry<LoggerFactoryEnvironmentKeys>) {}
 
 	public getLogger(scope: string): ILogger {
 		const rootLogger = this.getRootLogger();
@@ -27,34 +24,27 @@ class LoggerFactoryInternal {
 		return new TransactionLogger(childLogger);
 	}
 
-	public static getInstance(environmentRegistry: typeof EnvironmentRegistry): LoggerFactoryInternal {
-		if(!LoggerFactoryInternal.instance) {
-			LoggerFactoryInternal.instance = new LoggerFactoryInternal(environmentRegistry);
-		}
-		return LoggerFactoryInternal.instance;
-    }
-
 	private getRootLogger(): PinoLogger {
 		const isServerContext = typeof window === "undefined";
 		const key = isServerContext ? "server" : "client";
 
-		const existingRootLogger = LoggerFactoryInternal.rootLoggerRegistry.get(key);
+		const existingRootLogger = LoggerFactory.rootLoggerRegistry.get(key);
 		if(existingRootLogger) {
 			return existingRootLogger;
 		}
 
-		const isDev = this.environmentRegistry.NODE_ENV === NodeEnvironment.DEV;
+		const isDev = this.environmentRegistry.get("NODE_ENV") === NodeEnvironment.DEV;
 		const newRootLogger = isServerContext
 			? this.createServerPinoLogger(isDev)
 			: this.createClientPinoLogger(isDev);
 
-		LoggerFactoryInternal.rootLoggerRegistry.set(key, newRootLogger);
+		LoggerFactory.rootLoggerRegistry.set(key, newRootLogger);
 		return newRootLogger;
 	}
 
 	private createClientPinoLogger(isDev: boolean = false): PinoLogger {
-		const environmentClientLogLevel = this.environmentRegistry.CLIENT_LOG_LEVEL
-			|| this.environmentRegistry.LOG_LEVEL
+		const environmentClientLogLevel = this.environmentRegistry.get("LOG_CLIENT_LEVEL")
+			|| this.environmentRegistry.get("LOG_LEVEL")
 			|| LogLevel.INFO;
 		return pino({
 			base: {
@@ -80,10 +70,10 @@ class LoggerFactoryInternal {
 			return pino({
 				base: {
 					runtime: "server",
-					env: this.environmentRegistry.NODE_ENV,
+					env: this.environmentRegistry.get("NODE_ENV"),
 				},
-				level: this.environmentRegistry.SERVER_LOG_LEVEL
-					|| this.environmentRegistry.LOG_LEVEL
+				level: this.environmentRegistry.get("LOG_SERVER_LEVEL")
+					|| this.environmentRegistry.get("LOG_LEVEL")
 					|| LogLevel.INFO,
 				transport: {
 					options: {
@@ -93,19 +83,23 @@ class LoggerFactoryInternal {
 				}
 			});
 		}
+		const isFullNodeEnvironment = typeof process !== "undefined"
+			&& (process as any)["release"]?.name === "node"
+			&& typeof (process as any)["stdout"] !== "undefined";
+		const logDestination = isFullNodeEnvironment
+			? pino.destination({
+				dest: (process["stdout"] as any)?.fd ?? 1,
+				sync: true
+			})
+			: undefined;
 		return pino(
 			{
 				level: LogLevel.INFO
 			},
-			pino.destination({
-				dest: process.stdout.fd,
-				sync: true
-			})
+			logDestination
 		);
 	}
 
 }
-
-const LoggerFactory = LoggerFactoryInternal.getInstance(EnvironmentRegistry);
 
 export default LoggerFactory;

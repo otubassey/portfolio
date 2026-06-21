@@ -13,3 +13,17 @@ export interface ITransactionLogger {
 	error(message: string, transactionId: string, error?: Error, context?: LogContext): void;
 	debug(message: string, transactionId: string, context?: LogContext): void;
 }
+
+export interface LoggerProvider {
+	getLogger: (scope: string) => ILogger;
+	getTransactionLogger: (scope: string) => ITransactionLogger;
+}
+
+const LoggerFactoryEnvironmentVariable = {
+	CLIENT_LEVEL: "LOG_CLIENT_LEVEL",
+	DEFAULT: "LOG_LEVEL",
+	NODE_ENV: "NODE_ENV",
+	SERVER_LEVEL: "LOG_SERVER_LEVEL"
+} as const;
+
+export type LoggerFactoryEnvironmentKeys = typeof LoggerFactoryEnvironmentVariable[keyof typeof LoggerFactoryEnvironmentVariable];

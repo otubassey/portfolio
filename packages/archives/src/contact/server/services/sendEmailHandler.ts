@@ -5,14 +5,16 @@ import {
 	ZodSchemaValidator
 } from "@otuekong-portfolio/common";
 import {
-	ConfiguredResendClient,
 	HttpRequest,
 	HttpResponse,
+	ResendClient,
 	ResourceHandler,
-	withRateLimit
+	WithRateLimitPreHook
 } from "@otuekong-portfolio/infrastructure-server";
 
 import { ContactFormField } from "../../ui";
+
+import { SendEmailHandlerEnvironmentKeys } from "./types";
 
 /**
  * Resource handler orchestrating inbound contact form data submissions.
@@ -24,35 +26,36 @@ import { ContactFormField } from "../../ui";
 class SendEmailHandler implements ResourceHandler<ContactFormField, { success: boolean }> {
 
     constructor(
-        private readonly resendClient: typeof ConfiguredResendClient,
+		private readonly environmentRegistry: EnvironmentRegistry<SendEmailHandlerEnvironmentKeys>,
+        private readonly resendClient: ResendClient,
 		private readonly validator: ZodSchemaValidator<ContactFormField>,
-		private readonly environmentRegistry: typeof EnvironmentRegistry
+		private readonly withRateLimitPreHook: WithRateLimitPreHook
     ) {
-		if(!resendClient) {
-            throw new ConfigurationError(
-                "Resource Handler Initialization Failed",
-                "A valid ResendClient driver instance must be supplied to construct the SendEmailHandler."
-            );
-        }
-		if(!validator) {
-            throw new ConfigurationError(
-                "Resource Handler Initialization Failed",
-                "A valid ZodSchemaValidator engine instance must be supplied to construct the SendEmailHandler."
-            );
-        }
-		if(!environmentRegistry) {
-            throw new ConfigurationError(
-                "Resource Handler Initialization Failed",
-                "A valid EnvironmentRegistry must be supplied to construct the SendEmailHandler."
-            );
-        }
+		const requiredParameters = {
+			environmentRegistry,
+			resendClient,
+			validator,
+			withRateLimitPreHook
+		} as const;
+		if(!Object.values(requiredParameters).some(Boolean)) {
+			Object.entries(requiredParameters)
+				.forEach(([param, value]) => {
+					const formattedParam = `${param.charAt(0).toUpperCase()}${param.slice(1)}`;
+					if(!value) {
+						throw new ConfigurationError(
+							"Resource Handler Initialization Failed",
+							`A valid ${formattedParam} must be supplied to construct the SendEmailHandler.`
+						);
+					}
+				});
+		}
 	}
 
     public async handle(
         request: HttpRequest<ContactFormField>
     ): Promise<HttpResponse<{ success: boolean }>> {
 		const formField = request.body;
-		const systemSenderEmail = this.environmentRegistry.SYSTEM_SENDER_EMAIL;
+		const systemSenderEmail = this.environmentRegistry.get("PORTFOLIO_EMAIL_SENDER");
 
 		const emailPipeline = this.resendClient.sendEmail()
 			.withContext({
@@ -67,7 +70,7 @@ class SendEmailHandler implements ResourceHandler<ContactFormField, { success: b
 					<p>${formField.message}</p>`
 			})
 			.before(
-				withRateLimit(request?.ip, "contact-email-submission", 3, "1h")
+				this.withRateLimitPreHook(request?.ip, "contact-email-submission", 3, "1h")
 			)
 			.before(
 				withSchemaValidation(this.validator, formField, (validatorResult) => {

@@ -5,3 +5,10 @@ export interface RateLimitResult {
     reset: number;
     success: boolean;
 }
+
+export const RedisEnvironmentVariable = {
+	REST_URL: "UPSTASH_REDIS_REST_URL",
+	REST_TOKEN: "UPSTASH_REDIS_REST_TOKEN"
+} as const;
+
+export type RedisEnvironmentKeys = typeof RedisEnvironmentVariable[keyof typeof RedisEnvironmentVariable];

@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { useIsHydrated } from "@otuekong-portfolio/curio";
 
-import { useApplicationContext } from "../applicationContext";
+import { useApplicationContext } from "../../applicationContext";
 
 import NavigationContext from "./context";
 import useNavigationState from "./useNavigationState";

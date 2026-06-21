@@ -22,6 +22,36 @@ export abstract class BaseError extends Error implements DetailedError {
 }
 
 /**
+ * An abstract fluent builder providing shared configuration properties for HttpErrors.
+ * Uses a polymorphic 'this' type return constraint to preserve downstream child method chains.
+ */
+abstract class BaseBuilder<TargetError, This> {
+	protected message: string = "";
+	protected detail: string = "";
+	protected transactionId?: string;
+
+	public withMessage(this: This, message: string): This {
+		(this as any).message = message;
+		return this;
+	}
+
+	public withDetail(this: This, detail: string): This {
+		(this as any).detail = detail;
+		return this;
+	}
+
+	public withTransactionId(this: This, id: string): This {
+		(this as any).transactionId = id;
+		return this;
+	}
+
+	/**
+	 * Every concrete builder must implement its own final construction logic.
+	 */
+	public abstract build(): TargetError;
+}
+
+/**
  * A Domain-level error for missing or invalid environment/museum settings.
  * This is a BaseError, because it represents a structural failure in the vault's setup.
  */
@@ -165,55 +195,39 @@ export class TooManyRequestsError extends HttpError {
 	}
 
 	public static Builder() {
-		return new class {
-			private _message?: string;
-			private _detail?: string;
-			private _limit?: number;
-			private _remaining?: number;
-			private _reset?: number;
-			private _transactionId?: string;
+		return new TooManyRequestsErrorBuilder();
+	}
+}
 
-			withMessage(message: string) {
-				this._message = message;
-				return this;
-			}
+class TooManyRequestsErrorBuilder extends BaseBuilder<TooManyRequestsError, TooManyRequestsErrorBuilder> {
+	private limit: number = 0;
+	private remaining: number = 0;
+	private reset: number = Date.now() + 60000;
 
-			withDetail(detail: string) {
-				this._detail = detail;
-				return this;
-			}
+	public withLimit(limit: number): this {
+		this.limit = limit;
+		return this;
+	}
 
-			withLimit(limit: number) {
-				this._limit = limit;
-				return this;
-			}
+	public withRemaining(remaining: number): this {
+		this.remaining = remaining;
+		return this;
+	}
 
-			withRemaining(remaining: number) {
-				this._remaining = remaining;
-				return this;
-			}
+	public withReset(reset: number): this {
+		this.reset = reset;
+		return this;
+	}
 
-			withReset(reset: number) {
-				this._reset = reset;
-				return this;
-			}
-
-			withTransactionId(id: string) {
-				this._transactionId = id;
-				return this;
-			}
-
-			build() {
-				return new TooManyRequestsError(
-					this._message,
-					this._detail,
-					this._limit,
-					this._remaining,
-					this._reset,
-					this._transactionId || crypto.randomUUID()
-				);
-			}
-		};
+	public build(): TooManyRequestsError {
+		return new TooManyRequestsError(
+			this.message,
+			this.detail,
+			this.limit,
+			this.remaining,
+			this.reset,
+			this.transactionId || crypto.randomUUID()
+		);
 	}
 }
 
@@ -258,40 +272,25 @@ export class ValidationError extends HttpError {
 	}
 
 	public static Builder() {
-        return new class {
-			private _message: string = "";
-            private _detail: string = "";
-            private _errors: ReadonlyArray<ErrorAttribute> = [];
-            private _transactionId?: string;
-
-            withMessage(message: string) {
-                this._message = message;
-                return this;
-            }
-
-            withDetail(detail: string) {
-                this._detail = detail;
-                return this;
-            }
-
-			withErrors(errors: ReadonlyArray<ErrorAttribute>) {
-                this._errors = errors;
-                return this;
-            }
-
-            withTransactionId(id: string) {
-                this._transactionId = id;
-                return this;
-            }
-
-            build() {
-                return new ValidationError(
-					this._message,
-                    this._detail,
-                    this._errors,
-                    this._transactionId || crypto.randomUUID()
-                );
-            }
-        };
+        return new ValidationErrorBuilder();
     }
+
+}
+
+class ValidationErrorBuilder extends BaseBuilder<ValidationError, ValidationErrorBuilder> {
+	private errors: ReadonlyArray<ErrorAttribute> = [];
+
+	public withErrors(errors: ReadonlyArray<ErrorAttribute>): this {
+		this.errors = errors;
+		return this;
+	}
+
+	public build(): ValidationError {
+		return new ValidationError(
+			this.message,
+			this.detail,
+			this.errors,
+			this.transactionId || crypto.randomUUID()
+		);
+	}
 }
