@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding `CommonModule`
 
 ### Changed
+* Updating to split schema into build vs runtime to avoid vercel's build time failures due to secret environment variables
 * Consuming new `container-module` pattern
 * Updating `tsconfig.ts` to properly resolve other packages within this repo
 * Updating to pnpm v11.8.0
