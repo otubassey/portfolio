@@ -6,8 +6,8 @@ const LOG_LEVEL_JSON_SCHEMA_PROPERTY = {
 	default: LogLevel.INFO
 } as const;
 
-const PavilionEnvironmentJsonSchema = {
-	$id: "pavilion-env-schema",
+const GalleryEnvironmentJsonSchema = {
+	$id: "gallery-env-schema",
 	type: "object",
 	required: [
 		"LOG_LEVEL",
@@ -41,4 +41,4 @@ const PavilionEnvironmentJsonSchema = {
 	}
 } as const;
 
-export default PavilionEnvironmentJsonSchema;
+export default GalleryEnvironmentJsonSchema;
