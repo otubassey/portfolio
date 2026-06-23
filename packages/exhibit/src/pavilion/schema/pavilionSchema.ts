@@ -10,13 +10,11 @@ import {
 const isBuildTime = process.env.NEXT_PHASE === "phase-production-build";
 
 const RuntimeSchema = {
-	$id: "gallery-env-schema",
+	$id: "pavilion-env-schema",
 	type: "object",
 	required: [
 		"LOG_LEVEL",
 		"NODE_ENV",
-		"PORTFOLIO_EMAIL_SENDER",
-		"PORTFOLIO_EMAIL_TARGET",
 		"RESEND_API_KEY",
 		"UPSTASH_REDIS_REST_URL",
 		"UPSTASH_REDIS_REST_TOKEN"
@@ -35,7 +33,7 @@ const RuntimeSchema = {
 } as const;
 
 const BuildTimeSchema = {
-	$id: "gallery-env-schema",
+	$id: "pavilion-env-schema",
 	type: "object",
 	required: ["NODE_ENV"],
 	properties: {
@@ -51,6 +49,6 @@ const BuildTimeSchema = {
 	}
 } as const;
 
-const GalleryEnvironmentJsonSchema = isBuildTime ? BuildTimeSchema : RuntimeSchema;
+const PavilionEnvironmentJsonSchema = isBuildTime ? BuildTimeSchema : RuntimeSchema;
 
-export default GalleryEnvironmentJsonSchema;
+export default PavilionEnvironmentJsonSchema;

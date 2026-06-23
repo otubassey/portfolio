@@ -17,19 +17,16 @@ import {
 
 import { AppContainer, HealthServiceHandler, CommonModule as InternalCommonModule } from "../common";
 
-import GalleriesModule from "./galleryModule";
-import { GalleryEnvironmentJsonSchema } from "./schema";
-import { ContactServiceHandler } from "./server";
-import { GalleryModuleEnvironmentKeys } from "./types";
+import { PavilionEnvironmentJsonSchema } from "./schema";
+import { PavilionModuleEnvironmentKeys } from "./types";
 
-class GalleryContainer implements AppContainer {
-	public readonly contactServiceHandler: ContactServiceHandler;
+class PavilionContainer implements AppContainer {
 	public readonly healthServiceHandler: HealthServiceHandler;
 	public readonly loggerProvider: LoggerProvider;
 
 	constructor() {
-		const environmentRegistry = new EnvironmentRegistry<GalleryModuleEnvironmentKeys>(
-			GalleryEnvironmentJsonSchema,
+		const environmentRegistry = new EnvironmentRegistry<PavilionModuleEnvironmentKeys>(
+			PavilionEnvironmentJsonSchema,
 			new ZodSchemaTransformer(),
 			(zodSchema, key) => (
 				new ZodSchemaValidator<any>(zodSchema.shape[key])
@@ -57,14 +54,13 @@ class GalleryContainer implements AppContainer {
 			environmentRegistry: (environmentRegistry as EnvironmentRegistry<ResendEnvironmentKeys>),
 			loggerProvider
 		});
-		const resendClient = resendClientModule.getResendClient();
 
 		const infrastructureServerModule = new InfrastructureServerModule({
 			loggerProvider,
 			redisClient,
 			serverComponentMonitorMapping: new Map<string, ServerComponentMonitor>([
 				["redis", redisClient] as const,
-				["resend", resendClient] as const
+				["resend", resendClientModule.getResendClient()] as const
 			])
 		});
 
@@ -72,18 +68,11 @@ class GalleryContainer implements AppContainer {
 			sendHealthInquiryHandler: infrastructureServerModule.getSystemHealthHandler()
 		});
 		this.healthServiceHandler = internalCommonModule.getHealthServiceHandler();
-
-		const galleriesModule = new GalleriesModule({
-			environmentRegistry,
-			resendClient,
-			withRateLimitPreHook: infrastructureServerModule.getWithRateLimit()
-		});
-		this.contactServiceHandler = galleriesModule.getContactServiceHandler();
 	}
 
-	public static bootstrap(): GalleryContainer {
-		return new GalleryContainer();
+	public static bootstrap(): PavilionContainer {
+		return new PavilionContainer();
 	}
 }
 
-export default GalleryContainer;
+export default PavilionContainer;

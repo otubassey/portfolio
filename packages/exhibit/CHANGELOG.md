@@ -5,8 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.1-rc-2] - 06/20/2026
+## [1.0.1-rc-2] - 06/21/2026
 ### Added
+* Adding `PavilionSchema`
+* Adding `PavilionContainer`
 * Adding and configuring `ExhibitContext`
 * Adding `AppContainer` interface
 * Adding `GallerySchema`
@@ -15,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding `CommonModule`
 
 ### Changed
+* Updating to split schema into build vs runtime to avoid vercel's build time failures due to secret environment variables
 * Consuming new `container-module` pattern
 * Updating `tsconfig.ts` to properly resolve other packages within this repo
 * Updating to pnpm v11.8.0
