@@ -85,11 +85,17 @@ class FetchHttpOperation implements HttpOperation {
 		);
 	}
 
-	private async mapDetailedErrorMessage(response: Response): Promise<string> {
+	private async mapDetailedErrorMessage(response: Response, url: string = ""): Promise<string> {
 		try {
-			const contentType = response.headers.get("content-type");
+			const contentType = this.extractContentType(response);
 
-			if(contentType?.includes("application/json")) {
+			if(contentType.includes("text/html")) {
+				// For static hosting router fallback
+				// (like an SPA router landing page on Nginx, Cloudflare, or Vercel) scenarios
+				return `A 404 Not Found error occurred, targeting URL: '${url}'.`;
+			}
+
+			if(contentType.includes("application/json")) {
 				const jsonError = await response.json();
 
 				const serverMessage = jsonError.message || jsonError.error || jsonError.detail;
@@ -121,10 +127,20 @@ class FetchHttpOperation implements HttpOperation {
 		}
 
 		if(response.status === 404) {
+			const contentType = this.extractContentType(response);
+			if(contentType.includes("text/html")) {
+				// For static hosting router fallback
+				// (like an SPA router landing page on Nginx, Cloudflare, or Vercel) scenarios
+				return "The application service is temporarily unavailable.";
+			}
 			return "The requested resource could not be found.";
 		}
 
 		return "An unexpected error occurred. Please try again later.";
+	}
+
+	private extractContentType(response: Response): string {
+		return response.headers.get("content-type") || "";
 	}
 }
 

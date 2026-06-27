@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding `EmailValidator`, `EmailZodSchema`, and `emailSchemaFactory`
 
 ### Changed
+* Updating `FetchHttpOperation` to handle 404 HTML scenarios
 * Decoupling the `HttpOperation` state from its builder: `HttpOperationBuilder`
 * Updating `ZodSchemaValidator` implementation to add `ConfigurationError` for missing `schema`
 * Replacing `ExecutionResult` interface with `OperationResult`
