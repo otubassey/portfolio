@@ -1,5 +1,6 @@
 import { ConfigurationError } from "../errors";
-import { ExecutionResult, OperationPipeline } from "../pipelines";
+import { OperationPipeline } from "../pipelines";
+import { OperationResult } from "../types";
 
 /**
  * Runtime builder that encapsulates an immutable, deferred execution task.
@@ -10,7 +11,7 @@ import { ExecutionResult, OperationPipeline } from "../pipelines";
 class DeferredOperationBuilder<Output> {
 
     constructor(
-        private readonly action: () => Promise<ExecutionResult<Output>>
+        private readonly action: () => Promise<OperationResult<Output>>
     ) {
         if(!action || typeof action !== "function") {
             throw new ConfigurationError(
@@ -20,12 +21,12 @@ class DeferredOperationBuilder<Output> {
         }
     }
 
-    public async invoke(): Promise<ExecutionResult<Output>> {
+    public async invoke(): Promise<OperationResult<Output>> {
         return await this.action();
     }
 
     public pipe(): OperationPipeline<any, Output, Output> {
-        return new OperationPipeline<any, Output, Output>(async (): Promise<ExecutionResult<Output>> => {
+        return new OperationPipeline<any, Output, Output>(async (): Promise<OperationResult<Output>> => {
             return await this.invoke();
         });
     }

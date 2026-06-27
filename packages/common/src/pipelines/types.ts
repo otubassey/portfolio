@@ -1,17 +1,3 @@
-import { BaseError } from "../errors";
-
-export interface ExecutionResult<DataType> {
-    success: boolean;
-    data: DataType | null;
-    error: BaseError | null;
-}
-
-export interface OperationResult<DataType> {
-	data: DataType | null;
-	error: BaseError | null;
-	success: boolean;
-}
-
 /**
  * Open marker interface. Concrete implementations (like HttpContext)
  * will extend this to define their specific properties.

@@ -1,4 +1,4 @@
-import { DeferredOperationBuilder, ExecutionResult, ServerComponentClient } from "@otuekong-portfolio/common";
+import { DeferredOperationBuilder, OperationResult, ServerComponentClient } from "@otuekong-portfolio/common";
 
 import { ServerComponentHealth, ServerComponentMonitor } from "../../types";
 
@@ -14,7 +14,7 @@ class SystemHealthClient extends ServerComponentClient {
     }
 
     public checkHealth(): DeferredOperationBuilder<Record<string, ServerComponentHealth>> {
-        return this.create(async (): Promise<ExecutionResult<Record<string, ServerComponentHealth>>> => {
+        return this.create(async (): Promise<OperationResult<Record<string, ServerComponentHealth>>> => {
             const report: Record<string, ServerComponentHealth> = {};
             const executionPromises: Array<Promise<void>> = [];
 

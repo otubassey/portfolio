@@ -1,5 +1,9 @@
-import { ConfigurationError, FalloutError } from "../errors";
-import { ExecutionResult, OperationPipeline } from "../pipelines";
+import { ConfigurationError } from "../errors";
+import { OperationPipeline } from "../pipelines";
+import { OperationResult } from "../types";
+
+import HttpOperation from "./httpOperation";
+import { HttpOperationOptions } from "./types";
 
 class HttpContext {
     public url: string = "";
@@ -11,13 +15,23 @@ class HttpContext {
 }
 
 /**
- * Fluent request builder managing cross-platform fetch streams and transport transactions.
+ * Fluent request builder managing cross-platform engine operations and transport transactions.
+ * Decoupled from native platforms by using an injected HttpOperation abstraction strategy.
  *
  * Provides a chainable, type-safe API to configure paths, methods, payloads, and custom headers,
  * automatically parsing downstream protocol failure payloads into structured exceptions.
  */
-class HttpOperationBuilder {
+class HttpOperationBuilder<ResponseDataType = unknown> {
     private readonly context = new HttpContext();
+
+	constructor(private readonly httpOperation: HttpOperation) {
+		if(!httpOperation) {
+			throw new ConfigurationError(
+				"HttpOperationBuilder creation Failed",
+				"An httpOperation is required to create a HttpOperationBuilder instamce."
+			);
+		}
+	}
 
     public get(url: string): this {
         this.context.method = "GET";
@@ -41,7 +55,7 @@ class HttpOperationBuilder {
         return this;
     }
 
-    public async invoke(): Promise<ExecutionResult<Response>> {
+    public async invoke(): Promise<OperationResult<ResponseDataType>> {
         if(!this.context.url) {
             throw new ConfigurationError(
                 "HTTP Execution Failed",
@@ -49,53 +63,19 @@ class HttpOperationBuilder {
             );
         }
 
-        const config: RequestInit = {
+        const options: HttpOperationOptions = {
             method: this.context.method,
             headers: this.context.headers,
+			body: this.context.method !== "GET" ? this.context.body : undefined
         };
 
-        if(this.context.method !== "GET" && this.context.body) {
-            config.body = JSON.stringify(this.context.body);
-        }
-
-		try {
-			const response = await fetch(this.context.url, config);
-
-			if(!response.ok) {
-                const errorBody = await response.json().catch(() => ({}));
-
-                return {
-                    success: false,
-                    data: null,
-                    error: new FalloutError(
-                        errorBody?.message || `Transport failure: ${response.statusText}`,
-                        errorBody?.detail || "The downstream server rejected the request parameters.",
-                        response.status
-                    )
-                };
-            }
-
-			return {
-                success: true,
-                data: response,
-                error: null
-            };
-		} catch(error) {
-            return {
-                success: false,
-                data: null,
-                error: new FalloutError(
-                    "Network communication transport failure.",
-                    (error as any)?.message || "The platform fetch stream encountered an uncaught hardware socket exception."
-                )
-            };
-		}
+        return await this.httpOperation.request<ResponseDataType>(this.context.url, options);
     }
 
-	public pipe(): OperationPipeline<any, Response, Response> {
-        return new OperationPipeline<any, Response, Response>(async (): Promise<ExecutionResult<Response>> => {
-            return await this.invoke();
-        });
+	public pipe(): OperationPipeline<any, ResponseDataType, ResponseDataType> {
+        return new OperationPipeline<any, ResponseDataType, ResponseDataType>(async (): Promise<OperationResult<ResponseDataType>> => (
+			await this.invoke()
+		));
     }
 }
 

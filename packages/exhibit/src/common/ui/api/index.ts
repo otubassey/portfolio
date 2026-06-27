@@ -1,1 +1,1 @@
-export { ConfiguredSystemHealthService, type SystemHealthReport } from "./health";
+export { type SystemHealthReport } from "./health";

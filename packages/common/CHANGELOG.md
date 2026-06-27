@@ -5,8 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.1-rc-1] - 06/20/2026
+## [1.0.1-rc-1] - 06/27/2026
 ### Added
+* Adding `HttpOperationBuilderFactory` construct
+* Adding `FetchHttpOperation` construct
+* Adding `HttpOperation` interface
 * Adding a `ZodSchemaTransformer` to transform from `JsonSchema` to `ZodObject`
 * Adding the module: `CommonModule`
 * Adding typescript build script
@@ -16,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding `EmailValidator`, `EmailZodSchema`, and `emailSchemaFactory`
 
 ### Changed
+* Decoupling the `HttpOperation` state from its builder: `HttpOperationBuilder`
+* Updating `ZodSchemaValidator` implementation to add `ConfigurationError` for missing `schema`
+* Replacing `ExecutionResult` interface with `OperationResult`
 * Refactoring `LoggerFactory` with the following changes:
 	* Consuming changes to `EnvironmentRegistry`
 	* To adhere to the new `container-module` pattern

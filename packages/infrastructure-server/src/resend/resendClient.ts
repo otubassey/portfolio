@@ -4,10 +4,10 @@ import {
 	ConfigurationError,
 	DeferredOperationBuilder,
 	EnvironmentRegistry,
-	ExecutionResult,
 	FalloutError,
 	LoggerProvider,
 	OperationPipeline,
+	OperationResult,
 	ServerComponentClient
 } from "@otuekong-portfolio/common";
 
@@ -70,7 +70,7 @@ class ResendClient extends ServerComponentClient implements ServerComponentMonit
 	health(): DeferredOperationBuilder<ServerComponentHealth> {
 		let startTime: number;
 
-        return this.create(async (): Promise<ExecutionResult<ServerComponentHealth>> => {
+        return this.create(async (): Promise<OperationResult<ServerComponentHealth>> => {
 			try {
 				startTime = performance.now();
 
@@ -129,7 +129,7 @@ class ResendClient extends ServerComponentClient implements ServerComponentMonit
 	}
 
 	sendEmail(): OperationPipeline<SendEmailParams, any, any> {
-        return this.create(async (payload: SendEmailParams): Promise<ExecutionResult<any>> => {
+        return this.create(async (payload: SendEmailParams): Promise<OperationResult<any>> => {
 			try {
 				payload.target = this.environmentRegistry.get("PORTFOLIO_EMAIL_TARGET");
 
@@ -154,7 +154,7 @@ class ResendClient extends ServerComponentClient implements ServerComponentMonit
         });
 	}
 
-	private mapSendEmailErrorResponse(error: any): ExecutionResult<any> {
+	private mapSendEmailErrorResponse(error: any): OperationResult<any> {
 		const falloutError = new FalloutError(
 			"Upstream mailer rejection",
 			`The external email infrastructure service failed to process the submission payload. ${error?.message || ""}`,

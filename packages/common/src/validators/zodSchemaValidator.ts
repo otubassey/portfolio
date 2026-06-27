@@ -1,12 +1,21 @@
 import Zod from "zod";
 
+import { ConfigurationError } from "../errors";
+
 import Validator, { ValidationError, ValidationResult } from "./validator";
 
 /**
  * Zod-specific implementation of the Validator interface.
  */
 class ZodSchemaValidator<SchemaType> implements Validator<SchemaType> {
-	constructor(private readonly schema: Zod.ZodType<SchemaType>) {}
+	constructor(private readonly schema: Zod.ZodType<SchemaType>) {
+		if(!schema) {
+			throw new ConfigurationError(
+				"ZodSchemaValidator creation Failed",
+				"A schema is required to create a ZodSchemaValidator instamce."
+			);
+		}
+	}
 
 	/**
 	 * Validates the payload against the Zod schema.

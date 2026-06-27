@@ -1,6 +1,7 @@
 import { BaseError, ConfigurationError, FalloutError, HttpError } from "../errors";
+import { OperationResult } from "../types";
 
-import { OperationResult, PipelineContext, PreHook, PostHook, PipelineDirective, ExecutionResult } from "./types";
+import { PipelineContext, PreHook, PostHook, PipelineDirective } from "./types";
 
 /**
  * This is a framework-agnostic, strongly typed execution engine that encapsulates a deferred async operation (deferredPromise) inside
@@ -25,7 +26,7 @@ class OperationPipeline<
      * @param deferredPromise The unexecuted function wrapping the operational client call
      */
     constructor(
-        private readonly deferredPromise: (context: Context) => Promise<ExecutionResult<DeferredPromiseResult>>
+        private readonly deferredPromise: (context: Context) => Promise<OperationResult<DeferredPromiseResult>>
     ) {
 		 if(!deferredPromise || typeof deferredPromise !== "function") {
             throw new ConfigurationError(
@@ -71,7 +72,7 @@ class OperationPipeline<
                 currentContext = directive.context;
             }
 
-			const executionResult: ExecutionResult<DeferredPromiseResult> = await this.deferredPromise(currentContext);
+			const executionResult: OperationResult<DeferredPromiseResult> = await this.deferredPromise(currentContext);
 
 		    if(!executionResult.success || executionResult.error) {
                 return {
