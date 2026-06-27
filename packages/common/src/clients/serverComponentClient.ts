@@ -1,5 +1,6 @@
 import { DeferredOperationBuilder } from "../operations";
-import { ExecutionResult, OperationPipeline, PipelineContext } from "../pipelines";
+import { OperationPipeline, PipelineContext } from "../pipelines";
+import { OperationResult } from "../types";
 
 /**
  * Abstract foundation managing data access behaviors for server-side infrastructure drivers.
@@ -10,11 +11,11 @@ import { ExecutionResult, OperationPipeline, PipelineContext } from "../pipeline
  */
 export abstract class ServerComponentClient {
 	protected create<Output>(
-        action: () => Promise<ExecutionResult<Output>>
+        action: () => Promise<OperationResult<Output>>
     ): DeferredOperationBuilder<Output>;
 
 	protected create<Context extends PipelineContext, Output>(
-        action: (context: Context) => Promise<ExecutionResult<Output>>
+        action: (context: Context) => Promise<OperationResult<Output>>
     ): OperationPipeline<Context, Output, Output>;
 
 	protected create(action: Function): any {

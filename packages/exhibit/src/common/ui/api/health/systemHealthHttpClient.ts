@@ -7,7 +7,7 @@ class SystemHealthHttpClient extends HttpClient {
     public checkHealth(
 		endpointUrl: string
 	): OperationPipeline<any, Response, SystemHealthReport> {
-        return this.open()
+        return this.open<Response>()
             .get(endpointUrl)
             .pipe()
             .after(async (response: Response): Promise<SystemHealthReport> => {

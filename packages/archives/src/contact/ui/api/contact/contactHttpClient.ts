@@ -7,7 +7,7 @@ class ContactHttpClient extends HttpClient {
         endpointUrl: string,
         data: ContactFormField
     ): OperationPipeline<any, Response, EmailHttpResponse> {
-        return this.open()
+        return this.open<Response>()
 			.post(endpointUrl)
 			.body(data)
 			.pipe()

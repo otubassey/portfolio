@@ -6,5 +6,5 @@ export * from "./errors";
 export * from "./logger";
 export * from "./operations";
 export * from "./pipelines";
-export type { CommonModuleEnvironmentKeys } from "./types";
+export type { CommonModuleEnvironmentKeys, OperationResult } from "./types";
 export { createEmailValidator, ZodSchemaValidator } from "./validators";

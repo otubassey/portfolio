@@ -4,8 +4,8 @@ import {
 	ConfigurationError,
 	DeferredOperationBuilder,
 	EnvironmentRegistry,
-	ExecutionResult,
 	LoggerProvider,
+	OperationResult,
 	ServerComponentClient
 } from "@otuekong-portfolio/common";
 
@@ -57,7 +57,7 @@ class RedisClient extends ServerComponentClient implements ServerComponentMonito
 	health(): DeferredOperationBuilder<ServerComponentHealth> {
 		let startTime: number;
 
-        return this.create(async (): Promise<ExecutionResult<ServerComponentHealth>> => {
+        return this.create(async (): Promise<OperationResult<ServerComponentHealth>> => {
 			try {
 				startTime = performance.now();
 				const response = await this.connection.ping();

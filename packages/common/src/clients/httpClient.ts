@@ -1,4 +1,4 @@
-import { HttpOperationBuilder } from "../operations";
+import { HttpOperationBuilder, HttpOperationBuilderFactory } from "../operations";
 
 /**
  * Abstract foundation managing framework-agnostic frontend HTTP client configurations.
@@ -8,12 +8,14 @@ import { HttpOperationBuilder } from "../operations";
  * and traceability across all downstream resource endpoints.
  */
 abstract class HttpClient {
-    protected applyGlobalDecorations(builder: HttpOperationBuilder): HttpOperationBuilder {
-        return builder.header("X-Transaction-Id", crypto.randomUUID());
+    public open<ResponseDataType>(): HttpOperationBuilder<ResponseDataType> {
+        return this.applyGlobalDecorations(HttpOperationBuilderFactory.createForFetch<ResponseDataType>());
     }
 
-    public open(): HttpOperationBuilder {
-        return this.applyGlobalDecorations(new HttpOperationBuilder());
+	private applyGlobalDecorations<ResponseDataType>(
+		builder: HttpOperationBuilder<ResponseDataType>
+	): HttpOperationBuilder<ResponseDataType> {
+        return builder.header("X-Transaction-Id", crypto.randomUUID());
     }
 }
 
