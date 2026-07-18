@@ -8,7 +8,7 @@ import {
 	Typography,
 	useTheme
 } from "@otuekong-portfolio/curio";
-import { Breadcrumb, OnNavigateHandler } from "@otuekong-portfolio/features";
+import { Breadcrumb, OnNavigateHandler } from "@otuekong-portfolio/features/navigation";
 
 import HeaderSearch from "./headerSearch";
 

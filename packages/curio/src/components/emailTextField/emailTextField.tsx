@@ -2,9 +2,19 @@
 
 import { ChangeEvent, FocusEvent, useCallback, useState, useId, Ref } from "react";
 
-import { createEmailValidator } from "@otuekong-portfolio/common";
+import { createEmailValidator, ValidationError } from "@otuekong-portfolio/common";
 
 import { TextField, TextFieldProps } from "../textField";
+
+const extractValidationMessage = (error: ValidationError) => {
+	if(error.errors.length > 0) {
+		return error.errors.flatMap(error => error.errors).join(". ");
+	}
+	if(error.detail) {
+		return error.detail;
+	}
+	return error.message;
+};
 
 const validateEmailFormat = (
 	value: string,
@@ -25,9 +35,7 @@ const validateEmailFormat = (
 	return {
 		isValid,
 		message: !isValid
-			? validationResult.errors
-				.map(validationError => validationError.message)
-				.join(". ")
+			? extractValidationMessage(validationResult.error)
 			: ""
 	};
 };

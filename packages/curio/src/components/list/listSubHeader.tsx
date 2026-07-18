@@ -4,11 +4,11 @@ import { ReactNode, Ref } from "react";
 
 import { CssUtils } from "../../utils";
 
-const COLOR_CLASSES = {
+const COLOR_CLASSES = Object.freeze({
 	default: "text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900",
 	primary: "text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-800",
 	inherit: "text-inherit bg-inherit"
-} as const;
+} as const);
 
 export interface ListSubHeaderProps {
 	children: ReactNode;

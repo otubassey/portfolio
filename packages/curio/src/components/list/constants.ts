@@ -1,13 +1,13 @@
-export const ListStylePosition = {
+export const ListStylePosition = Object.freeze({
     INSIDE: "inside",
     OUTSIDE: "outside"
-} as const;
+} as const);
 
-export const CustomListStyleType = {
+export const CustomListStyleType = Object.freeze({
     STRETCH: "stretch"
-} as const;
+} as const);
 
-export const ListStyleType = {
+export const ListStyleType = Object.freeze({
 	CIRCLE: "circle",
 	DECIMAL: "decimal",
 	DISC: "disc",
@@ -15,9 +15,9 @@ export const ListStyleType = {
     NONE: "none",
 	SQUARE: "square",
 	...CustomListStyleType
-} as const;
+} as const);
 
-export const INITIAL_LIST_STYLE_VALUE = {
+export const INITIAL_LIST_STYLE_VALUE = Object.freeze({
     listStylePosition: ListStylePosition.OUTSIDE,
     listStyleType: ListStyleType.NONE
-} as const;
+} as const);

@@ -6,17 +6,17 @@ import { CssUtils } from "../../utils";
 
 import { FALLBACK_ICON, IconName, ICONS_BY_NAME } from "./constants";
 
-export const IconSize = {
+export const IconSize = Object.freeze({
     LARGE: "large",
     MEDIUM: "medium",
     SMALL: "small"
-} as const;
+} as const);
 
-const RemSizesBySize: {[key: string]: string} = {
+const RemSizesBySize: {[key: string]: string} = Object.freeze({
     [IconSize.LARGE]: "2.4rem",
     [IconSize.MEDIUM]: "2.1rem",
     [IconSize.SMALL]: "1.8rem"
-} as const;
+} as const);
 
 function getRemSize(size: IconProps["size"]): IconProps["size"] {
     if(!size) {

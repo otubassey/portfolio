@@ -5,25 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.1-rc-2] - 06/27/2026
+## [1.0.1-rc-2] - 07/18/2026
 ### Added
-* Adding `PavilionSchema`
-* Adding `PavilionContainer`
-* Adding and configuring `ExhibitContext`
+* Adding the following constructs:
+	* `ClassicStaticRouteDispatcher`
+	* `ClassicStaticRouteDispatcherFactory`
+	* `CommonModule`
+	* `CompositeStaticRouteDispatcher`
+	* `CompositeStaticRouteDispatcherFactory`
+	* `ExhibitContext`
+	* `GallerySchema`
+	* `HelloworldClassicContainer`
+	* `HelloworldClassicModule`
+	* `HelloworldCompositeContainer`
+	* `HelloworldCompositeModule`
+	* `NextHttpMapper`
+	* `NextRouteExecutor`
+	* `PavilionContainer`
+	* `PavilionGatewayRouteDispatcher`
+	* `PavilionGatewayRouteDispatcherFactory`
+	* `PavilionModule`
+	* `PavilionSchema`
+* Introducing `ContainerManifest` for container apps like *Pavilion*
+* Adding the following JsonSchema properties
+	* APP_NAME
+	* CRON_SECRET
+* Adding typescript build script
 * Adding `AppContainer` interface
-* Adding `GallerySchema`
-* Adding `GalleryModule`
-* Adding `GalleryContainer`
-* Adding `CommonModule`
 
 ### Changed
+* Updating **Helloworld Gallery* apps to account for new headers
+* Renaming `NextRouteHandler` to `NextRequestAdapter`
+* Updating `openapi` doc to account for new headers and appropriate responses
+* Package restructuring
+* Updating project exports
 * Properly typing `SystemHealthHttpClient`
 * Updating to split schema into build vs runtime to avoid vercel's build time failures due to secret environment variables
 * Consuming new `container-module` pattern
 * Updating `tsconfig.ts` to properly resolve other packages within this repo
-* Updating to pnpm v11.8.0
+* Updating to pnpm v11.15.0
 
 ### Removed
+* Remove `ContactServiceHandler`
+* Remove `HealthServiceHandler`
+* Remove `createNextRoute`
 * Unused configured `SystemHealthService`
 
 ## [1.0.1-rc-1] - 06/07/2026

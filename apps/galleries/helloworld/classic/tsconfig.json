@@ -13,8 +13,8 @@
 		],
 		"paths": {
 			"@/*": ["./*"],
-			"@otuekong-portfolio/curio": ["../../../../packages/curio/src"],
-			"@otuekong-portfolio/exhibit": ["../../../../packages/exhibit/src"]
+			"@otuekong-portfolio/curio/*": ["../../../../packages/curio/src/*"],
+			"@otuekong-portfolio/exhibit/*": ["../../../../packages/exhibit/src/*"]
 		}
 	},
 	"include": [

@@ -15,7 +15,7 @@ class SystemHealthService {
     public async checkPlatformStatus(): Promise<OperationResult<SystemHealthReport>> {
         return await this.healthClient
 			.checkHealth("/api/portfolio/v1/health")
-			.execute();
+			.execute() as OperationResult<SystemHealthReport>;
     }
 }
 

@@ -58,7 +58,7 @@ const {
 	YAML
 } = Technology;
 
-export const EXPERIENCES: Array<Experience> = [
+export const EXPERIENCES: ReadonlyArray<Experience> = Object.freeze([
 	{
 		id: "experience-spectrum-2017",
 		title: "Software Engineer V",
@@ -141,4 +141,4 @@ export const EXPERIENCES: Array<Experience> = [
 			"Provided rapid troubleshooting and debugging for mission-critical enterprise services, maintaining high availability for thousands of business clients."
 		]
 	}
-] as const;
+] as const);

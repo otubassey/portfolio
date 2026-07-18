@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/infrastructure-server",
-	"version": "1.0.0",
+	"version": "1.0.1-rc-1",
 	"description": "Server-only edge platform infrastructure and adapter utilities for the portfolio ecosystem. Manages environmental configuration validation, Upstash Redis client instantiations, rate-limiting interceptors, Resend API mail distribution workflows, and server-side telemetry handlers, completely decoupled from browser runtimes.",
 	"author": "Otuekong",
 	"type": "module",
@@ -16,16 +16,27 @@
 		"redis",
 		"server-only"
 	],
-	"packageManager": "pnpm@11.8.0",
+	"packageManager": "pnpm@11.15.0",
 	"exports": {
-		".": "./src/index.ts"
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./core": {
+			"default": "./dist/core/index.js",
+			"types": "./dist/core/index.d.ts"
+		},
+		"./tools": {
+			"default": "./dist/tools/index.js",
+			"types": "./dist/tools/index.d.ts"
+		}
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"clean": "rm -rf dist node_modules .turbo",
-		"build": "tsc --project tsconfig.json",
+		"clean": "rm -rf dist node_modules tsconfig.tsbuildinfo .turbo",
+		"build": "tsc -b tsconfig.json",
 		"lint": "eslint \"**/*.ts*\"",
 		"type-check": "tsc --noEmit"
 	},

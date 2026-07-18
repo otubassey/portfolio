@@ -1,6 +1,6 @@
 import { Technology } from "../../data";
 
-export const CORE_TECHNOLOGIES = [
+export const CORE_TECHNOLOGIES = Object.freeze([
 	Technology.JAVASCRIPT,
 	Technology.TYPESCRIPT,
 	Technology.REACT,
@@ -13,12 +13,12 @@ export const CORE_TECHNOLOGIES = [
 	Technology.VUE,
 	Technology.ANGULAR,
 	Technology.ELECTRON_JS
-] as const;
+] as const);
 
-export const HELLO_WORLD_LANGUAGES = [
+export const HELLO_WORLD_LANGUAGES = Object.freeze([
 	{ lang: Technology.JAVASCRIPT, code: "console.log(\"Hello, World!\");" },
 	{ lang: Technology.JAVA, code: "System.out.println(\"Hello, World!\");" },
 	{ lang: Technology.TYPESCRIPT, code: "console.log(\"Hello, World!\");" },
 	{ lang: Technology.DART, code: "print(\"Hello, World!\");" },
 	{ lang: Technology.PYTHON, code: "print(\"Hello, World!\")" }
-] as const;
+] as const);

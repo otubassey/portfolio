@@ -11,7 +11,7 @@ import SkillsProficiency from "./skillsProficiency";
 
 const INITIAL_VARIANT = "grid";
 
-const SKILLS_VIEWS = [
+const SKILLS_VIEWS = Object.freeze([
 	{
 		label: "View: Grid",
 		value: "grid"
@@ -20,7 +20,7 @@ const SKILLS_VIEWS = [
 		label: "View: Proficiency",
 		value: "proficiency"
 	}
-] as const;
+] as const);
 
 type SkillsSectionVariant = typeof SKILLS_VIEWS[number]["value"];
 

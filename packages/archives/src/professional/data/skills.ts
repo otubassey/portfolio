@@ -1,6 +1,6 @@
 import { Technology, TechnologyName } from "./technologies";
 
-export const PROFICIENCY: Partial<Record<TechnologyName, number>> = {
+export const PROFICIENCY: Partial<Record<TechnologyName, number>> = Object.freeze({
 	[Technology.ANGULAR]: 60,
 	[Technology.BITBUCKET]: 95,
 	[Technology.CSS]: 80,
@@ -44,16 +44,16 @@ export const PROFICIENCY: Partial<Record<TechnologyName, number>> = {
 	[Technology.XML]: 75,
 	[Technology.YAML]: 100,
 	[Technology.VUE]: 65
-} as const;
+} as const);
 
-export const SkillCategory = {
+export const SkillCategory = Object.freeze({
 	FRONTEND: "Frontend",
 	BACKEND: "Backend",
 	MOBILE: "Mobile",
 	DESKTOP: "Desktop",
 	TESTING: "Testing & QA",
 	TOOLS: "Tools & DevOps"
-} as const;
+} as const);
 
 interface SkillItem {
 	name: TechnologyName;

@@ -1,34 +1,83 @@
-import { LoggerProvider } from "@otuekong-portfolio/common";
+import { EnvironmentRegistry, LoggerProvider } from "@otuekong-portfolio/common";
 
-import { RateLimiterFactory, RedisClient, withRateLimitFactory, WithRateLimitPreHook } from "./redis/";
-import { SystemHealthClient, SystemHealthHandler } from "./server";
+import {
+	RateLimiterFactory,
+	RedisClientModule,
+	RedisEnvironmentKeys,
+	ResendClientModule,
+	ResendEnvironmentKeys,
+	SystemHealthClient,
+	WithRateLimitPreHook,
+	withRateLimitFactory
+} from "./tools";
 import { ServerComponentMonitor } from "./types";
 
+export type InfrastructureServerModuleEnvironmentKeys = RedisEnvironmentKeys | ResendEnvironmentKeys;
+
 interface InfrastructureServerModuleParameters {
+	environmentRegistry: EnvironmentRegistry<InfrastructureServerModuleEnvironmentKeys>;
 	loggerProvider: LoggerProvider;
-	redisClient: RedisClient;
-	serverComponentMonitorMapping: Map<string, ServerComponentMonitor>;
 }
 
 class InfrastructureServerModule {
 	private rateLimiterFactory: RateLimiterFactory | null = null;
-	private systemHealthHandler: SystemHealthHandler | null = null;
+	private redisClientModule: RedisClientModule | null = null;
+	private resendClientModule: ResendClientModule | null = null;
+	private systemHealthClient: SystemHealthClient | null = null;
 	private withRateLimit: WithRateLimitPreHook | null = null;
 
 	constructor(private readonly parameters: InfrastructureServerModuleParameters) {}
 
-	public getSystemHealthHandler(): SystemHealthHandler {
-		if(!this.systemHealthHandler) {
-			const systemHealthClient = new SystemHealthClient(
-				this.parameters.serverComponentMonitorMapping
-			);
-			const withRateLimit = this.getWithRateLimit();
-			this.systemHealthHandler = new SystemHealthHandler(
-				systemHealthClient,
-				withRateLimit
+	private getRateLimiterFactory(): RateLimiterFactory {
+		if(!this.rateLimiterFactory) {
+			const redisClientModule = this.getRedisClientModule();
+
+			this.rateLimiterFactory = new RateLimiterFactory(
+				redisClientModule.getRedisClient()
 			);
 		}
-		return this.systemHealthHandler;
+		return this.rateLimiterFactory;
+	}
+
+	public getRedisClientModule(): RedisClientModule {
+		if(!this.redisClientModule) {
+			this.redisClientModule = new RedisClientModule({
+				environmentRegistry: (
+					this.parameters.environmentRegistry as EnvironmentRegistry<RedisEnvironmentKeys>
+				),
+				loggerProvider: this.parameters.loggerProvider
+			});
+		}
+		return this.redisClientModule;
+	}
+
+	public getResendClientModule(): ResendClientModule {
+		if(!this.resendClientModule) {
+			this.resendClientModule = new ResendClientModule({
+				environmentRegistry: (
+					this.parameters.environmentRegistry as EnvironmentRegistry<ResendEnvironmentKeys>
+				),
+				loggerProvider: this.parameters.loggerProvider
+			});
+		}
+		return this.resendClientModule;
+	}
+
+	public getSystemHealthClient(): SystemHealthClient {
+		if(!this.systemHealthClient) {
+			const redisClientModule = this.getRedisClientModule();
+			const resendClientModule = this.getResendClientModule();
+
+			const serverComponentMonitorMapping = new Map<string, ServerComponentMonitor>([
+				["redis", redisClientModule.getRedisClient()] as const,
+				["resend", resendClientModule.getResendClient()] as const
+			]);
+
+			this.systemHealthClient = new SystemHealthClient(
+				serverComponentMonitorMapping
+			);
+		}
+		return this.systemHealthClient;
 	}
 
 	public getWithRateLimit(): WithRateLimitPreHook {
@@ -39,15 +88,6 @@ class InfrastructureServerModule {
 			);
 		}
 		return this.withRateLimit;
-	}
-
-	private getRateLimiterFactory(): RateLimiterFactory {
-		if(!this.rateLimiterFactory) {
-			this.rateLimiterFactory = new RateLimiterFactory(
-				this.parameters.redisClient
-			);
-		}
-		return this.rateLimiterFactory;
 	}
 }
 

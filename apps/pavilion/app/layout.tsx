@@ -29,6 +29,7 @@ function RootLayout({
 }: Readonly<RootLayoutProps>) {
 	return (
 		<html lang="en">
+			{/* TODO: Find a way to achive this with next-themes */}
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				{children}
 			</body>

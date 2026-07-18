@@ -1,4 +1,4 @@
-export const Technology = {
+export const Technology = Object.freeze({
 	ANGULAR: "Angular",
     ANGULAR_JS: "AngularJs",
 	BITBUCKET: "BitBucket",
@@ -55,6 +55,6 @@ export const Technology = {
 	XHTML: "XHTML",
     YAML: "YAML",
 	VUE: "Vue",
-} as const;
+} as const);
 
 export type TechnologyName = typeof Technology[keyof typeof Technology];

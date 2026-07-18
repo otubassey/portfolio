@@ -5,9 +5,11 @@ import {
 } from "@otuekong-portfolio/curio";
 import {
 	ApplicationContextProvider,
-	LOOKBOOK_APP_MANIFEST,
 	NavigationProvider
-} from "@otuekong-portfolio/features";
+} from "@otuekong-portfolio/features/core";
+import {
+	LOOKBOOK_APP_MANIFEST,
+} from "@otuekong-portfolio/features/lookbook";
 
 import LookbookMain from "./lookbookMain";
 

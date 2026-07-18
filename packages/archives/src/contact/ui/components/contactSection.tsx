@@ -10,12 +10,16 @@ import ContactFormCard from "./contactFormCard";
 import ContactInformationCard from "./contactInformationCard";
 
 export interface ContactSectionProps {
+	clientId: string;
+	targetAppId: string;
 	className?: string;
 	id?: string;
 	ref?: Ref<SectionHandle>;
 }
 
 function ContactSection({
+	clientId,
+	targetAppId,
 	className = "",
 	id,
 	ref
@@ -41,6 +45,8 @@ function ContactSection({
 				/>
 
 				<ContactFormCard
+					clientId={clientId}
+					targetAppId={targetAppId}
 					id={`${id}-contact-form`}
 				/>
 			</div>

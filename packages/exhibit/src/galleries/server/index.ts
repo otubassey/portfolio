@@ -1,1 +1,0 @@
-export { ContactServiceHandler } from "./contact";

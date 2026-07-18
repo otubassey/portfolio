@@ -2,20 +2,20 @@
 
 export const THEME_LOCAL_STORAGE_KEY = "app-portfolio-system-theme-preference";
 
-export const ThemeName = {
+export const ThemeName = Object.freeze({
 	DARK: "dark",
 	LIGHT: "light"
-} as const;
+} as const);
 
 export type ThemeType = typeof ThemeName[keyof typeof ThemeName];
 
 export const INITIAL_THEME: ThemeType = ThemeName.LIGHT;
 
-export const INITIAL_THEME_CONTEXT = {
+export const INITIAL_THEME_CONTEXT = Object.freeze({
 	isDarkMode: false,
 	themeName: INITIAL_THEME,
 	toggleTheme: (name?: ThemeType) => (name ? name : INITIAL_THEME)
-} as const;
+} as const);
 
 export const getSystemTheme = () => (
 	window.matchMedia("(prefers-color-scheme: dark)").matches

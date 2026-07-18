@@ -8,17 +8,17 @@ import { ButtonBase } from "../buttonBase";
 import { IconName } from "../icon";
 import { InputIcon } from "../inputIcon";
 
-const COLOR_CLASSES = {
+const COLOR_CLASSES = Object.freeze({
 	primary: "text-blue-400 hover:text-blue-500",
 	secondary: "text-slate-600 hover:bg-slate-50",
 	inherit: "text-inherit hover:bg-black/5"
-} as const;
+} as const);
 
-const SIZE_CLASSES = {
+const SIZE_CLASSES = Object.freeze({
 	small: {container: "px-3 py-1.5 text-xs", icon: 14},
 	medium: {container: "px-4 py-2 text-sm", icon: 18},
 	large: {container: "px-6 py-3 text-base", icon: 22}
-} as const;
+} as const);
 
 export interface ListItemButtonProps {
 	children: ReactNode;

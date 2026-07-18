@@ -6,25 +6,25 @@ import { CssUtils, Icon, IconName, Typography } from "@otuekong-portfolio/curio"
 
 import EditorHighlighter from "./editorHighlighter";
 
-const ConsoleFrameVariant = {
+const ConsoleFrameVariant = Object.freeze({
 	EDITOR: "editor",
 	TERMINAL: "terminal",
 	WINDOW: "window"
-} as const;
+} as const);
 
 type ConsoleFrameVariants = typeof ConsoleFrameVariant[keyof typeof ConsoleFrameVariant];
 
-const ICON_NAME_BY_VARIANT: Record<ConsoleFrameVariants, IconName> = {
+const ICON_NAME_BY_VARIANT: Record<ConsoleFrameVariants, IconName> = Object.freeze({
 	[ConsoleFrameVariant.EDITOR]: "code",
 	[ConsoleFrameVariant.TERMINAL]: "terminal",
 	[ConsoleFrameVariant.WINDOW]: "globe"
-} as const;
+} as const);
 
-const ICON_NAME_CLASSNAME_BY_VARIANT: Record<ConsoleFrameVariants, string> = {
+const ICON_NAME_CLASSNAME_BY_VARIANT: Record<ConsoleFrameVariants, string> = Object.freeze({
 	[ConsoleFrameVariant.EDITOR]: "text-purple-500",
 	[ConsoleFrameVariant.TERMINAL]: "text-green-500",
 	[ConsoleFrameVariant.WINDOW]: "text-blue-500 animate-pulse"
-} as const;
+} as const);
 
 interface ConsoleFrameProps {
 	code: string;

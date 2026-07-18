@@ -4,8 +4,7 @@ import { Fragment, useMemo, useRef } from "react";
 
 import { ListSubHeader, Menu, MenuItem, Text, useToggle } from "@otuekong-portfolio/curio";
 
-import { MenuButton } from "../../components";
-import { ExhibitLabel, ExhibitLabelValue } from "../../features";
+import { ExhibitLabel, ExhibitLabelValue, MenuButton } from "../../core/internalIndex";
 
 export const groupGalleriesByFamily = (
 	items: ReadonlyArray<GalleryDirectoryItem>

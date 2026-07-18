@@ -1,5 +1,7 @@
-export { default as FeaturesGalleryModule } from "./galleryModule";
-export type { GalleryModuleEnvironmentKeys as FeaturesGalleryModuleEnvironmentKeys } from "./types";
-export * from "./ui";
-
-export { SendEmailHandler } from "@otuekong-portfolio/archives";
+export {
+	APP_MANIFEST_HELLOWORLD_CLASSIC,
+	APP_MANIFEST_HELLOWORLD_COMPOSITE,
+	APP_NAME_HELLOWORLD_CLASSIC,
+	APP_NAME_HELLOWORLD_COMPOSITE
+} from "./helloworld";
+export type { AppNameGalleries } from "./appName";

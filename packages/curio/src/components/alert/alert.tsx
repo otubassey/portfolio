@@ -46,14 +46,14 @@ const getProgressColor = (
 	return colorMap[severity];
 };
 
-const ICON_NAME_BY_SEVERITY = {
+const ICON_NAME_BY_SEVERITY = Object.freeze({
 	success: "check-circle",
 	info: "info",
 	warning: "alert-warning",
 	error: "alert-circle"
-} as const;
+} as const);
 
-const VARIANT_STYLES = {
+const VARIANT_STYLES = Object.freeze({
 	filled: {
 		error: "bg-red-600 text-white",
 		info: "bg-blue-600 text-white",
@@ -72,7 +72,7 @@ const VARIANT_STYLES = {
 		success: "bg-green-50 text-green-800",
 		warning: "bg-yellow-50 text-yellow-800"
 	}
-} as const;
+} as const);
 
 export interface AlertProps {
 	message: string;

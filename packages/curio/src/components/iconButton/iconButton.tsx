@@ -52,11 +52,11 @@ const IconButtonContent = ({
 	return null;
 };
 
-const BUTTON_VARIANT_MAPPING = {
+const BUTTON_VARIANT_MAPPING = Object.freeze({
 	ghost: "text",
 	filled: "contained",
 	outlined: "outlined"
-} as const;
+} as const);
 
 export type IconButtonProps<T extends ElementType = "button"> =
 	Omit<ButtonProps<T>, "children" | "endIcon" | "startIcon" | "variant">

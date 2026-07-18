@@ -63,11 +63,11 @@ function asyncReducer<T>(state: AsyncState<T>, action: AsyncAction<T>): AsyncSta
 	}
 }
 
-const INITIAL_STATE: AsyncState<any> = {
+const INITIAL_STATE: AsyncState<any> = Object.freeze({
 	data: null,
 	error: null,
 	isLoading: false
-} as const;
+} as const);
 
 function useAsync<T, P extends Array<any> = []>(
 	asyncFunction: (...params: P) => Promise<T>,

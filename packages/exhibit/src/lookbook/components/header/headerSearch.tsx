@@ -2,15 +2,15 @@
 
 import { useState, useMemo, useRef } from "react";
 
+import { StringUtils } from "@otuekong-portfolio/common/utils";
 import {
 	CssUtils,
 	Menu,
 	MenuItem,
 	SearchField,
-	StringUtils,
 	useToggle
 } from "@otuekong-portfolio/curio";
-import { Breadcrumb } from "@otuekong-portfolio/features";
+import { Breadcrumb } from "@otuekong-portfolio/features/navigation";
 
 interface HeaderSearchProps {
 	onItemClick: (text: string) => void;

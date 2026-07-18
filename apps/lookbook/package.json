@@ -1,6 +1,6 @@
 {
 	"name": "lookbook",
-	"version": "1.1.0",
+	"version": "1.1.1-rc-1",
 	"private": true,
 	"description": "The interactive design system workbench and component documentation for the portfolio ecosystem.",
 	"author": "Otuekong",
@@ -20,7 +20,7 @@
 		"lint": "eslint",
 		"type-check": "tsc --noEmit"
 	},
-	"packageManager": "pnpm@11.8.0",
+	"packageManager": "pnpm@11.15.0",
 	"dependencies": {
 		"@otuekong-portfolio/curio": "workspace:*",
 		"@otuekong-portfolio/exhibit": "workspace:*",

@@ -4,7 +4,7 @@ import { ComponentPropsWithRef, ElementType, ReactNode, Ref } from "react";
 
 import { CssUtils } from "../../utils";
 
-const ELEVATION_CLASSES: Record<number, string> = {
+const ELEVATION_CLASSES: Record<number, string> = Object.freeze({
 	0: "shadow-none",
 	1: "shadow-sm",
 	2: "shadow",
@@ -12,13 +12,13 @@ const ELEVATION_CLASSES: Record<number, string> = {
 	4: "shadow-lg",
 	5: "shadow-xl",
 	6: "shadow-2xl"
-};
+} as const);
 
-const SHADE_CLASSES = {
+const SHADE_CLASSES = Object.freeze({
 	dark: "bg-[var(--portfolio-surface-bg-dark)]",
 	light: "bg-[var(--portfolio-surface-bg-light)]",
 	main: "bg-[var(--portfolio-surface-bg-main)]"
-} as const;
+} as const);
 
 export interface SurfaceOwnProps<T extends ElementType> {
 	children?: ReactNode;

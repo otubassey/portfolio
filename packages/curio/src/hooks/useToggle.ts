@@ -21,7 +21,7 @@ export interface ToggleFunction {
  * @param initialState - The starting boolean value (defaults to false).
  * @returns A tuple containing the boolean state and a smart toggle function.
  */
-const useToggle = (initialState: boolean = false): [boolean, ToggleFunction] => {
+const useToggle = (initialState: boolean = false): readonly [boolean, ToggleFunction] => {
 	const [value, setValue] = useState<boolean>(initialState);
 
 	const toggle = useCallback((nextValue?: boolean | ((prev: boolean) => boolean) | unknown) => {
@@ -36,7 +36,7 @@ const useToggle = (initialState: boolean = false): [boolean, ToggleFunction] => 
 		});
 	}, []) as ToggleFunction;
 
-  	return [value, toggle] as const;
+  	return Object.freeze([value, toggle] as const);
 };
 
 useToggle.displayName = "useToggle";

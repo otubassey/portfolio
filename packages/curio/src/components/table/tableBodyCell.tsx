@@ -4,11 +4,11 @@ import { ReactNode, Ref, TdHTMLAttributes } from "react";
 
 import { CssUtils } from "../../utils";
 
-export const COLOR_STYLES = {
+export const COLOR_STYLES = Object.freeze({
 	primary: "text-blue-600 dark:text-blue-400",
 	default: "text-gray-900 dark:text-gray-100",
 	muted: "text-gray-600 dark:text-gray-400"
-} as const;
+} as const);
 
 export interface TableBodyCellProps extends TdHTMLAttributes<HTMLTableCellElement> {
 	children: ReactNode;

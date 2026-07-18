@@ -1,10 +1,11 @@
 import { ComponentName } from "@otuekong-portfolio/curio";
 
-import { AppManifest } from "../applicationContext";
+import { InternalToolAppManifest } from "../core/applicationContext";
 
-const APP_MANIFEST: AppManifest = {
+const APP_MANIFEST: InternalToolAppManifest = Object.freeze({
 	family: "Internal Tools",
 	name: "lookbook",
+	label: "Lookbook",
 	blueprints: [
 		{
 			name: "Components",
@@ -14,7 +15,7 @@ const APP_MANIFEST: AppManifest = {
 				.map(name => ({name}))
 		}
 	],
-	label: "Lookbook"
-} as const;
+	role: "INTERNAL_TOOL_APP"
+} as const);
 
 export default APP_MANIFEST;

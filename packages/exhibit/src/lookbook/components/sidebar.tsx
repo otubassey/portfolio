@@ -5,7 +5,7 @@ import {
 	CssUtils,
 	ErrorBoundary
 } from "@otuekong-portfolio/curio";
-import { Breadcrumb, NavigationList, OnNavigateHandler } from "@otuekong-portfolio/features";
+import { Breadcrumb, NavigationList, OnNavigateHandler } from "@otuekong-portfolio/features/navigation";
 
 interface SidebarProps {
 	breadcrumbs: ReadonlyArray<Breadcrumb>;
