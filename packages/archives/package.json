@@ -1,11 +1,11 @@
 {
 	"name": "@otuekong-portfolio/archives",
-	"version": "1.0.0",
+	"version": "1.0.1-rc-1",
 	"description": "Domain-driven UI and business logic. Exports professional entities and their associated business logic and hooks.",
 	"author": "Otuekong",
 	"type": "module",
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"main": "./dist/clientIndex.js",
+	"types": "./dist/clientIndex.d.ts",
 	"license": "MIT",
 	"keywords": [
 		"Business-Rules",
@@ -16,22 +16,43 @@
 		"profile",
 		"projects"
 	],
-	"packageManager": "pnpm@11.8.0",
+	"packageManager": "pnpm@11.15.0",
 	"exports": {
-		".": "./src/index.ts",
-		"./contact": "./src/contact/index.ts",
-		"./contact/api": "./src/contact/api/index.ts",
-		"./contact/ui": "./src/contact/ui/index.ts",
-		"./professional": "./src/professional/index.ts",
-		"./profile": "./src/profile/index.ts",
-		"./showroom": "./src/showroom/index.ts"
+		"./contact-server": {
+			"default": "./dist/contact/server/index.js",
+			"types": "./dist/contact/server/index.d.ts"
+		},
+		"./contact-ui": {
+			"default": "./dist/contact/ui/index.js",
+			"types": "./dist/contact/ui/index.d.ts"
+		},
+		"./professional": {
+			"default": "./dist/professional/index.js",
+			"types": "./dist/professional/index.d.ts"
+		},
+		"./profile": {
+			"default": "./dist/profile/index.js",
+			"types": "./dist/profile/index.d.ts"
+		},
+		"./server": {
+			"default": "./dist/serverIndex.js",
+			"types": "./dist/serverIndex.d.ts"
+		},
+		"./showroom": {
+			"default": "./dist/showroom/index.js",
+			"types": "./dist/showroom/index.d.ts"
+		},
+		"./ui": {
+			"default": "./dist/clientIndex.js",
+			"types": "./dist/clientIndex.d.ts"
+		}
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"clean": "rm -rf dist node_modules .turbo",
-		"build": "tsc --project tsconfig.json",
+		"clean": "rm -rf dist node_modules tsconfig.tsbuildinfo .turbo",
+		"build": "tsc -b tsconfig.json",
 		"lint": "eslint \"**/*.ts*\"",
 		"type-check": "tsc --noEmit"
 	},

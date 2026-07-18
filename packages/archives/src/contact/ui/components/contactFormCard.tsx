@@ -18,7 +18,7 @@ import { ContactFormField } from "../types";
 
 export type ValidationErrorsByField<T> = Partial<Record<keyof T, ReadonlyArray<string>>>;
 
-export function mapErrorsByField<T>(
+function mapErrorsByField<T>(
     errors: ReadonlyArray<ErrorAttribute>
 ): ValidationErrorsByField<T> {
     return errors.reduce((acc, current) => {
@@ -31,25 +31,29 @@ export function mapErrorsByField<T>(
     }, {} as ValidationErrorsByField<T>);
 }
 
-const DEFAULT_FORM_DATA = {
+const DEFAULT_FORM_DATA = Object.freeze({
 	name: "",
 	email: "",
 	message: "",
 	zipCode: ""
-} as const;
+} as const);
 
 interface ContactFormCardProps {
 	className?: string;
+	clientId: string;
+	targetAppId: string;
 	id?: string;
 }
 
 function ContactFormCard({
 	className,
+	clientId,
+	targetAppId,
 	id
 }: ContactFormCardProps) {
 	const [formData, setFormData] = useState<ContactFormField>(DEFAULT_FORM_DATA);
 
-	const { isEmailSent, emailError, isEmailSending, sendEmail } = useContactSendEmail();
+	const { isEmailSent, emailError, isEmailSending, sendEmail } = useContactSendEmail(clientId, targetAppId);
 
 	const validationErrorsByFieldOrNull = useMemo(() => {
 		if(emailError instanceof ValidationError && emailError.errors.length > 0) {

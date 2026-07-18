@@ -8,28 +8,28 @@ import { ButtonBase, ButtonBaseProps } from "../buttonBase";
 import { IconName } from "../icon";
 import { InputIcon, InputIconProps } from "../inputIcon";
 
-const JUSTIFY_CLASSES = {
+const JUSTIFY_CLASSES = Object.freeze({
     around: "justify-around",
     between: "justify-between",
     center: "justify-center",
     end: "justify-end",
     start: "justify-start",
-} as const;
+} as const);
 
-const SIZE_CLASSES = {
+const SIZE_CLASSES = Object.freeze({
 	small: {container: "px-3 py-1.5 text-xs", icon: 14},
 	medium: {container: "px-4 py-2 text-sm", icon: 18},
 	large: {container: "px-6 py-3 text-base", icon: 22}
-} as const;
+} as const);
 
-const TEXT_TRANSFORM_CLASSES = {
+const TEXT_TRANSFORM_CLASSES = Object.freeze({
 	capitalize: "capitalize",
 	lowercase: "lowercase",
 	none: "normal-case",
 	uppercase: "uppercase"
-} as const;
+} as const);
 
-const VARIANT_CLASSES = {
+const VARIANT_CLASSES = Object.freeze({
 	contained: {
 		primary: "bg-blue-600 hover:bg-blue-700 text-white shadow-md active:shadow-none",
 		secondary: "bg-slate-600 hover:bg-slate-700 text-white shadow-md active:shadow-none",
@@ -57,7 +57,7 @@ const VARIANT_CLASSES = {
 		warning: "text-yellow-600 hover:bg-yellow-50 dark:hover:bg-gray-700",
 		inherit: "text-inherit hover:bg-black/5"
 	}
-} as const;
+} as const);
 
 export type ButtonProps<T extends ElementType = "button"> =
 	Omit<ButtonBaseProps<T>, "children">

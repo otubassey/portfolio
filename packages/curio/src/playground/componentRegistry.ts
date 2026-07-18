@@ -1,12 +1,12 @@
-const ComponentCategory = {
+const ComponentCategory = Object.freeze({
 	DATA_DISPLAY: "Data Display",
 	FEEDBACK: "Feedback",
 	INPUTS: "Inputs",
 	LAYOUT: "Layout",
 	NAVIGATION: "Navigation"
-} as const;
+} as const);
 
-const ComponentName = {
+const ComponentName = Object.freeze({
 	ALERT: "Alert",
 	BACKDROP: "Backdrop",
 	BUTTON: "Button",
@@ -51,9 +51,9 @@ const ComponentName = {
 	TEXT_FIELD: "TextField",
 	TOGGLE_ICON_BUTTON: "ToggleIconButton",
 	TYPOGRAPHY: "Typography"
-} as const;
+} as const);
 
-const COMPONENTS_BY_CATEGORY: Record<string, Array<string>> = {
+const COMPONENTS_BY_CATEGORY: Record<string, Array<string>> = Object.freeze({
 	[ComponentCategory.DATA_DISPLAY]: [
 		ComponentName.HEADING,
 		ComponentName.ICON,
@@ -108,14 +108,14 @@ const COMPONENTS_BY_CATEGORY: Record<string, Array<string>> = {
 		ComponentName.MENU,
 		ComponentName.MENU_ITEM
 	]
-} as const;
+} as const);
 
-const ComponentRegistry = {
+const ComponentRegistry = Object.freeze({
 	ComponentCategory,
 	COMPONENTS_BY_CATEGORY,
 	getComponentByName: (name: string) => (
 		null
 	)
-};
+} as const);
 
 export default ComponentRegistry;

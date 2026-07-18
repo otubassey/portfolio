@@ -7,15 +7,15 @@ import { CssUtils } from "../../utils";
 import { Label } from "../label";
 import { Typography } from "../typography";
 
-const COLOR_CLASSES = {
+const COLOR_CLASSES = Object.freeze({
 	primary: "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent",
 	secondary: "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-} as const;
+} as const);
 
-const SIZE_CLASSES = {
+const SIZE_CLASSES = Object.freeze({
 	small: "px-3 py-2 text-sm",
 	medium: "px-4 py-3 text-base"
-} as const;
+} as const);
 
 export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 	color?: "primary" | "secondary";

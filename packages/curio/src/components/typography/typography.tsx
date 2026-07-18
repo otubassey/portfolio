@@ -7,7 +7,7 @@ import { CssUtils } from "../../utils";
 
 import { Tooltip } from "../tooltip";
 
-export const TypographyColor = {
+export const TypographyColor = Object.freeze({
 	DEFAULT: "default",
 	ERROR: "error",
 	INHERIT: "inherit",
@@ -16,9 +16,9 @@ export const TypographyColor = {
 	SECONDARY: "secondary",
 	SUCCESS: "success",
 	WARNING: "warning"
-} as const;
+} as const);
 
-export const TypographyVariant = {
+export const TypographyVariant = Object.freeze({
 	BODY1: "body1",
 	BODY2: "body2",
 	CAPTION: "caption",
@@ -31,7 +31,7 @@ export const TypographyVariant = {
 	OVERLINE: "overline",
 	SUBTITLE1: "subtitle1",
 	SUBTITLE2: "subtitle2"
-} as const;
+} as const);
 
 export type TypographyVariantType = typeof TypographyVariant[keyof typeof TypographyVariant];
 
@@ -39,13 +39,13 @@ export type TypographyComponent =
 	| "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 	| "p" | "span" | "div" | "label" | "dt" | "dd";
 
-const ALIGN_STYLES = {
+const ALIGN_STYLES = Object.freeze({
 	center: "text-center",
 	left: "text-left",
 	right: "text-right"
-} as const;
+} as const);
 
-const COLOR_STYLES = {
+const COLOR_STYLES = Object.freeze({
 	primary: "text-blue-600 dark:text-blue-400",
 	secondary: "text-purple-600 dark:text-purple-400",
 	default: "text-gray-900 dark:text-gray-100",
@@ -54,9 +54,9 @@ const COLOR_STYLES = {
 	error: "text-red-700 dark:text-red-400",
 	warning: "text-amber-600 dark:text-amber-400",
 	success: "text-emerald-600 dark:text-emerald-400"
-} as const;
+} as const);
 
-const VARIANT_MAPPING: Record<TypographyVariantType, TypographyComponent> = {
+const VARIANT_MAPPING: Record<TypographyVariantType, TypographyComponent> = Object.freeze({
 	h1: "h1",
 	h2: "h2",
 	h3: "h3",
@@ -69,9 +69,9 @@ const VARIANT_MAPPING: Record<TypographyVariantType, TypographyComponent> = {
 	subtitle2: "h6",
 	caption: "span",
 	overline: "span"
-} as const;
+} as const);
 
-const VARIANT_STYLES: Record<TypographyVariantType, string> = {
+const VARIANT_STYLES: Record<TypographyVariantType, string> = Object.freeze({
 	h1: "text-5xl font-bold leading-tight",
 	h2: "text-4xl font-bold leading-tight",
 	h3: "text-3xl font-semibold leading-snug",
@@ -84,14 +84,14 @@ const VARIANT_STYLES: Record<TypographyVariantType, string> = {
 	subtitle2: "text-base font-medium leading-normal",
 	caption: "text-xs leading-normal",
 	overline: "text-xs uppercase tracking-wide leading-normal"
-} as const;
+} as const);
 
-const WEIGHT_STYLES = {
+const WEIGHT_STYLES = Object.freeze({
 	bold: "font-bold",
 	medium: "font-medium",
 	normal: "font-normal",
 	semibold: "font-semibold"
-} as const;
+} as const);
 
 export interface TypographyProps {
 	children: ReactNode;

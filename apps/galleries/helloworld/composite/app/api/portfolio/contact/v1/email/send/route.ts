@@ -1,8 +1,9 @@
 import { NextRequest } from "next/server";
 
-import { ExhibitContext, GalleriesContainer } from "@otuekong-portfolio/exhibit/galleries";
+import { CompositeStaticRouteDispatcherFactory } from "@otuekong-portfolio/exhibit/helloworld-composite-server";
 
 export async function POST(request: NextRequest) {
-	const galleryContainer = ExhibitContext.get<GalleriesContainer>();
-	return galleryContainer.contactServiceHandler.sendEmailInquiry(request);
+	return CompositeStaticRouteDispatcherFactory
+		.create()
+		.sendEmailInquiry(request);
 }

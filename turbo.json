@@ -3,6 +3,7 @@
 	"globalDependencies": ["**/.env.*local"],
 	"globalEnv": [
 		"CLIENT_LOG_LEVEL",
+		"CRON_SECRET",
 		"ENABLE_EXPERIMENTAL_COREPACK",
 		"LOG_LEVEL",
 		"PORTFOLIO_EMAIL_SENDER",

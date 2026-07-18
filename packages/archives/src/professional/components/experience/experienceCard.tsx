@@ -23,10 +23,10 @@ import { Experience } from "../../data";
 
 import TechnologyPills from "../technologyPills";
 
-const EXPERIENCE_STATUS_MAPPING = {
+const EXPERIENCE_STATUS_MAPPING = Object.freeze({
 	active: { color: "success", label: "Active" },
 	completed: { color: "default", label: "Completed" }
-} as const;
+} as const);
 
 export interface ExperienceCardProps extends Experience {
 	className?: string;

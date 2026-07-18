@@ -58,7 +58,7 @@ import {
 	SiMysql,
 	SiNextdotjs,
 	SiNodedotjs,
-	SiOpenai,
+	SiOpenapiinitiative,
 	SiOpenjdk,
 	SiPostgresql,
 	SiPostman,
@@ -77,7 +77,7 @@ import {
 
 export const FALLBACK_ICON = Frown;
 
-export const ICONS_NAME = {
+export const ICONS_NAME = Object.freeze({
 	ALERT_ERROR: "alert-circle",
 	ALERT_WARNING: "alert-warning",
 	ANGULAR: "angular",
@@ -154,11 +154,11 @@ export const ICONS_NAME = {
 	X: "x",
 	XML: "xml",
 	YAML: "yaml"
-} as const;
+} as const);
 
 export type IconName = typeof ICONS_NAME[keyof typeof ICONS_NAME];
 
-export const ICONS_BY_NAME: Record<IconName, ElementType> = {
+export const ICONS_BY_NAME: Record<IconName, ElementType> = Object.freeze({
 	"alert-circle": AlertCircleIcon,
 	"alert-warning": AlertTriangleIcon,
 	angular: SiAngular,
@@ -211,7 +211,7 @@ export const ICONS_BY_NAME: Record<IconName, ElementType> = {
 	"network-wired": FaNetworkWired,
 	"nextdotjs": SiNextdotjs,
 	node: SiNodedotjs,
-	openapi: SiOpenai,
+	openapi: SiOpenapiinitiative,
 	palette: Palette,
 	postgresql: SiPostgresql,
 	postman: SiPostman,
@@ -235,4 +235,4 @@ export const ICONS_BY_NAME: Record<IconName, ElementType> = {
 	x: X,
 	xml: SiXml,
 	yaml: SiYaml
-} as const;
+} as const);

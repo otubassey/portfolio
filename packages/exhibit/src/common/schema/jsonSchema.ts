@@ -1,32 +1,43 @@
 import { LogLevel } from "@otuekong-portfolio/common";
 
-export const EMAIL_JSON_SCHEMA_PROPERTY = {
+export const JSON_SCHEMA_PROPERTY_APP_NAME = Object.freeze({
+	type: "string",
+	minLength: 1
+} as const);
+
+export const JSON_SCHEMA_PROPERTY_CRON_SECRET = Object.freeze({
+	type: "string",
+	minLength: 1
+} as const);
+
+export const JSON_SCHEMA_PROPERTY_EMAIL = Object.freeze({
 	type: "string",
 	format: "email"
-} as const;
+} as const);
 
-export const LOG_LEVEL_JSON_SCHEMA_PROPERTY = {
+export const JSON_SCHEMA_PROPERTY_LOG_LEVEL = Object.freeze({
 	type: "string",
 	enum: Object.values(LogLevel),
 	default: LogLevel.INFO
-} as const;
+} as const);
 
-export const NODE_ENV_SCHEMA_PROPERTY = {
+export const JSON_SCHEMA_PROPERTY_NODE_ENV = Object.freeze({
 	type: "string",
 	enum: ["development", "production", "test"],
 	default: "development"
-} as const;
+} as const);
 
-export const RESEND_API_KEY = {
+export const JSON_SCHEMA_PROPERTY_RESEND_API_KEY = Object.freeze({
 	type: "string",
 	minLength: 1
-} as const;
+} as const);
 
-export const UPSTASH_REDIS_REST_URL = {
+export const JSON_SCHEMA_PROPERTY_UPSTASH_REDIS_REST_URL = Object.freeze({
 	type: "string",
 	format: "uri"
-} as const;
+} as const);
 
-export const UPSTASH_REDIS_REST_TOKEN = {
-	type: "string"
-} as const;
+export const JSON_SCHEMA_PROPERTY_UPSTASH_REDIS_REST_TOKEN = Object.freeze({
+	type: "string",
+	minLength: 1
+} as const);

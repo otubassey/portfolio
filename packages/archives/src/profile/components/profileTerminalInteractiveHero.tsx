@@ -1,6 +1,6 @@
 "use client";
 
-import { withProfile } from "../../common";
+import { withProfile } from "../../common/ui";
 import { TerminalConsoleFrame } from "../../professional";
 
 import { PERSONA_INFO } from "../data";

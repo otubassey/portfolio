@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/common",
-	"version": "1.0.0",
+	"version": "1.0.1-rc-1",
 	"description": "Common types, interfaces, utilities, and constructs.",
 	"author": "Otuekong",
 	"type": "module",
@@ -14,26 +14,59 @@
 		"typescript",
 		"utilities"
 	],
-	"packageManager": "pnpm@11.8.0",
+	"packageManager": "pnpm@11.15.0",
 	"exports": {
 		".": {
 			"default": "./dist/index.js",
 			"types": "./dist/index.d.ts"
 		},
-		"./clients": "./src/clients/index.ts",
-		"./config": "./src/config/index.ts",
-		"./errors": "./src/errors/index.ts",
-		"./logger": "./src/logger/index.ts",
-		"./operations": "./src/operations/index.ts",
-		"./pipelines": "./src/pipelines/index.ts",
-		"./validators": "./src/validators/index.ts"
+		"./clients": {
+			"types": "./dist/core/clients/index.d.ts",
+			"default": "./dist/core/clients/index.js"
+		},
+		"./config": {
+			"types": "./dist/core/config/index.d.ts",
+			"default": "./dist/core/config/index.js"
+		},
+		"./core": {
+			"types": "./dist/core/index.d.ts",
+			"default": "./dist/core/index.js"
+		},
+		"./errors": {
+			"types": "./dist/core/errors/index.d.ts",
+			"default": "./dist/core/errors/index.js"
+		},
+		"./logger": {
+			"types": "./dist/core/logger/index.d.ts",
+			"default": "./dist/core/logger/index.js"
+		},
+		"./operations": {
+			"types": "./dist/core/operations/index.d.ts",
+			"default": "./dist/core/operations/index.js"
+		},
+		"./pipelines": {
+			"types": "./dist/core/pipelines/index.d.ts",
+			"default": "./dist/core/pipelines/index.js"
+		},
+		"./server": {
+			"types": "./dist/server/index.d.ts",
+			"default": "./dist/server/index.js"
+		},
+		"./utils": {
+			"types": "./dist/core/utils/index.d.ts",
+			"default": "./dist/core/utils/index.js"
+		},
+		"./validators": {
+			"types": "./dist/core/validators/index.d.ts",
+			"default": "./dist/core/validators/index.js"
+		}
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"clean": "rm -rf dist node_modules .turbo",
-		"build": "tsc --project tsconfig.json",
+		"clean": "rm -rf dist node_modules tsconfig.tsbuildinfo .turbo",
+		"build": "tsc -b tsconfig.json",
 		"lint": "eslint \"**/*.ts*\"",
 		"type-check": "tsc --noEmit"
 	},

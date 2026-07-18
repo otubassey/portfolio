@@ -51,10 +51,10 @@ const SwitchLabel = ({
 
 export type SwitchVariant = "thumb-icon" | "track-icon" | "minimal";
 
-const LAYOUT_CLASSES = {
+const LAYOUT_CLASSES = Object.freeze({
 	horizontal: "flex-row items-center gap-3",
 	vertical: "flex-col items-start gap-1.5"
-} as const;
+} as const);
 
 export interface SwitchProps {
 	checked: boolean;
@@ -105,7 +105,7 @@ export const Switch = ({
 			<SwitchLabel
 				error={error}
 				id={id}
-				isActive={!checked} 
+				isActive={!checked}
 				label={uncheckedLabel}
 				required={required}
 			/>

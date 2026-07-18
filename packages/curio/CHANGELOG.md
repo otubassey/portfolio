@@ -5,11 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.1-rc-1] - 06/20/2026
+## [1.0.1-rc-1] - 07/18/2026
+### Added
+* Adding typescript build script
+
 ### Changed
+* Updating the `openapi` icom from `SiOpenai` to `SiOpenapiinitiative`
+* Updating reporting of `ValidationError` in `EmailTextField` component
+* Package restructuring
+* Updating project exports
 * Updating `tsconfig.ts` to properly resolve other packages within this repo
-* Updating to pnpm v11.8.0
+* Updating to pnpm v11.15.0
 * Replacing using Email Regex for validation to using the custom `EmailValidator`
+
+### Removed
+* Ported `StringUtils` to `packages/common`
 
 ## [1.0.0] - 05/16/2026
 ### Added

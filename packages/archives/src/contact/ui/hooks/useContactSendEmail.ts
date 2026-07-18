@@ -2,7 +2,7 @@ import { BaseError } from "@otuekong-portfolio/common";
 import { useAsync } from "@otuekong-portfolio/curio";
 
 import { ConfiguredContactService } from "../api";
-import { ContactFormField } from "../types";
+import { ContactFormField, SendEmailApiHeaders } from "../types";
 
 interface SendEmailResponse {
 	emailError: BaseError | null;
@@ -11,16 +11,23 @@ interface SendEmailResponse {
 	sendEmail: (emailData: ContactFormField) => void;
 }
 
-function useContactSendEmail(): SendEmailResponse {
-	const result = useAsync(async (emailData: ContactFormField) => (
-		await ConfiguredContactService.sendEmail(emailData)
-	), {manual: true});
+function useContactSendEmail(clientId: string, targetAppId: string): SendEmailResponse {
+	const { data, error, execute, isLoading} = useAsync(async (emailData: ContactFormField) => {
+		const headers = new Map<SendEmailApiHeaders, string>();
+		headers.set("x-client-id", clientId);
+		headers.set("x-target-app-id", targetAppId);
+
+		return await ConfiguredContactService.sendEmail({
+			contactInquiry: emailData,
+			headers
+		});
+	}, {manual: true});
 
 	return {
-		emailError: result.error,
-		isEmailSending: result.isLoading,
-		isEmailSent: Boolean(result.data),
-		sendEmail: result.execute
+		emailError: error,
+		isEmailSending: isLoading,
+		isEmailSent: Boolean(data),
+		sendEmail: execute
 	};
 }
 

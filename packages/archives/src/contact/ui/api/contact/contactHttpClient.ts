@@ -1,33 +1,36 @@
-import { HttpClient, OperationPipeline, FalloutError } from "@otuekong-portfolio/common";
+import { HttpClient, OperationPipeline, OperationResult } from "@otuekong-portfolio/common";
 
-import { ContactFormField, EmailHttpResponse } from "../../types";
+import { ContactFormField, EmailHttpResponse, SendEmailApiHeaders } from "../../types";
 
 class ContactHttpClient extends HttpClient {
     public sendEmail(
         endpointUrl: string,
+		headers: Map<SendEmailApiHeaders, string>,
         data: ContactFormField
-    ): OperationPipeline<any, Response, EmailHttpResponse> {
-        return this.open<Response>()
+    ): OperationPipeline<any, OperationResult<null>, EmailHttpResponse> {
+		const httpBuilder = this.open<OperationResult<null>>();
+
+		if(headers.has("x-client-id")) {
+			httpBuilder.header("x-client-id", headers.get("x-client-id") ?? "");
+		}
+
+		if(headers.has("x-target-app-id")) {
+			httpBuilder.header("x-target-app-id", headers.get("x-target-app-id") ?? "");
+		}
+
+        return httpBuilder
 			.post(endpointUrl)
 			.body(data)
 			.pipe()
-			.after(async (response: Response): Promise<EmailHttpResponse> => {
-				if(!response.ok) {
-					const errorBody = await response.json().catch(() => ({}));
-
-					const error = new FalloutError(
-						errorBody?.message || `Transport failure: ${response.statusText}`,
-						errorBody?.detail || "The downstream server rejected the request parameters.",
-						response.status
-					);
-
+			.after(async (response: OperationResult<null>): Promise<EmailHttpResponse> => {
+				if(response.error) {
 					return {
 						success: false,
-						error
+						error: response.error
 					};
 				}
 				return {
-					success: response.ok,
+					success: response.success,
 					error: null
 				};
 			});

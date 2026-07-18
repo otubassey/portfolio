@@ -9,3 +9,8 @@ export interface ServerComponentHealth {
 export interface ServerComponentMonitor {
     health(): DeferredOperationBuilder<ServerComponentHealth>;
 }
+
+export interface SupportedApiClient {
+	name: string;
+	active: boolean;
+}

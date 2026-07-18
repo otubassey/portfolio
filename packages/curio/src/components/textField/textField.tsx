@@ -9,15 +9,15 @@ import { InputIcon } from "../inputIcon";
 import { Label, LabelProps } from "../label";
 import { Typography } from "../typography";
 
-const COLOR_CLASSES = {
+const COLOR_CLASSES = Object.freeze({
 	primary: "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent",
 	secondary: "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-} as const;
+} as const);
 
-const SIZE_CLASSES = {
+const SIZE_CLASSES = Object.freeze({
 	small: "text-sm",
 	medium: "text-base"
-} as const;
+} as const);
 
 export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
 	className?: string;

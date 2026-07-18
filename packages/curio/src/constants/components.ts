@@ -1,12 +1,12 @@
-export const ComponentCategory = {
+export const ComponentCategory = Object.freeze({
 	DATA_DISPLAY: "Data Display",
 	FEEDBACK: "Feedback",
 	INPUTS: "Inputs",
 	LAYOUT: "Layout",
 	NAVIGATION: "Navigation"
-} as const;
+} as const);
 
-export const ComponentName = {
+export const ComponentName = Object.freeze({
 	ALERT: "Alert",
 	BACKDROP: "Backdrop",
 	BADGE: "Badge",
@@ -64,7 +64,7 @@ export const ComponentName = {
 	TOGGLE_ICON_BUTTON: "ToggleIconButton",
 	TOOLTIP: "Tooltip",
 	TYPOGRAPHY: "Typography"
-} as const;
+} as const);
 
 export type ComponentCategoryType = typeof ComponentCategory[keyof typeof ComponentCategory];
 
@@ -72,7 +72,7 @@ export type ComponentType = typeof ComponentName[keyof typeof ComponentName];
 
 export type ComponentsByCategoryType = Record<ComponentCategoryType, Array<ComponentType>>;
 
-export const COMPONENTS_BY_CATEGORY: ComponentsByCategoryType = {
+export const COMPONENTS_BY_CATEGORY: ComponentsByCategoryType = Object.freeze({
 	[ComponentCategory.DATA_DISPLAY]: [
 		ComponentName.BADGE,
 		ComponentName.EDITOR_SHELL,
@@ -139,4 +139,4 @@ export const COMPONENTS_BY_CATEGORY: ComponentsByCategoryType = {
 		ComponentName.TAB,
 		ComponentName.TABS
 	]
-} as const;
+} as const);
