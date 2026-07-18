@@ -2,32 +2,28 @@ import { ConfigurationError } from "@otuekong-portfolio/common";
 
 import AppContainer from "./appContainer";
 
-const GLOBAL_EXHIBIT_KEY = Symbol.for("portfolio.exhibit.context.state");
+const GLOBAL_EXHIBIT_KEY = Symbol.for("portfolio.exhibit.context_anchor");
 
-interface ExhibitGlobalState {
+interface ExhibitRegistry {
 	instance: any | null;
 	factory: (() => any) | null;
 }
 
-const globalSymbols = globalThis as any;
-if(!globalSymbols[GLOBAL_EXHIBIT_KEY]) {
-	globalSymbols[GLOBAL_EXHIBIT_KEY] = {
-		instance: null,
-		factory: null
-	};
-}
+const _global = (typeof window === "undefined" ? global : globalThis) as any;
 
-const state: ExhibitGlobalState = globalSymbols[GLOBAL_EXHIBIT_KEY];
+const registry: ExhibitRegistry = _global[GLOBAL_EXHIBIT_KEY] || (_global[GLOBAL_EXHIBIT_KEY] = {
+	instance: null,
+	factory: null
+});
 
 class ExhibitContext {
 	public static registerFactory(factoryFn: () => any): void {
-		state.factory = factoryFn;
+		registry.factory = factoryFn;
 	}
 
 	public static get<T extends AppContainer>(): T {
-		// Check the global state bucket
-		if(!state.instance) {
-			if(!state.factory) {
+		if(!registry.instance) {
+			if(!registry.factory) {
 				throw new ConfigurationError(
 					"Missing the factory required to create instance in ExhibitContext",
 					"Critical Error: ExhibitContext.get() called, " +
@@ -35,10 +31,10 @@ class ExhibitContext {
 				);
 			}
 
-			state.instance = state.factory();
+			registry.instance = registry.factory();
 		}
 
-		return state.instance as T;
+		return registry.instance as T;
 	}
 }
 

@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adding `AppContainer` interface
 
 ### Changed
+* Updating `ExhibitContext` to look up its internal registry using the global Symbol, to fix the runtime boundaries issue
 * Updating **Helloworld Gallery* apps to account for new headers
 * Renaming `NextRouteHandler` to `NextRequestAdapter`
 * Updating `openapi` doc to account for new headers and appropriate responses
