@@ -10,13 +10,14 @@ import {
 } from "../../common/schema";
 
 const isBuildTime = process.env.NEXT_PHASE === "phase-production-build";
+const isProduction = process.env.VERCEL_ENV === "production";
 
 const RuntimeSchema = Object.freeze({
 	$id: "pavilion-env-schema",
 	type: "object",
 	required: [
 		"APP_NAME",
-		"CRON_SECRET",
+		...(isProduction ? ["CRON_SECRET"] : []),
 		"LOG_LEVEL",
 		"NODE_ENV",
 		"RESEND_API_KEY",
