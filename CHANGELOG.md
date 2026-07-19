@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.2-rc-2] - 07/18/2026
 ### Added
 * Adding *CRON_SECRET* to `globalEnv` in `turbo.json`
+* Adding *APP_NAME* to `globalEnv` in `turbo.json`
 
 ### Changed
 * Updating clean script
