@@ -88,8 +88,6 @@ class FetchHttpOperation implements HttpOperation {
 		try {
 			const contentType = this.extractContentType(response);
 
-			console.error("FetchHttpOperation-mapDetailedErrorMessage: contentType", contentType)
-
 			if(contentType.includes("text/html")) {
 				// For static hosting router fallback
 				// (like an SPA router landing page on Nginx, Cloudflare, or Vercel) scenarios
@@ -114,7 +112,6 @@ class FetchHttpOperation implements HttpOperation {
 		} catch (error) {
 			// TODO: log the below
 			// Stream read failed: troubleshooting details remain the default status string
-			console.error("FetchHttpOperation-mapDetailedErrorMessage", error)
 		}
 
 		return `The remote server rejected the request with HTTP error status: ${response.status}`;
