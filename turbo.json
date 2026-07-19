@@ -2,6 +2,7 @@
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],
 	"globalEnv": [
+		"APP_NAME",
 		"CLIENT_LOG_LEVEL",
 		"CRON_SECRET",
 		"ENABLE_EXPERIMENTAL_COREPACK",
