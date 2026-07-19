@@ -1,2 +1,7 @@
-export * from "./ui";
-export * from "./server";
+export {
+	APP_MANIFEST_HELLOWORLD_CLASSIC,
+	APP_MANIFEST_HELLOWORLD_COMPOSITE,
+	APP_NAME_HELLOWORLD_CLASSIC,
+	APP_NAME_HELLOWORLD_COMPOSITE
+} from "./helloworld";
+export type { AppNameGalleries } from "./appName";

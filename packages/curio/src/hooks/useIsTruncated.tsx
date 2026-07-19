@@ -35,7 +35,7 @@ const useIsTruncated = () => {
 		return () => observer.disconnect();
 	}, [element]);
 
-	return [isTruncated, setElement] as const;
+	return Object.freeze([isTruncated, setElement] as const);
 };
 
 useIsTruncated.displayName = "useIsTruncated";

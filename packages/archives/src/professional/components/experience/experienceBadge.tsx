@@ -6,7 +6,7 @@ import { Badge, CssUtils, Text, Typography } from "@otuekong-portfolio/curio";
 
 import {EXPERIENCES, Experience} from "../../data";
 
-function calculateTotalYearsOfExperience(experiences: Array<Experience>): number {
+function calculateTotalYearsOfExperience(experiences: ReadonlyArray<Experience>): number {
     if(!experiences || experiences.length === 0) {
         return 0;
     }

@@ -1,6 +1,6 @@
 {
 	"name": "otuekong-portfolio",
-	"version": "1.1.1-rc-1",
+	"version": "1.1.2",
 	"private": true,
 	"description": "A curated monorepo ecosystem of art-driven portfolio themes and server-side vaulting.",
 	"author": "Otuekong",
@@ -15,10 +15,14 @@
 		"react",
 		"typescript"
 	],
-	"packageManager": "pnpm@10.33.1",
+	"packageManager": "pnpm@11.15.0",
 	"scripts": {
 		"build": "turbo build",
-		"clean": "turbo clean && rm -rf node_modules",
+		"build-hw-classic": "pnpm build --filter=helloworld-classic",
+		"build-hw-composite": "pnpm build --filter=helloworld-composite",
+		"build-lookbook": "pnpm build --filter=lookbook",
+		"build-pavilion": "pnpm build --filter=pavilion",
+		"clean": "turbo clean && rm -rf node_modules tsconfig.tsbuildinfo",
 		"dev": "turbo dev",
 		"lint": "turbo lint",
 		"reinstall": "pnpm clean && rm pnpm-lock.yaml && pnpm install",
@@ -30,12 +34,6 @@
 	},
 	"engines": {
 		"node": "24.x",
-		"pnpm": ">=10.0.0"
-	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"sharp",
-			"unrs-resolver"
-		]
+		"pnpm": ">=11.0.0"
 	}
 }

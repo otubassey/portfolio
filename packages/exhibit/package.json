@@ -1,11 +1,11 @@
 {
 	"name": "@otuekong-portfolio/exhibit",
-	"version": "1.0.1-rc-1",
+	"version": "1.0.1",
 	"description": "The structural framework for assembling page experiences. This package consumes the design system and core logic to provide high-level structural components, such as application shells, navigation rails, and responsive grids. It acts as the bridge between raw domain data and the final user interface, defining how different versions of the portfolio are composed.",
 	"author": "Otuekong",
 	"type": "module",
-	"main": "./src/index.ts",
-	"types": "./src/index.ts",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"license": "MIT",
 	"keywords": [
 		"composition",
@@ -15,15 +15,56 @@
 		"portfolio",
 		"Unified"
 	],
-	"packageManager": "pnpm@10.33.1",
+	"packageManager": "pnpm@11.15.0",
 	"exports": {
-		".": "./src/index.ts",
-		"./galleries": "./src/galleries/index.ts",
-		"./lookbook": "./src/lookbook/index.ts",
-		"./pavilion": "./src/pavilion/index.ts"
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./common-client": {
+			"default": "./dist/common/client/index.js",
+			"types": "./dist/common/client/index.d.ts"
+		},
+		"./common-server": {
+			"default": "./dist/common/server/index.js",
+			"types": "./dist/common/server/index.d.ts"
+		},
+		"./galleries": {
+			"default": "./dist/galleries/index.js",
+			"types": "./dist/galleries/index.d.ts"
+		},
+		"./helloworld-classic-client": {
+			"default": "./dist/galleries/helloworld/classic/ui/index.js",
+			"types": "./dist/galleries/helloworld/classic/ui/index.d.ts"
+		},
+		"./helloworld-classic-server": {
+			"default": "./dist/galleries/helloworld/classic/server/index.js",
+			"types": "./dist/galleries/helloworld/classic/server/index.d.ts"
+		},
+		"./helloworld-composite-client": {
+			"default": "./dist/galleries/helloworld/composite/ui/index.js",
+			"types": "./dist/galleries/helloworld/composite/ui/index.d.ts"
+		},
+		"./helloworld-composite-server": {
+			"default": "./dist/galleries/helloworld/composite/server/index.js",
+			"types": "./dist/galleries/helloworld/composite/server/index.d.ts"
+		},
+		"./lookbook": {
+			"default": "./dist/lookbook/index.js",
+			"types": "./dist/lookbook/index.d.ts"
+		},
+		"./pavilion": {
+			"default": "./dist/pavilion/ui/index.js",
+			"types": "./dist/pavilion/ui/index.d.ts"
+		},
+		"./pavilion-server": {
+			"default": "./dist/pavilion/server/index.js",
+			"types": "./dist/pavilion/server/index.d.ts"
+		}
 	},
 	"scripts": {
-		"clean": "rm -rf dist node_modules .turbo",
+		"clean": "rm -rf dist node_modules tsconfig.tsbuildinfo .turbo",
+		"build": "tsc -b tsconfig.json",
 		"lint": "eslint \"**/*.ts*\"",
 		"type-check": "tsc --noEmit"
 	},

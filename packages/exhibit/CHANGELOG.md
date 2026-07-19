@@ -5,6 +5,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 07/19/2026
+### Added
+* Adding the following constructs:
+	* `ClassicStaticRouteDispatcher`
+	* `ClassicStaticRouteDispatcherFactory`
+	* `CommonModule`
+	* `CompositeStaticRouteDispatcher`
+	* `CompositeStaticRouteDispatcherFactory`
+	* `ExhibitContext`
+	* `GallerySchema`
+	* `HelloworldClassicContainer`
+	* `HelloworldClassicModule`
+	* `HelloworldCompositeContainer`
+	* `HelloworldCompositeModule`
+	* `NextHttpMapper`
+	* `NextRouteExecutor`
+	* `PavilionContainer`
+	* `PavilionGatewayRouteDispatcher`
+	* `PavilionGatewayRouteDispatcherFactory`
+	* `PavilionModule`
+	* `PavilionSchema`
+* Introducing `ContainerManifest` for container apps like *Pavilion*
+* Adding the following JsonSchema properties
+	* APP_NAME
+	* CRON_SECRET
+* Adding typescript build script
+* Adding `AppContainer` interface
+
+### Changed
+* Updating `ExhibitContext` to look up its internal registry using the global Symbol, to fix the runtime boundaries issue
+* Updating **Helloworld Gallery* apps to account for new headers
+* Renaming `NextRouteHandler` to `NextRequestAdapter`
+* Updating `openapi` doc to account for new headers and appropriate responses
+* Package restructuring
+* Updating project exports
+* Properly typing `SystemHealthHttpClient`
+* Updating to split schema into build vs runtime to avoid vercel's build time failures due to secret environment variables
+* Consuming new `container-module` pattern
+* Updating `tsconfig.ts` to properly resolve other packages within this repo
+* Updating to pnpm v11.15.0
+
+### Removed
+* Remove `ContactServiceHandler`
+* Remove `HealthServiceHandler`
+* Remove `createNextRoute`
+* Unused configured `SystemHealthService`
+
 ## [1.0.1-rc-1] - 06/07/2026
 ### Added
 * Adding and bootstrapping `HealthServiceHandler`

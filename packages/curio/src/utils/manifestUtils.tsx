@@ -7,10 +7,10 @@ interface Options {
 	excludeNone?: boolean;
 }
 
-const NONE_OPTION = {
+const NONE_OPTION = Object.freeze({
 	label: "None" as string,
 	value: "" as string
-} as const;
+} as const);
 
 const getErrorParameterOptions = (
 	options?: Omit<Options, "capitalize">
@@ -129,13 +129,13 @@ const getTypographyColorOptions = (
 };
 
 
-const ManifestUtils = {
+const ManifestUtils = Object.freeze({
 	getEnumParameterType,
 	getErrorParameterOptions,
 	getIconNames,
 	getIconParameterOptions,
 	getMappedParameterOptions,
 	getTypographyColorOptions
-} as const;
+} as const);
 
 export default ManifestUtils;

@@ -11,3 +11,5 @@ export interface EmailHttpResponse {
 	success: boolean;
 	error: BaseError | null;
 }
+
+export type SendEmailApiHeaders = "x-client-id" | "x-target-app-id";

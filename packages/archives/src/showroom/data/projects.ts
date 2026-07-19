@@ -13,7 +13,7 @@ export interface Project {
 	icon?: IconName;
 }
 
-export const PROJECTS: Array<Project> = [
+export const PROJECTS: ReadonlyArray<Project> = Object.freeze([
 	{
 		id: "project-otuekong-portfolio-system",
 		title: "Otuekong's Portfolio System",
@@ -30,4 +30,4 @@ export const PROJECTS: Array<Project> = [
 		icon: "curators-loupe",
 		status: "in-progress"
 	}
-] as const;
+] as const);

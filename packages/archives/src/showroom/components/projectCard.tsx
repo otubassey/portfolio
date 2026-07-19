@@ -14,14 +14,14 @@ import {
 	Text
 } from "@otuekong-portfolio/curio";
 
-import { GitHubLinkButton } from "../../contact";
+import { GitHubLinkButton } from "../../contact/ui";
 import { TechnologyPills } from "../../professional";
 
-const PROJECT_STATUS_MAPPING = {
+const PROJECT_STATUS_MAPPING = Object.freeze({
 	completed: { color: "default", label: "Completed" },
 	"in-progress": { color: "secondary", label: "In Progress" },
 	"Not Assigned": { color: "warning", label: "Not Assigned" },
-} as const;
+} as const);
 
 export interface ProjectCardProps extends Project {
 	className?: string;

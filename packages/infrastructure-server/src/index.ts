@@ -1,10 +1,26 @@
 export {
-	ConfiguredRedisClient,
-	ConfiguredRateLimiterFactory,
-	ConfiguredResendClient,
-	ConfiguredSystemHealthHandler,
-	withRateLimit
-} from "./bootstrap";
-export { ResendClient } from "./resend";
-export { EnvironmentRegistry, type HttpResponse, type HttpRequest, type ResourceHandler } from "./server";
-export { type ServerComponentHealth } from "./types";
+	AbstractGatewayRouteDispatcher,
+	AbstractStaticRouteDispatcher,
+	type ControllerRegistry,
+	DomainService,
+	HttpController,
+	type HttpResponse,
+	type HttpRequest,
+	type ResourceHandler,
+	type RouteExecutor
+} from "./core";
+export {
+	default as InfrastructureServerModule,
+	type InfrastructureServerModuleEnvironmentKeys
+} from "./infrastructureServerModule";
+export {
+	RedisClient,
+	RedisClientModule,
+	type RedisEnvironmentKeys,
+	ResendClient,
+	ResendClientModule,
+	type ResendEnvironmentKeys,
+	SystemHealthClient,
+	type WithRateLimitPreHook
+} from "./tools";
+export { type ServerComponentHealth, type ServerComponentMonitor, type SupportedApiClient } from "./types";

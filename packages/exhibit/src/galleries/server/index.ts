@@ -1,1 +1,0 @@
-export { ConfiguredContactServiceHandler } from "./contact";

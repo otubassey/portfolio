@@ -7,10 +7,10 @@ import { CssUtils } from "../../utils";
 import { ListContext, ListContextValue } from "./listContext";
 import { ListStylePosition, ListStyleType } from "./constants";
 
-const STYLES_BY_LIST_STYLE_POSITION: Record<typeof ListStylePosition[keyof typeof ListStylePosition], string> = {
+const STYLES_BY_LIST_STYLE_POSITION: Record<typeof ListStylePosition[keyof typeof ListStylePosition], string> = Object.freeze({
 	[ListStylePosition.INSIDE]: "list-inside",
 	[ListStylePosition.OUTSIDE]: "list-outside"
-} as const;
+} as const);
 
 const STYLES_BY_LIST_STYLE_TYPE: Record<typeof ListStyleType[keyof typeof ListStyleType] | string, string> = {
 	circle: "list-[circle]",

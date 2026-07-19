@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Professional Portfolio API
-  version: 1.0.0
+  version: 1.1.0
   description: API for managing contact requests and other portfolio interactions.
 servers:
   - description: local
@@ -14,6 +14,53 @@ tags:
   - name: Contact
     description: Public-facing communication and archival dispatch services.
 paths:
+  /health:
+    get:
+      summary: Query Holistic System Health Telemetry
+      description: Evaluates the live operating state of all back-end infrastructure server components concurrently using synchronous lifecycle monitoring pipelines.
+      operationId: getSystemHealth
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: "#/components/parameters/ClientIdHeader"
+        - $ref: "#/components/parameters/TargetAppIdHeader"
+      responses:
+        "200":
+          description: All monitored server infrastructure components are fully operational.
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store, must-revalidate
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemHealthReport"
+        "422":
+          description: >
+            Mismatched routing context. Triggered when a standalone client app attempts to target a different application context.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+        "500":
+          description: Internal system operation panic fallback anomaly.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FalloutError"
+        "503":
+          description: Degraded platform state or critical service outage intercepted.
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store, must-revalidate
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemHealthReport"
+
   /contact/v1/email/send:
     post:
       summary: Send Contact Inquiry Email
@@ -21,6 +68,9 @@ paths:
       operationId: sendEmailInquiry
       tags:
         - Contact
+      parameters:
+        - $ref: "#/components/parameters/ClientIdHeader"
+        - $ref: "#/components/parameters/TargetAppIdHeader"
       requestBody:
         required: true
         content:
@@ -28,21 +78,8 @@ paths:
             schema:
               $ref: "#/components/schemas/ContactFormField"
       responses:
-        "200":
+        "204":
           description: Contact inquiry processed and dispatched successfully.
-          headers:
-            Cache-Control:
-              schema:
-                type: string
-                example: no-store
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
         "400":
           description: Inbound data shape boundary violation validation anomaly.
           content:
@@ -88,43 +125,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FalloutError"
-
-  /health:
-    get:
-      summary: Query Holistic System Health Telemetry
-      description: Evaluates the live operating state of all back-end infrastructure server components concurrently using synchronous lifecycle monitoring pipelines.
-      operationId: getSystemHealth
-      tags:
-        - Monitoring
-      responses:
-        "200":
-          description: All monitored server infrastructure components are fully operational.
-          headers:
-            Cache-Control:
-              schema:
-                type: string
-                example: no-store, must-revalidate
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SystemHealthReport"
-        "500":
-          description: Internal system operation panic fallback anomaly.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/FalloutError"
-        "503":
-          description: Degraded platform state or critical service outage intercepted.
-          headers:
-            Cache-Control:
-              schema:
-                type: string
-                example: no-store, must-revalidate
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SystemHealthReport"
 
 components:
   schemas:
@@ -301,3 +301,29 @@ components:
           type: string
           format: uuid
           example: c9bf4242-9988-4221-a1e1-e1234f9aa12b
+
+  parameters:
+    ClientIdHeader:
+      name: X-Client-Id
+      in: header
+      description: The identifier of the client initiating the request.
+      required: true
+      schema:
+        type: string
+        enum:
+          - pavilion
+          - helloworld-classic
+          - helloworld-composite
+    TargetAppIdHeader:
+      name: X-Target-App-Id
+      in: header
+      description: >
+        The target application context being evaluated.
+        If X-Client-Id is a standalone app, this must match X-Client-Id.
+        If X-Client-Id is 'pavilion', this represents the routed application.
+      required: true
+      schema:
+        type: string
+        enum:
+          - helloworld-classic
+          - helloworld-composite

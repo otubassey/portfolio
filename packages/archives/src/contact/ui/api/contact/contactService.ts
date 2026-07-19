@@ -1,8 +1,13 @@
-import { ConfigurationError, ValidationError, ZodSchemaValidator } from "@otuekong-portfolio/common";
+import { ConfigurationError, ZodSchemaValidator } from "@otuekong-portfolio/common";
 
-import { ContactFormField } from "../../types";
+import { ContactFormField, SendEmailApiHeaders } from "../../types";
 
 import ContactHttpClient from "./contactHttpClient";
+
+interface SendEmailParameters {
+	headers: Map<SendEmailApiHeaders, string>;
+	contactInquiry: ContactFormField;
+}
 
 class ContactService {
     constructor(
@@ -24,25 +29,26 @@ class ContactService {
         }
 	}
 
-    async sendEmail(params: ContactFormField): Promise<boolean> {
-		const validation = this.contactFormSchemaValidator.apply(params);
+    async sendEmail(params: SendEmailParameters): Promise<boolean> {
+		const validation = this.contactFormSchemaValidator.validate(params.contactInquiry);
 
-		if(!validation.success) {
-			const isBot = validation.error.issues.some(issue => issue.path.includes("zipCode"));
+		if(!validation.isValid) {
+			const isBot = validation.error.errors
+				.some(validationError => validationError.attribute?.includes("zipCode"));
+
 			if(isBot) {
 				return true;
 			}
 
-			throw ValidationError.Builder()
-				.withErrors(validation.error.issues.map(issue => ({
-					attribute: issue.path.join("."),
-					errors: [issue.message]
-				})))
-				.build();
+			throw validation.error;
 		}
 
+		// TODO: things to consider
+		// 1. try to reduce the passed links to one for client and one for api or setup #2 below
+		// 2. setup hateoas GET /entrypoint for these links
+		// 3. passing logger where needed
         const response = await this.contactHttpClient
-			.sendEmail("/api/portfolio/contact/v1/email/send", validation.data)
+			.sendEmail("/api/portfolio/contact/v1/email/send", params.headers, validation.data)
 			.execute();
 
 		if(!response.success) {

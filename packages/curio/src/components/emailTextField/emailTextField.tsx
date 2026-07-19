@@ -2,10 +2,19 @@
 
 import { ChangeEvent, FocusEvent, useCallback, useState, useId, Ref } from "react";
 
+import { createEmailValidator, ValidationError } from "@otuekong-portfolio/common";
+
 import { TextField, TextFieldProps } from "../textField";
 
-// TODO: replace with using ZodSchemaValidator
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const extractValidationMessage = (error: ValidationError) => {
+	if(error.errors.length > 0) {
+		return error.errors.flatMap(error => error.errors).join(". ");
+	}
+	if(error.detail) {
+		return error.detail;
+	}
+	return error.message;
+};
 
 const validateEmailFormat = (
 	value: string,
@@ -18,10 +27,16 @@ const validateEmailFormat = (
 		};
 	}
 
-	const isValid = EMAIL_REGEX.test(value);
+	const emailValidator = createEmailValidator({
+		message: "Please enter a valid email address"
+	});
+	const validationResult = emailValidator.validate(value);
+	const isValid = validationResult.isValid;
 	return {
 		isValid,
-		message: isValid ? "" : "Please enter a valid email address"
+		message: !isValid
+			? extractValidationMessage(validationResult.error)
+			: ""
 	};
 };
 

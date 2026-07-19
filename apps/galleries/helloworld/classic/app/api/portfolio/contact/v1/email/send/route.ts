@@ -1,7 +1,11 @@
+import "../../../../../../bootstrap";
+
 import { NextRequest } from "next/server";
 
-import { ConfiguredContactServiceHandler } from "@otuekong-portfolio/exhibit";
+import { ClassicStaticRouteDispatcherFactory } from "@otuekong-portfolio/exhibit/helloworld-classic-server";
 
 export async function POST(request: NextRequest) {
-	return ConfiguredContactServiceHandler.sendEmailInquiry(request);
+	return ClassicStaticRouteDispatcherFactory
+		.create()
+		.sendEmailInquiry(request);
 }

@@ -13,13 +13,15 @@ import {
 } from "@otuekong-portfolio/curio";
 import {
 	BreadcrumbUtils,
+	useNavigation
+} from "@otuekong-portfolio/features/navigation";
+import {
 	LookbookCodeSnippetSection,
 	LookbookDocumentationSection,
 	LookbookPlaygroundSection,
 	LookbookPropsSection,
-	useLoadLookbookManifest,
-	useNavigation
-} from "@otuekong-portfolio/features";
+	useLoadLookbookManifest
+} from "@otuekong-portfolio/features/lookbook";
 
 import { Header, Sidebar } from "./components";
 

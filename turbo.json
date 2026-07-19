@@ -2,10 +2,15 @@
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],
 	"globalEnv": [
-		"CONTACT_FORM_RECIPIENT_EMAIL",
+		"APP_NAME",
+		"CLIENT_LOG_LEVEL",
+		"CRON_SECRET",
 		"ENABLE_EXPERIMENTAL_COREPACK",
+		"LOG_LEVEL",
+		"PORTFOLIO_EMAIL_SENDER",
+		"PORTFOLIO_EMAIL_TARGET",
 		"RESEND_API_KEY",
-		"SYSTEM_SENDER_EMAIL",
+		"SERVER_LOG_LEVEL",
 		"UPSTASH_REDIS_REST_TOKEN",
 		"UPSTASH_REDIS_REST_URL"
 	],

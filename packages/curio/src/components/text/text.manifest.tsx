@@ -6,7 +6,7 @@ import { TypographyColor } from "../typography";
 
 import Text, { TextProps } from "./text";
 
-const SIZE_OPTIONS = ["small", "large"] as const;
+const SIZE_OPTIONS = Object.freeze(["small", "large"] as const);
 
 const TextManifest: ComponentManifest<TextProps> = {
 	category: ComponentCategory.DATA_DISPLAY,

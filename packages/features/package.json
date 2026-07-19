@@ -1,11 +1,9 @@
 {
 	"name": "@otuekong-portfolio/features",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Internal application logic. Manages routing, page orchestration, and specialized behaviors for the various applications.",
 	"author": "Otuekong",
 	"type": "module",
-	"main": "./src/index.ts",
-	"types": "./src/index.ts",
 	"license": "MIT",
 	"keywords": [
 		"Behaviors",
@@ -14,25 +12,71 @@
 		"Page-Logic",
 		"Orchestration"
 	],
-	"packageManager": "pnpm@10.33.1",
+	"packageManager": "pnpm@11.15.0",
 	"exports": {
-		".": "./src/index.ts",
-		"./applicationContext": "./src/applicationContext/index.ts",
-		"./galleries": "./src/galleries/index.ts",
-		"./lookbook": "./src/lookbook/index.ts",
-		"./navigation": "./src/navigation/index.ts"
+		"./core": {
+			"default": "./dist/core/externalIndex.js",
+			"types": "./dist/core/externalIndex.d.ts"
+		},
+		"./galleries-client": {
+			"default": "./dist/galleries/index.js",
+			"types": "./dist/galleries/index.d.ts"
+		},
+		"./galleries-server": {
+			"default": "./dist/galleries/serverIndex.js",
+			"types": "./dist/galleries/serverIndex.d.ts"
+		},
+		"./helloworld-classic-client": {
+			"default": "./dist/galleries/helloworld/classic/ui/index.js",
+			"types": "./dist/galleries/helloworld/classic/ui/index.d.ts"
+		},
+		"./helloworld-classic-server": {
+			"default": "./dist/galleries/helloworld/classic/server/index.js",
+			"types": "./dist/galleries/helloworld/classic/server/index.d.ts"
+		},
+		"./helloworld-client": {
+			"default": "./dist/galleries/helloworld/index.js",
+			"types": "./dist/galleries/helloworld/index.d.ts"
+		},
+		"./helloworld-server": {
+			"default": "./dist/galleries/helloworld/common/server/index.js",
+			"types": "./dist/galleries/helloworld/common/server/index.d.ts"
+		},
+		"./helloworld-composite-client": {
+			"default": "./dist/galleries/helloworld/composite/ui/index.js",
+			"types": "./dist/galleries/helloworld/composite/ui/index.d.ts"
+		},
+		"./helloworld-composite-server": {
+			"default": "./dist/galleries/helloworld/composite/server/index.js",
+			"types": "./dist/galleries/helloworld/composite/server/index.d.ts"
+		},
+		"./lookbook": {
+			"default": "./dist/lookbook/index.js",
+			"types": "./dist/lookbook/index.d.ts"
+		},
+		"./navigation": {
+			"default": "./dist/core/navigation/index.js",
+			"types": "./dist/core/navigation/index.d.ts"
+		},
+		"./pavilion": {
+			"default": "./dist/pavilion/index.js",
+			"types": "./dist/pavilion/index.d.ts"
+		}
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"clean": "rm -rf dist node_modules .turbo",
+		"clean": "rm -rf dist node_modules tsconfig.tsbuildinfo .turbo",
+		"build": "tsc -b tsconfig.json",
 		"lint": "eslint \"**/*.ts*\"",
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@otuekong-portfolio/archives": "workspace:*",
-		"@otuekong-portfolio/curio": "workspace:*"
+		"@otuekong-portfolio/common": "workspace:*",
+		"@otuekong-portfolio/curio": "workspace:*",
+		"@otuekong-portfolio/infrastructure-server": "workspace:*"
 	},
 	"peerDependencies": {
 		"react": "19.2.3",

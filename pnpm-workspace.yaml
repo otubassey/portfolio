@@ -5,3 +5,6 @@ packages:
 
   # Core Infrastructure & UI
   - "packages/*"
+allowBuilds:
+  sharp: true
+  unrs-resolver: true

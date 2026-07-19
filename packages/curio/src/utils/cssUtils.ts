@@ -48,9 +48,9 @@ function transparentize(color: string, weight: number = 50): string {
 	return `color-mix(in srgb, ${color}, transparent ${safeWeight}%)`;
 }
 
-const CssUtils = {
+const CssUtils = Object.freeze({
 	mergeClasses,
 	transparentize
-} as const;
+} as const);
 
 export default CssUtils;

@@ -2,7 +2,7 @@ const BIO = `I'm a highly motivated and results-oriented Senior Full-Stack Devel
 developing, and deploying robust web applications. I possess a strong command of both front-end and back-end technologies, enabling me
 to deliver exceptional user experiences while ensuring efficient and scalable solutions.`;
 
-const PERSONA_INFO = {
+const PERSONA_INFO = Object.freeze({
 	name: {
 		first: "Otuekong",
 		firstPhonetic: "Oh-tueh-kong",
@@ -15,7 +15,7 @@ const PERSONA_INFO = {
 	bio: BIO,
 	passion: "Building scalable systems with modern technologies",
 	role: "Senior Full-Stack Engineer"
-} as const;
+} as const);
 
 export type PersonaInfoAttributes = typeof PERSONA_INFO;
 

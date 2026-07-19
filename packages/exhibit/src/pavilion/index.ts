@@ -1,1 +1,1 @@
-export { default as PavilionApp } from "./pavilionApp";
+export { PavilionApp } from "./ui";
