@@ -1,3 +1,5 @@
+import "../../../bootstrap";
+
 import { NextRequest } from "next/server";
 
 import { PavilionGatewayRouteDispatcherFactory } from "@otuekong-portfolio/exhibit/pavilion-server";

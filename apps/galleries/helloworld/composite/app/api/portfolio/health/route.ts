@@ -1,3 +1,5 @@
+import "../../../bootstrap";
+
 import { NextRequest } from "next/server";
 
 import { CompositeStaticRouteDispatcherFactory } from "@otuekong-portfolio/exhibit/helloworld-composite-server";

@@ -8,10 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.1-rc-2] - 07/18/2026
 ### Added
 * Handling slug routes intended for client apps
-* Boostrapping server objects in `instrumentation.ts` file
+* ~~Boostrapping server objects in `instrumentation.ts` file~~
 * Adding calling `GET /portfolio/health` as a *cron job*
 
 ### Changed
+* Boostrapping server objects in `route.ts` files
 * Updating gallery app related environment variables
 * Updating to new container-module implementation
 * Updating to pnpm v11.15.0

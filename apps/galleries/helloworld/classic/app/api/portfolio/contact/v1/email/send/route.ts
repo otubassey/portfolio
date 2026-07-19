@@ -1,3 +1,5 @@
+import "../../../../../../bootstrap";
+
 import { NextRequest } from "next/server";
 
 import { ClassicStaticRouteDispatcherFactory } from "@otuekong-portfolio/exhibit/helloworld-classic-server";
