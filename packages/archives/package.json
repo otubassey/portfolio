@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/archives",
-	"version": "1.0.1-rc-1",
+	"version": "1.0.1",
 	"description": "Domain-driven UI and business logic. Exports professional entities and their associated business logic and hooks.",
 	"author": "Otuekong",
 	"type": "module",

@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/curio",
-	"version": "1.0.1-rc-1",
+	"version": "1.0.1",
 	"description": "The unified UI foundation for the Otuekong's Portfolio ecosystem. Combines atomic presentational components, design tokens, shared React hooks, and common TypeScript utilities, and developer tooling.",
 	"author": "Otuekong",
 	"type": "module",

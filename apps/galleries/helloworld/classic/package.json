@@ -1,6 +1,6 @@
 {
 	"name": "helloworld-classic",
-	"version": "1.1.1-rc-2",
+	"version": "1.1.1",
 	"private": true,
 	"description": "The foundational 'Helloworld' exhibit. A streamlined, single-track portfolio implementation with a focus on essential professional storytelling.",
 	"type": "module",
