@@ -27,7 +27,7 @@ class HttpOperationBuilder<ResponseDataType = unknown> {
 		if(!httpOperation) {
 			throw new ConfigurationError(
 				"HttpOperationBuilder creation Failed",
-				"An httpOperation is required to create a HttpOperationBuilder instamce."
+				"An httpOperation is required to create a HttpOperationBuilder instance."
 			);
 		}
 	}

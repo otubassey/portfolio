@@ -97,7 +97,7 @@ class FetchHttpOperation implements HttpOperation {
 			if(contentType.includes("application/json")) {
 				const jsonError = await response.json();
 
-				const serverMessage = jsonError.message || jsonError.error || jsonError.detail;
+				const serverMessage = jsonError.detail || jsonError.message || jsonError.error;
 
 				return typeof serverMessage === "string"
 					? serverMessage

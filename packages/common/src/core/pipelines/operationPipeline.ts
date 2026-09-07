@@ -82,7 +82,7 @@ class OperationPipeline<
 				if(this.postHooks.length === 0) {
 					return {
 						data: null,
-						error: executionResult.error ? this.mapToApplicationError(executionResult.error) : null,
+						error,
 						success: false
 					};
 				}
