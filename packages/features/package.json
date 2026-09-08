@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/features",
-	"version": "1.0.2-SNAPSHOT",
+	"version": "1.0.2",
 	"description": "Internal application logic. Manages routing, page orchestration, and specialized behaviors for the various applications.",
 	"author": "Otuekong",
 	"type": "module",
