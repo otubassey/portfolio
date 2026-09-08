@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/common",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Common types, interfaces, utilities, and constructs.",
 	"author": "Otuekong",
 	"type": "module",
@@ -14,7 +14,7 @@
 		"typescript",
 		"utilities"
 	],
-	"packageManager": "pnpm@11.15.0",
+	"packageManager": "pnpm@12.3.4",
 	"exports": {
 		".": {
 			"default": "./dist/index.js",

@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/curio",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "The unified UI foundation for the Otuekong's Portfolio ecosystem. Combines atomic presentational components, design tokens, shared React hooks, and common TypeScript utilities, and developer tooling.",
 	"author": "Otuekong",
 	"type": "module",
@@ -20,7 +20,7 @@
 		"ui",
 		"utilities"
 	],
-	"packageManager": "pnpm@11.15.0",
+	"packageManager": "pnpm@12.3.4",
 	"exports": {
 		".": {
 			"default": "./dist/index.js",

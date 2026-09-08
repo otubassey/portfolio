@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/features",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Internal application logic. Manages routing, page orchestration, and specialized behaviors for the various applications.",
 	"author": "Otuekong",
 	"type": "module",
@@ -12,7 +12,7 @@
 		"Page-Logic",
 		"Orchestration"
 	],
-	"packageManager": "pnpm@11.15.0",
+	"packageManager": "pnpm@12.3.4",
 	"exports": {
 		"./core": {
 			"default": "./dist/core/externalIndex.js",

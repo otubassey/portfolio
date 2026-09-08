@@ -1,6 +1,6 @@
 {
 	"name": "@otuekong-portfolio/archives",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Domain-driven UI and business logic. Exports professional entities and their associated business logic and hooks.",
 	"author": "Otuekong",
 	"type": "module",
@@ -16,7 +16,7 @@
 		"profile",
 		"projects"
 	],
-	"packageManager": "pnpm@11.15.0",
+	"packageManager": "pnpm@12.3.4",
 	"exports": {
 		"./contact-server": {
 			"default": "./dist/contact/server/index.js",
