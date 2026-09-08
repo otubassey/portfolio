@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.2-SNAPSHOT] - Unreleased
 ### Changed
+* Updating to pnpm v12.3.4
+
+## [1.0.2-SNAPSHOT] - Unreleased
+### Changed
 * Updating to return already mapped error in `OperationPipeline` rather than the duplication of code.
 
 ### Fixed
