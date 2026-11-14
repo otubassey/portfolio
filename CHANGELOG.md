@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.4-SNAPSHOT] - Unreleaed
 ### Changed
+* Updating to pnpm v2.18.0
 * Updating to turbo v2.11.11
 
 ## [1.1.3] - 09/07/2026
