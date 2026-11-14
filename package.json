@@ -1,6 +1,6 @@
 {
 	"name": "otuekong-portfolio",
-	"version": "1.1.3",
+	"version": "1.1.4-SNAPSHOT",
 	"private": true,
 	"description": "A curated monorepo ecosystem of art-driven portfolio themes and server-side vaulting.",
 	"author": "Otuekong",
@@ -29,7 +29,7 @@
 		"type-check": "turbo type-check"
 	},
 	"devDependencies": {
-		"turbo": "^2.7.2",
+		"turbo": "^2.11.11",
 		"typescript": "^5"
 	},
 	"engines": {
