@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 11/14/2026
+### Changed
+* Updating to pnpm v2.18.0
+* Updating to turbo v2.11.11
+
 ## [1.1.3] - 09/07/2026
 ### Changed
 * Updating to pnpm v12.3.4
